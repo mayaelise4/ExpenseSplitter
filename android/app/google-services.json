@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1000357492327",
+    "project_id": "expense-splitter-x5qugv",
+    "storage_bucket": "expense-splitter-x5qugv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000357492327:android:1040be17bc8e35449f86c2",
+        "android_client_info": {
+          "package_name": "com.team2.expensesplitter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH3abZSp64I1BysuFZcXSqPMac_sistFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

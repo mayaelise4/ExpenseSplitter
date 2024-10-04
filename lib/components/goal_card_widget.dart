@@ -8,7 +8,20 @@ import 'goal_card_model.dart';
 export 'goal_card_model.dart';
 
 class GoalCardWidget extends StatefulWidget {
-  const GoalCardWidget({super.key});
+  const GoalCardWidget({
+    super.key,
+    String? goalName,
+    this.goalDesc,
+    double? goalAmount,
+    double? goalProgress,
+  })  : goalName = goalName ?? 'Goal Name',
+        goalAmount = goalAmount ?? 0.00,
+        goalProgress = goalProgress ?? 0.00;
+
+  final String goalName;
+  final String? goalDesc;
+  final double goalAmount;
+  final double goalProgress;
 
   @override
   State<GoalCardWidget> createState() => _GoalCardWidgetState();
@@ -145,7 +158,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Goal Name',
+                      widget.goalName,
                       style:
                           FlutterFlowTheme.of(context).headlineSmall.override(
                                 fontFamily: 'Outfit',
@@ -159,7 +172,10 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                       child: Text(
-                        'Goal Desc',
+                        valueOrDefault<String>(
+                          widget.goalDesc,
+                          'Goal Desc',
+                        ),
                         style:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Plus Jakarta Sans',
@@ -174,7 +190,15 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Text(
-                        '\$500.20',
+                        valueOrDefault<String>(
+                          formatNumber(
+                            widget.goalAmount,
+                            formatType: FormatType.decimal,
+                            decimalType: DecimalType.periodDecimal,
+                            currency: '\$',
+                          ),
+                          '0.00',
+                        ),
                         style:
                             FlutterFlowTheme.of(context).displaySmall.override(
                                   fontFamily: 'Outfit',
@@ -190,7 +214,10 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                     animationsMap['columnOnPageLoadAnimation']!),
               ),
               CircularPercentIndicator(
-                percent: 0.55,
+                percent: valueOrDefault<double>(
+                  widget.goalProgress,
+                  0.0,
+                ),
                 radius: 45.0,
                 lineWidth: 8.0,
                 animation: true,
@@ -198,7 +225,13 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                 progressColor: const Color(0xFF4B39EF),
                 backgroundColor: const Color(0x4C4B39EF),
                 center: Text(
-                  '55%',
+                  valueOrDefault<String>(
+                    formatNumber(
+                      widget.goalProgress,
+                      formatType: FormatType.percent,
+                    ),
+                    '0',
+                  ),
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily: 'Outfit',
                         color: const Color(0xFF14181B),

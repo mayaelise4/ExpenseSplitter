@@ -1,9 +1,9 @@
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'paycheck_widget.dart' show PaycheckWidget;
+import 'spending_page_widget.dart' show SpendingPageWidget;
 import 'package:flutter/material.dart';
 
-class PaycheckModel extends FlutterFlowModel<PaycheckWidget> {
+class SpendingPageModel extends FlutterFlowModel<SpendingPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for NavBar component.

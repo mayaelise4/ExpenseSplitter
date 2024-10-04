@@ -2,18 +2,23 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'nav_bar1_model.dart';
-export 'nav_bar1_model.dart';
+import 'nav_bar_model.dart';
+export 'nav_bar_model.dart';
 
-class NavBar1Widget extends StatefulWidget {
-  const NavBar1Widget({super.key});
+class NavBarWidget extends StatefulWidget {
+  const NavBarWidget({
+    super.key,
+    required this.whichInput,
+  });
+
+  final Future Function()? whichInput;
 
   @override
-  State<NavBar1Widget> createState() => _NavBar1WidgetState();
+  State<NavBarWidget> createState() => _NavBarWidgetState();
 }
 
-class _NavBar1WidgetState extends State<NavBar1Widget> {
-  late NavBar1Model _model;
+class _NavBarWidgetState extends State<NavBarWidget> {
+  late NavBarModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -24,7 +29,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => NavBar1Model());
+    _model = createModel(context, () => NavBarModel());
   }
 
   @override
@@ -138,7 +143,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('PocketPage');
+                  context.pushNamed('BillPage');
                 },
                 child: Container(
                   width: 50.0,
@@ -159,7 +164,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed('BillPageTemplate');
+                          context.pushNamed('BillPage');
                         },
                       ),
                       Text(
@@ -191,8 +196,8 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                         color: Colors.white,
                         size: 30.0,
                       ),
-                      onPressed: () {
-                        print('MiddleButton pressed ...');
+                      onPressed: () async {
+                        await widget.whichInput?.call();
                       },
                     ),
                   ),
@@ -204,7 +209,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('PocketPage');
+                  context.pushNamed('GoalPage');
                 },
                 child: Container(
                   width: 50.0,
@@ -225,7 +230,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed('GoalPageTemplate');
+                          context.pushNamed('GoalPage');
                         },
                       ),
                       Text(
@@ -245,7 +250,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('PocketPage');
+                  context.pushNamed('SpendingPage');
                 },
                 child: Container(
                   width: 50.0,
@@ -266,7 +271,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed('SpendingPageTemplate');
+                          context.pushNamed('SpendingPage');
                         },
                       ),
                       Text(

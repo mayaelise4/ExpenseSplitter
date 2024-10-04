@@ -1,28 +1,28 @@
 import '/components/money_info_card_widget.dart';
-import '/components/universal_nav_bar_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'bill_page_template_model.dart';
-export 'bill_page_template_model.dart';
+import 'bill_page_model.dart';
+export 'bill_page_model.dart';
 
-class BillPageTemplateWidget extends StatefulWidget {
-  const BillPageTemplateWidget({super.key});
+class BillPageWidget extends StatefulWidget {
+  const BillPageWidget({super.key});
 
   @override
-  State<BillPageTemplateWidget> createState() => _BillPageTemplateWidgetState();
+  State<BillPageWidget> createState() => _BillPageWidgetState();
 }
 
-class _BillPageTemplateWidgetState extends State<BillPageTemplateWidget> {
-  late BillPageTemplateModel _model;
+class _BillPageWidgetState extends State<BillPageWidget> {
+  late BillPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => BillPageTemplateModel());
+    _model = createModel(context, () => BillPageModel());
   }
 
   @override
@@ -155,10 +155,18 @@ class _BillPageTemplateWidgetState extends State<BillPageTemplateWidget> {
                   ),
                 ],
               ),
-              wrapWithModel(
-                model: _model.universalNavBarModel,
-                updateCallback: () => safeSetState(() {}),
-                child: const UniversalNavBarWidget(),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: NavBarWidget(
+                      whichInput: () async {},
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

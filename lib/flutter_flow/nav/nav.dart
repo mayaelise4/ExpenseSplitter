@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -87,19 +89,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const PocketPageWidget(),
         ),
         FFRoute(
-          name: 'BillPageTemplate',
-          path: '/billPageTemplate',
-          builder: (context, params) => const BillPageTemplateWidget(),
+          name: 'BillPage',
+          path: '/billPage',
+          builder: (context, params) => const BillPageWidget(),
         ),
         FFRoute(
-          name: 'SpendingPageTemplate',
-          path: '/spendingPageTemplate',
-          builder: (context, params) => const SpendingPageTemplateWidget(),
+          name: 'SpendingPage',
+          path: '/spendingPage',
+          builder: (context, params) => const SpendingPageWidget(),
         ),
         FFRoute(
-          name: 'GoalPageTemplate',
-          path: '/goalPageTemplate',
-          builder: (context, params) => const GoalPageTemplateWidget(),
+          name: 'GoalPage',
+          path: '/goalPage',
+          builder: (context, params) => const GoalPageWidget(),
         ),
         FFRoute(
           name: 'LoginPage',
@@ -115,6 +117,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Help',
           path: '/help',
           builder: (context, params) => const HelpWidget(),
+        ),
+        FFRoute(
+          name: 'EduPage',
+          path: '/eduPage',
+          builder: (context, params) => const EduPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -234,6 +241,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -252,6 +260,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }

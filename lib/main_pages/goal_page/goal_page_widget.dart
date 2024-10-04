@@ -1,28 +1,28 @@
 import '/components/goal_card_widget.dart';
-import '/components/universal_nav_bar_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'goal_page_template_model.dart';
-export 'goal_page_template_model.dart';
+import 'goal_page_model.dart';
+export 'goal_page_model.dart';
 
-class GoalPageTemplateWidget extends StatefulWidget {
-  const GoalPageTemplateWidget({super.key});
+class GoalPageWidget extends StatefulWidget {
+  const GoalPageWidget({super.key});
 
   @override
-  State<GoalPageTemplateWidget> createState() => _GoalPageTemplateWidgetState();
+  State<GoalPageWidget> createState() => _GoalPageWidgetState();
 }
 
-class _GoalPageTemplateWidgetState extends State<GoalPageTemplateWidget> {
-  late GoalPageTemplateModel _model;
+class _GoalPageWidgetState extends State<GoalPageWidget> {
+  late GoalPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => GoalPageTemplateModel());
+    _model = createModel(context, () => GoalPageModel());
   }
 
   @override
@@ -104,10 +104,18 @@ class _GoalPageTemplateWidgetState extends State<GoalPageTemplateWidget> {
                   ],
                 ),
               ),
-              wrapWithModel(
-                model: _model.universalNavBarModel,
-                updateCallback: () => safeSetState(() {}),
-                child: const UniversalNavBarWidget(),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: NavBarWidget(
+                      whichInput: () async {},
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

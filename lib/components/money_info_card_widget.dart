@@ -5,7 +5,14 @@ import 'money_info_card_model.dart';
 export 'money_info_card_model.dart';
 
 class MoneyInfoCardWidget extends StatefulWidget {
-  const MoneyInfoCardWidget({super.key});
+  const MoneyInfoCardWidget({
+    super.key,
+    this.moneyText,
+    double? moneyAmount,
+  }) : moneyAmount = moneyAmount ?? 0.00;
+
+  final String? moneyText;
+  final double moneyAmount;
 
   @override
   State<MoneyInfoCardWidget> createState() => _MoneyInfoCardWidgetState();
@@ -76,7 +83,10 @@ class _MoneyInfoCardWidgetState extends State<MoneyInfoCardWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Text',
+                        valueOrDefault<String>(
+                          widget.moneyText,
+                          'No Desc',
+                        ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Plus Jakarta Sans',
                               color: const Color(0xFF4B39EF),
@@ -107,7 +117,15 @@ class _MoneyInfoCardWidgetState extends State<MoneyInfoCardWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 4.0, 0.0, 0.0),
                             child: Text(
-                              '\$25.40',
+                              valueOrDefault<String>(
+                                formatNumber(
+                                  widget.moneyAmount,
+                                  formatType: FormatType.decimal,
+                                  decimalType: DecimalType.periodDecimal,
+                                  currency: '\$',
+                                ),
+                                '0.00',
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(

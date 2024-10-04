@@ -1,26 +1,26 @@
 import '/components/goal_card_widget.dart';
-import '/components/universal_nav_bar_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'goal_page_template_widget.dart' show GoalPageTemplateWidget;
+import 'goal_page_widget.dart' show GoalPageWidget;
 import 'package:flutter/material.dart';
 
-class GoalPageTemplateModel extends FlutterFlowModel<GoalPageTemplateWidget> {
+class GoalPageModel extends FlutterFlowModel<GoalPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for GoalCard component.
   late GoalCardModel goalCardModel;
-  // Model for UniversalNavBar component.
-  late UniversalNavBarModel universalNavBarModel;
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
 
   @override
   void initState(BuildContext context) {
     goalCardModel = createModel(context, () => GoalCardModel());
-    universalNavBarModel = createModel(context, () => UniversalNavBarModel());
+    navBarModel = createModel(context, () => NavBarModel());
   }
 
   @override
   void dispose() {
     goalCardModel.dispose();
-    universalNavBarModel.dispose();
+    navBarModel.dispose();
   }
 }

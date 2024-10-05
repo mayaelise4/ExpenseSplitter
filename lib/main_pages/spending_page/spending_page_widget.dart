@@ -173,9 +173,9 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                             0.0, 12.0, 0.0, 24.0),
                         child: Builder(
                           builder: (context) {
-                            final transactions =
+                            final transactionListItem =
                                 FFAppState().Transactions.toList();
-                            if (transactions.isEmpty) {
+                            if (transactionListItem.isEmpty) {
                               return Center(
                                 child: Image.asset(
                                   'assets/images/noTransactions.png',
@@ -188,13 +188,19 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
 
                             return Column(
                               mainAxisSize: MainAxisSize.max,
-                              children: List.generate(transactions.length,
-                                  (transactionsIndex) {
-                                final transactionsItem =
-                                    transactions[transactionsIndex];
+                              children:
+                                  List.generate(transactionListItem.length,
+                                      (transactionListItemIndex) {
+                                final transactionListItemItem =
+                                    transactionListItem[
+                                        transactionListItemIndex];
                                 return TransactionWidget(
                                   key: Key(
-                                      'Keyjaw_${transactionsIndex}_of_${transactions.length}'),
+                                      'Key0me_${transactionListItemIndex}_of_${transactionListItem.length}'),
+                                  transactionName: transactionListItemItem.name,
+                                  transactionAmount:
+                                      transactionListItemItem.amount,
+                                  transactionDate: transactionListItemItem.date,
                                 );
                               }),
                             );

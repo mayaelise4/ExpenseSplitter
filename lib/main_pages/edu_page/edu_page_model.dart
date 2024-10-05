@@ -12,17 +12,22 @@ class EduPageModel extends FlutterFlowModel<EduPageWidget> {
       choiceChipsValueController?.value?.firstOrNull;
   set choiceChipsValue(String? val) =>
       choiceChipsValueController?.value = val != null ? [val] : [];
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for Question widget.
+  FocusNode? questionFocusNode;
+  TextEditingController? questionTextController;
+  String? Function(BuildContext, String?)? questionTextControllerValidator;
+  // Stores action output result for [Gemini - Generate Text] action in AskAction widget.
+  String? convo;
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    textFieldFocusNode?.dispose();
-    textController?.dispose();
+    questionFocusNode?.dispose();
+    questionTextController?.dispose();
   }
+
+  /// Action blocks.
+  Future save(BuildContext context) async {}
 }

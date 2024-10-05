@@ -61,7 +61,9 @@ class FFAppState extends ChangeNotifier {
 
   List<TransactionStruct> _Transactions = [
     TransactionStruct.fromSerializableMap(jsonDecode(
-        '{\"name\":\"testname\",\"date\":\"today\",\"amount\":\"2.0\"}'))
+        '{\"name\":\"testname\",\"date\":\"today\",\"amount\":\"2.0\"}')),
+    TransactionStruct.fromSerializableMap(jsonDecode(
+        '{\"name\":\"testname2\",\"date\":\"10/4\",\"amount\":\"5.34\"}'))
   ];
   List<TransactionStruct> get Transactions => _Transactions;
   set Transactions(List<TransactionStruct> value) {
@@ -105,6 +107,41 @@ class FFAppState extends ChangeNotifier {
     Transactions.insert(index, value);
     secureStorage.setStringList(
         'ff_Transactions', _Transactions.map((x) => x.serialize()).toList());
+  }
+
+  String _userinput = '';
+  String get userinput => _userinput;
+  set userinput(String value) {
+    _userinput = value;
+  }
+
+  List<String> _chatconvo = [];
+  List<String> get chatconvo => _chatconvo;
+  set chatconvo(List<String> value) {
+    _chatconvo = value;
+  }
+
+  void addToChatconvo(String value) {
+    chatconvo.add(value);
+  }
+
+  void removeFromChatconvo(String value) {
+    chatconvo.remove(value);
+  }
+
+  void removeAtIndexFromChatconvo(int index) {
+    chatconvo.removeAt(index);
+  }
+
+  void updateChatconvoAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    chatconvo[index] = updateFn(_chatconvo[index]);
+  }
+
+  void insertAtIndexInChatconvo(int index, String value) {
+    chatconvo.insert(index, value);
   }
 }
 

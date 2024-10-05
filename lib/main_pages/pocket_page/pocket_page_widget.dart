@@ -395,8 +395,8 @@ class _PocketPageWidgetState extends State<PocketPageWidget> {
                 automaticallyImplyLeading: true,
                 actions: [
                   FFButtonWidget(
-                    onPressed: () {
-                      print('EduPage pressed ...');
+                    onPressed: () async {
+                      context.pushNamed('EduPage');
                     },
                     text: 'Learn More',
                     options: FFButtonOptions(

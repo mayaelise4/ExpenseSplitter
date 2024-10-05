@@ -8,4 +8,4 @@ export '/pages/authentication/login_page/login_page_widget.dart'
     show LoginPageWidget;
 export '/main_pages/paycheck/paycheck_widget.dart' show PaycheckWidget;
 export '/main_pages/help/help_widget.dart' show HelpWidget;
-export '/edu_page/edu_page_widget.dart' show EduPageWidget;
+export '/main_pages/edu_page/edu_page_widget.dart' show EduPageWidget;

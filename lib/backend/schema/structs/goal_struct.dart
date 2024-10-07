@@ -6,20 +6,22 @@ import '/backend/schema/util/firestore_util.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 
-class TransactionStruct extends FFFirebaseStruct {
-  TransactionStruct({
+class GoalStruct extends FFFirebaseStruct {
+  GoalStruct({
     String? name,
     double? amount,
-    DateTime? date,
+    String? description,
+    double? progress,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _amount = amount,
-        _date = date,
+        _description = description,
+        _progress = progress,
         super(firestoreUtilData);
 
   // "name" field.
   String? _name;
-  String get name => _name ?? 'transactionName';
+  String get name => _name ?? 'goalName';
   set name(String? val) => _name = val;
 
   bool hasName() => _name != null;
@@ -33,29 +35,37 @@ class TransactionStruct extends FFFirebaseStruct {
 
   bool hasAmount() => _amount != null;
 
-  // "date" field.
-  DateTime? _date;
-  DateTime get date =>
-      _date ?? DateTime.fromMicrosecondsSinceEpoch(1728104400000000);
-  set date(DateTime? val) => _date = val;
+  // "description" field.
+  String? _description;
+  String get description => _description ?? 'desc';
+  set description(String? val) => _description = val;
 
-  bool hasDate() => _date != null;
+  bool hasDescription() => _description != null;
 
-  static TransactionStruct fromMap(Map<String, dynamic> data) =>
-      TransactionStruct(
+  // "progress" field.
+  double? _progress;
+  double get progress => _progress ?? 0.0;
+  set progress(double? val) => _progress = val;
+
+  void incrementProgress(double amount) => progress = progress + amount;
+
+  bool hasProgress() => _progress != null;
+
+  static GoalStruct fromMap(Map<String, dynamic> data) => GoalStruct(
         name: data['name'] as String?,
         amount: castToType<double>(data['amount']),
-        date: data['date'] as DateTime?,
+        description: data['description'] as String?,
+        progress: castToType<double>(data['progress']),
       );
 
-  static TransactionStruct? maybeFromMap(dynamic data) => data is Map
-      ? TransactionStruct.fromMap(data.cast<String, dynamic>())
-      : null;
+  static GoalStruct? maybeFromMap(dynamic data) =>
+      data is Map ? GoalStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,
         'amount': _amount,
-        'date': _date,
+        'description': _description,
+        'progress': _progress,
       }.withoutNulls;
 
   @override
@@ -68,14 +78,18 @@ class TransactionStruct extends FFFirebaseStruct {
           _amount,
           ParamType.double,
         ),
-        'date': serializeParam(
-          _date,
-          ParamType.DateTime,
+        'description': serializeParam(
+          _description,
+          ParamType.String,
+        ),
+        'progress': serializeParam(
+          _progress,
+          ParamType.double,
         ),
       }.withoutNulls;
 
-  static TransactionStruct fromSerializableMap(Map<String, dynamic> data) =>
-      TransactionStruct(
+  static GoalStruct fromSerializableMap(Map<String, dynamic> data) =>
+      GoalStruct(
         name: deserializeParam(
           data['name'],
           ParamType.String,
@@ -86,41 +100,50 @@ class TransactionStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
-        date: deserializeParam(
-          data['date'],
-          ParamType.DateTime,
+        description: deserializeParam(
+          data['description'],
+          ParamType.String,
+          false,
+        ),
+        progress: deserializeParam(
+          data['progress'],
+          ParamType.double,
           false,
         ),
       );
 
   @override
-  String toString() => 'TransactionStruct(${toMap()})';
+  String toString() => 'GoalStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is TransactionStruct &&
+    return other is GoalStruct &&
         name == other.name &&
         amount == other.amount &&
-        date == other.date;
+        description == other.description &&
+        progress == other.progress;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([name, amount, date]);
+  int get hashCode =>
+      const ListEquality().hash([name, amount, description, progress]);
 }
 
-TransactionStruct createTransactionStruct({
+GoalStruct createGoalStruct({
   String? name,
   double? amount,
-  DateTime? date,
+  String? description,
+  double? progress,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
-    TransactionStruct(
+    GoalStruct(
       name: name,
       amount: amount,
-      date: date,
+      description: description,
+      progress: progress,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -129,64 +152,59 @@ TransactionStruct createTransactionStruct({
       ),
     );
 
-TransactionStruct? updateTransactionStruct(
-  TransactionStruct? transaction, {
+GoalStruct? updateGoalStruct(
+  GoalStruct? goal, {
   bool clearUnsetFields = true,
   bool create = false,
 }) =>
-    transaction
+    goal
       ?..firestoreUtilData = FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
       );
 
-void addTransactionStructData(
+void addGoalStructData(
   Map<String, dynamic> firestoreData,
-  TransactionStruct? transaction,
+  GoalStruct? goal,
   String fieldName, [
   bool forFieldValue = false,
 ]) {
   firestoreData.remove(fieldName);
-  if (transaction == null) {
+  if (goal == null) {
     return;
   }
-  if (transaction.firestoreUtilData.delete) {
+  if (goal.firestoreUtilData.delete) {
     firestoreData[fieldName] = FieldValue.delete();
     return;
   }
-  final clearFields =
-      !forFieldValue && transaction.firestoreUtilData.clearUnsetFields;
+  final clearFields = !forFieldValue && goal.firestoreUtilData.clearUnsetFields;
   if (clearFields) {
     firestoreData[fieldName] = <String, dynamic>{};
   }
-  final transactionData =
-      getTransactionFirestoreData(transaction, forFieldValue);
-  final nestedData =
-      transactionData.map((k, v) => MapEntry('$fieldName.$k', v));
+  final goalData = getGoalFirestoreData(goal, forFieldValue);
+  final nestedData = goalData.map((k, v) => MapEntry('$fieldName.$k', v));
 
-  final mergeFields = transaction.firestoreUtilData.create || clearFields;
+  final mergeFields = goal.firestoreUtilData.create || clearFields;
   firestoreData
       .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
 }
 
-Map<String, dynamic> getTransactionFirestoreData(
-  TransactionStruct? transaction, [
+Map<String, dynamic> getGoalFirestoreData(
+  GoalStruct? goal, [
   bool forFieldValue = false,
 ]) {
-  if (transaction == null) {
+  if (goal == null) {
     return {};
   }
-  final firestoreData = mapToFirestore(transaction.toMap());
+  final firestoreData = mapToFirestore(goal.toMap());
 
   // Add any Firestore field values
-  transaction.firestoreUtilData.fieldValues
-      .forEach((k, v) => firestoreData[k] = v);
+  goal.firestoreUtilData.fieldValues.forEach((k, v) => firestoreData[k] = v);
 
   return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
 }
 
-List<Map<String, dynamic>> getTransactionListFirestoreData(
-  List<TransactionStruct>? transactions,
+List<Map<String, dynamic>> getGoalListFirestoreData(
+  List<GoalStruct>? goals,
 ) =>
-    transactions?.map((e) => getTransactionFirestoreData(e, true)).toList() ??
-    [];
+    goals?.map((e) => getGoalFirestoreData(e, true)).toList() ?? [];

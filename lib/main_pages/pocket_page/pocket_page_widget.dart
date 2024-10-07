@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'pocket_page_model.dart';
 export 'pocket_page_model.dart';
@@ -24,6 +25,11 @@ class _PocketPageWidgetState extends State<PocketPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PocketPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setDarkModeSetting(context, ThemeMode.light);
+    });
   }
 
   @override
@@ -728,9 +734,7 @@ class _PocketPageWidgetState extends State<PocketPageWidget> {
                         model: _model.navBarModel,
                         updateCallback: () => safeSetState(() {}),
                         child: NavBarWidget(
-                          whichInput: () async {
-                            context.pushNamed('Help');
-                          },
+                          whichInput: () async {},
                         ),
                       ),
                     ],

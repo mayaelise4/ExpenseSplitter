@@ -1,9 +1,12 @@
+import '/components/input_transaction_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/transaction_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'spending_page_model.dart';
 export 'spending_page_model.dart';
@@ -24,6 +27,14 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SpendingPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setDarkModeSetting(context, ThemeMode.light);
+      FFAppState().totalSpending =
+          functions.sumTransactions(FFAppState().Transactions.toList())!;
+      FFAppState().update(() {});
+    });
   }
 
   @override
@@ -79,149 +90,203 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
         top: true,
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4B39EF),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5.0,
-                            color: Color(0x32171717),
-                            offset: Offset(
-                              0.0,
-                              2.0,
-                            ),
-                          )
-                        ],
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(16.0),
-                          bottomRight: Radius.circular(16.0),
-                          topLeft: Radius.circular(0.0),
-                          topRight: Radius.circular(0.0),
-                        ),
-                      ),
-                      child: Padding(
+            Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 8.0, 20.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF4B39EF),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5.0,
+                                color: Color(0x32171717),
+                                offset: Offset(
+                                  0.0,
+                                  2.0,
+                                ),
+                              )
+                            ],
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16.0),
+                              bottomRight: Radius.circular(16.0),
+                              topLeft: Radius.circular(0.0),
+                              topRight: Radius.circular(0.0),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 12.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      20.0, 8.0, 20.0, 0.0),
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 4.0, 0.0),
-                                        child: Text(
-                                          'Total Spent',
-                                          textAlign: TextAlign.end,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodySmall
-                                              .override(
-                                                fontFamily: 'Plus Jakarta Sans',
-                                                color: const Color(0xB3FFFFFF),
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                        ),
-                                      ),
-                                      Text(
-                                        '\$2,502',
-                                        textAlign: TextAlign.end,
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color: Colors.white,
-                                              fontSize: 24.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 4.0, 0.0),
+                                            child: Text(
+                                              'Total Spent',
+                                              textAlign: TextAlign.end,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodySmall
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color: const Color(0xB3FFFFFF),
+                                                    fontSize: 12.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
                                             ),
+                                          ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              formatNumber(
+                                                functions.sumTransactions(
+                                                    FFAppState()
+                                                        .Transactions
+                                                        .toList()),
+                                                formatType: FormatType.decimal,
+                                                decimalType:
+                                                    DecimalType.periodDecimal,
+                                                currency: '\$',
+                                              ),
+                                              '0.00',
+                                            ),
+                                            textAlign: TextAlign.end,
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineSmall
+                                                .override(
+                                                  fontFamily: 'Outfit',
+                                                  color: Colors.white,
+                                                  fontSize: 24.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 12.0, 0.0, 24.0),
-                        child: Builder(
-                          builder: (context) {
-                            final transactionListItem =
-                                FFAppState().Transactions.toList();
-                            if (transactionListItem.isEmpty) {
-                              return Center(
-                                child: Image.asset(
-                                  'assets/images/noTransactions.png',
-                                  width: 200.0,
-                                  height: 400.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              );
-                            }
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 12.0, 0.0, 24.0),
+                            child: Builder(
+                              builder: (context) {
+                                final transactionListItem =
+                                    FFAppState().Transactions.toList();
+                                if (transactionListItem.isEmpty) {
+                                  return Center(
+                                    child: Image.asset(
+                                      'assets/images/noTransactions.png',
+                                      width: 200.0,
+                                      height: 400.0,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  );
+                                }
 
-                            return Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children:
-                                  List.generate(transactionListItem.length,
-                                      (transactionListItemIndex) {
-                                final transactionListItemItem =
-                                    transactionListItem[
-                                        transactionListItemIndex];
-                                return TransactionWidget(
-                                  key: Key(
-                                      'Key0me_${transactionListItemIndex}_of_${transactionListItem.length}'),
-                                  transactionName: transactionListItemItem.name,
-                                  transactionAmount:
-                                      transactionListItemItem.amount,
-                                  transactionDate: transactionListItemItem.date,
+                                return SingleChildScrollView(
+                                  primary: false,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: List.generate(
+                                        transactionListItem.length,
+                                        (transactionListItemIndex) {
+                                      final transactionListItemItem =
+                                          transactionListItem[
+                                              transactionListItemIndex];
+                                      return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          safeSetState(() {});
+                                        },
+                                        child: TransactionWidget(
+                                          key: Key(
+                                              'Key0me_${transactionListItemIndex}_of_${transactionListItem.length}'),
+                                          transactionName:
+                                              valueOrDefault<String>(
+                                            transactionListItemItem.name,
+                                            'transaction',
+                                          ),
+                                          transactionAmount:
+                                              transactionListItemItem.amount,
+                                          transactionDate:
+                                              transactionListItemItem.date,
+                                          transactionIndex:
+                                              transactionListItemIndex,
+                                        ),
+                                      );
+                                    }).addToEnd(const SizedBox(height: 88.0)),
+                                  ),
                                 );
-                              }),
-                            );
-                          },
-                        ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                wrapWithModel(
-                  model: _model.navBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: NavBarWidget(
-                    whichInput: () async {},
-                  ),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    wrapWithModel(
+                      model: _model.navBarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: NavBarWidget(
+                        whichInput: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: const SizedBox(
+                                  height: 500.0,
+                                  child: InputTransactionWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

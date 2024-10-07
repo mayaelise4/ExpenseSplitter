@@ -39,6 +39,10 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _Transactions;
     });
+    await _safeInitAsync(() async {
+      _totalSpending =
+          await secureStorage.getDouble('ff_totalSpending') ?? _totalSpending;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -59,12 +63,7 @@ class FFAppState extends ChangeNotifier {
     secureStorage.delete(key: 'ff_pocketAmount');
   }
 
-  List<TransactionStruct> _Transactions = [
-    TransactionStruct.fromSerializableMap(jsonDecode(
-        '{\"name\":\"testname\",\"date\":\"today\",\"amount\":\"2.0\"}')),
-    TransactionStruct.fromSerializableMap(jsonDecode(
-        '{\"name\":\"testname2\",\"date\":\"10/4\",\"amount\":\"5.34\"}'))
-  ];
+  List<TransactionStruct> _Transactions = [];
   List<TransactionStruct> get Transactions => _Transactions;
   set Transactions(List<TransactionStruct> value) {
     _Transactions = value;
@@ -142,6 +141,17 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInChatconvo(int index, String value) {
     chatconvo.insert(index, value);
+  }
+
+  double _totalSpending = 0.0;
+  double get totalSpending => _totalSpending;
+  set totalSpending(double value) {
+    _totalSpending = value;
+    secureStorage.setDouble('ff_totalSpending', value);
+  }
+
+  void deleteTotalSpending() {
+    secureStorage.delete(key: 'ff_totalSpending');
   }
 }
 

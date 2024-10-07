@@ -20,3 +20,24 @@ List<String>? appendToConversation(
   //conversationhistory.add(userinput);
   return conversationhistory;
 }
+
+double? sumTransactions(List<TransactionStruct>? list) {
+  // I want the function to return a sum of all the amounts in the list of transactions and return 0 if the list is empty.
+  if (list == null || list.isEmpty) {
+    return 0.0;
+  }
+
+  double sum = 0.0;
+  for (var transaction in list) {
+    sum += transaction.amount;
+  }
+
+  return sum;
+}
+
+double calculatePocket(
+  double sum,
+  double spending,
+) {
+  return sum - spending;
+}

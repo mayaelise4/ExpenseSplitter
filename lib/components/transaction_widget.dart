@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +8,17 @@ export 'transaction_model.dart';
 class TransactionWidget extends StatefulWidget {
   const TransactionWidget({
     super.key,
-    this.transactionName,
+    String? transactionName,
     double? transactionAmount,
-    this.transactionDate,
-  }) : transactionAmount = transactionAmount ?? 0.00;
+    required this.transactionDate,
+    required this.transactionIndex,
+  })  : transactionName = transactionName ?? ' ',
+        transactionAmount = transactionAmount ?? 0.00;
 
-  final String? transactionName;
+  final String transactionName;
   final double transactionAmount;
-  final String? transactionDate;
+  final DateTime? transactionDate;
+  final int? transactionIndex;
 
   @override
   State<TransactionWidget> createState() => _TransactionWidgetState();
@@ -148,7 +152,11 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
-                          widget.transactionDate,
+                          dateTimeFormat(
+                            "Md",
+                            widget.transactionDate,
+                            locale: FFLocalizations.of(context).languageCode,
+                          ),
                           'date',
                         ),
                         textAlign: TextAlign.end,
@@ -163,6 +171,23 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  icon: Icon(
+                    Icons.delete_forever_rounded,
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 20.0,
+                  ),
+                  onPressed: () async {
+                    FFAppState().removeAtIndexFromTransactions(
+                        widget.transactionIndex!);
+                    FFAppState().update(() {});
+                  },
                 ),
               ),
             ],

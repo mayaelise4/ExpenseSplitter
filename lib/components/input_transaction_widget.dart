@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'input_transaction_model.dart';
@@ -37,7 +38,6 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
           _model.nameTextController?.text = ' ';
-          _model.amountTextController?.text = '0.00';
         }));
   }
 
@@ -243,6 +243,11 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                 child: TextFormField(
                                   controller: _model.amountTextController,
                                   focusNode: _model.amountFocusNode,
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    '_model.amountTextController',
+                                    const Duration(milliseconds: 2000),
+                                    () async {},
+                                  ),
                                   autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -254,6 +259,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
+                                    hintText: '0.00',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -307,6 +313,10 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                   validator: _model
                                       .amountTextControllerValidator
                                       .asValidator(context),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('^\\d{1,9}(\\.\\d{0,2})?\$'))
+                                  ],
                                 ),
                               ),
                             ),
@@ -322,14 +332,17 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                       (_model.amountTextController.text ==
                                           '0.') ||
                                       (_model.amountTextController.text ==
-                                          '0'))) {
-                                    FFAppState()
-                                        .addToTransactions(TransactionStruct(
-                                      name: _model.nameTextController.text,
-                                      amount: double.tryParse(
-                                          _model.amountTextController.text),
-                                      date: getCurrentTimestamp,
-                                    ));
+                                          '0') ||
+                                      (_model.amountTextController.text ==
+                                              ''))) {
+                                    FFAppState().insertAtIndexInTransactions(
+                                        0,
+                                        TransactionStruct(
+                                          name: _model.nameTextController.text,
+                                          amount: double.tryParse(
+                                              _model.amountTextController.text),
+                                          date: getCurrentTimestamp,
+                                        ));
                                     safeSetState(() {});
                                   }
                                   Navigator.pop(context);

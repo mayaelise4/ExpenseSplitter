@@ -9,6 +9,8 @@ class InputTransactionModel extends FlutterFlowModel<InputTransactionWidget> {
 
   double amount = 0.0;
 
+  double? currencyFormatting;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();

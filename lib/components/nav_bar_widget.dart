@@ -30,6 +30,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NavBarModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -102,7 +104,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('PocketPage');
+                  context.pushNamed('HomePage');
                 },
                 child: Container(
                   width: 50.0,
@@ -123,7 +125,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed('PocketPage');
+                          context.pushNamed('HomePage');
                         },
                       ),
                       Text(

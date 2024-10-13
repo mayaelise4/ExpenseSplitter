@@ -1,9 +1,11 @@
-import '/components/money_info_card_widget.dart';
+import '/components/add_bill_widget.dart';
+import '/components/bill_card_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'bill_page_model.dart';
 export 'bill_page_model.dart';
 
@@ -23,6 +25,8 @@ class _BillPageWidgetState extends State<BillPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => BillPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -34,6 +38,8 @@ class _BillPageWidgetState extends State<BillPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -87,86 +93,78 @@ class _BillPageWidgetState extends State<BillPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 12.0, 0.0, 0.0),
-                          child: Text(
-                            'This Month',
-                            style: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
+                        Builder(
+                          builder: (context) {
+                            final billCardList = FFAppState().bills.toList();
+                            if (billCardList.isEmpty) {
+                              return Center(
+                                child: Image.asset(
+                                  '',
                                 ),
-                          ),
-                        ),
-                        ListView(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            wrapWithModel(
-                              model: _model.moneyInfoCardModel1,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MoneyInfoCardWidget(),
-                            ),
-                            wrapWithModel(
-                              model: _model.moneyInfoCardModel2,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MoneyInfoCardWidget(),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 12.0, 0.0, 0.0),
-                          child: Text(
-                            'Last Month',
-                            style: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                          ),
-                        ),
-                        ListView(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            wrapWithModel(
-                              model: _model.moneyInfoCardModel3,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MoneyInfoCardWidget(),
-                            ),
-                          ],
+                              );
+                            }
+
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: billCardList.length,
+                              itemBuilder: (context, billCardListIndex) {
+                                final billCardListItem =
+                                    billCardList[billCardListIndex];
+                                return BillCardWidget(
+                                  key: Key(
+                                      'Keyn5u_${billCardListIndex}_of_${billCardList.length}'),
+                                  billName: billCardListItem.name,
+                                  moneyAmount: billCardListItem.amount,
+                                  index: billCardListIndex,
+                                  billFrequency: billCardListItem.freq,
+                                  date: billCardListItem.time,
+                                );
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  wrapWithModel(
-                    model: _model.navBarModel,
-                    updateCallback: () => safeSetState(() {}),
-                    child: NavBarWidget(
-                      whichInput: () async {},
+              Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    wrapWithModel(
+                      model: _model.navBarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: NavBarWidget(
+                        whichInput: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: const SizedBox(
+                                    height: 900.0,
+                                    child: AddBillWidget(),
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

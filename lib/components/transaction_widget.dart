@@ -1,3 +1,4 @@
+import '/components/confirm_action_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -37,6 +38,8 @@ class _TransactionWidgetState extends State<TransactionWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TransactionModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -184,9 +187,27 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                     size: 20.0,
                   ),
                   onPressed: () async {
-                    FFAppState().removeAtIndexFromTransactions(
-                        widget.transactionIndex!);
-                    FFAppState().update(() {});
+                    await showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      enableDrag: false,
+                      context: context,
+                      builder: (context) {
+                        return Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: const ConfirmActionWidget(),
+                        );
+                      },
+                    ).then(
+                        (value) => safeSetState(() => _model.confirm = value));
+
+                    if (_model.confirm == true) {
+                      FFAppState().removeAtIndexFromTransactions(
+                          widget.transactionIndex!);
+                      FFAppState().update(() {});
+                    }
+
+                    safeSetState(() {});
                   },
                 ),
               ),

@@ -74,19 +74,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const PocketPageWidget() : const LoginPageWidget(),
+          appStateNotifier.loggedIn ? const HomePageWidget() : const LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? const PocketPageWidget()
-              : const LoginPageWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? const HomePageWidget() : const LoginPageWidget(),
         ),
         FFRoute(
-          name: 'PocketPage',
-          path: '/pocketPage',
-          builder: (context, params) => const PocketPageWidget(),
+          name: 'HomePage',
+          path: '/homePage',
+          builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
           name: 'BillPage',
@@ -109,11 +108,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoginPageWidget(),
         ),
         FFRoute(
-          name: 'Paycheck',
-          path: '/paycheck',
-          builder: (context, params) => const PaycheckWidget(),
-        ),
-        FFRoute(
           name: 'Help',
           path: '/help',
           builder: (context, params) => const HelpWidget(),
@@ -122,6 +116,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'EduPage',
           path: '/eduPage',
           builder: (context, params) => const EduPageWidget(),
+        ),
+        FFRoute(
+          name: 'forgotPassword',
+          path: '/forgotPassword',
+          builder: (context, params) => const ForgotPasswordWidget(),
+        ),
+        FFRoute(
+          name: 'ResetPassword',
+          path: '/resetPassword',
+          builder: (context, params) => ResetPasswordWidget(
+            oobCode: params.getParam(
+              'oobCode',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'IncomePage',
+          path: '/incomePage',
+          builder: (context, params) => const IncomePageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

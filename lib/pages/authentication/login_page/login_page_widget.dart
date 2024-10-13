@@ -103,6 +103,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -540,7 +542,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                       }
 
                                                       context.goNamedAuth(
-                                                          'PocketPage',
+                                                          'HomePage',
                                                           context.mounted);
                                                     },
                                                     text: 'Sign In',
@@ -599,9 +601,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
                                                   child: FFButtonWidget(
-                                                    onPressed: () {
-                                                      print(
-                                                          'Button pressed ...');
+                                                    onPressed: () async {
+                                                      context.pushNamed(
+                                                          'forgotPassword');
                                                     },
                                                     text: 'Forgot Password',
                                                     options: FFButtonOptions(
@@ -1094,7 +1096,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                       }
 
                                                       context.goNamedAuth(
-                                                          'PocketPage',
+                                                          'HomePage',
                                                           context.mounted);
                                                     },
                                                     text: 'Create Account',

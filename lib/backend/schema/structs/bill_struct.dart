@@ -11,10 +11,12 @@ class BillStruct extends FFFirebaseStruct {
     String? name,
     double? amount,
     DateTime? time,
+    String? freq,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _amount = amount,
         _time = time,
+        _freq = freq,
         super(firestoreUtilData);
 
   // "name" field.
@@ -41,10 +43,18 @@ class BillStruct extends FFFirebaseStruct {
 
   bool hasTime() => _time != null;
 
+  // "freq" field.
+  String? _freq;
+  String get freq => _freq ?? 'Monthly';
+  set freq(String? val) => _freq = val;
+
+  bool hasFreq() => _freq != null;
+
   static BillStruct fromMap(Map<String, dynamic> data) => BillStruct(
         name: data['name'] as String?,
         amount: castToType<double>(data['amount']),
         time: data['time'] as DateTime?,
+        freq: data['freq'] as String?,
       );
 
   static BillStruct? maybeFromMap(dynamic data) =>
@@ -54,6 +64,7 @@ class BillStruct extends FFFirebaseStruct {
         'name': _name,
         'amount': _amount,
         'time': _time,
+        'freq': _freq,
       }.withoutNulls;
 
   @override
@@ -69,6 +80,10 @@ class BillStruct extends FFFirebaseStruct {
         'time': serializeParam(
           _time,
           ParamType.DateTime,
+        ),
+        'freq': serializeParam(
+          _freq,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -89,6 +104,11 @@ class BillStruct extends FFFirebaseStruct {
           ParamType.DateTime,
           false,
         ),
+        freq: deserializeParam(
+          data['freq'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -99,17 +119,19 @@ class BillStruct extends FFFirebaseStruct {
     return other is BillStruct &&
         name == other.name &&
         amount == other.amount &&
-        time == other.time;
+        time == other.time &&
+        freq == other.freq;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([name, amount, time]);
+  int get hashCode => const ListEquality().hash([name, amount, time, freq]);
 }
 
 BillStruct createBillStruct({
   String? name,
   double? amount,
   DateTime? time,
+  String? freq,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -119,6 +141,7 @@ BillStruct createBillStruct({
       name: name,
       amount: amount,
       time: time,
+      freq: freq,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

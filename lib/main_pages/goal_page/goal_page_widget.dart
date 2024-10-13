@@ -1,9 +1,11 @@
 import '/components/goal_card_widget.dart';
+import '/components/input_goal_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'goal_page_model.dart';
 export 'goal_page_model.dart';
 
@@ -23,6 +25,8 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GoalPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -34,6 +38,8 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -87,18 +93,38 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          wrapWithModel(
-                            model: _model.goalCardModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: const GoalCardWidget(),
-                          ),
-                        ],
+                      child: Builder(
+                        builder: (context) {
+                          final goalList = FFAppState().goals.toList();
+                          if (goalList.isEmpty) {
+                            return Center(
+                              child: Image.asset(
+                                '',
+                              ),
+                            );
+                          }
+
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            primary: false,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: goalList.length,
+                            itemBuilder: (context, goalListIndex) {
+                              final goalListItem = goalList[goalListIndex];
+                              return GoalCardWidget(
+                                key: Key(
+                                    'Key7lc_${goalListIndex}_of_${goalList.length}'),
+                                goalName: goalListItem.name,
+                                goalDesc: goalListItem.description,
+                                goalAmount: goalListItem.amount,
+                                goalProgress: goalListItem.progress,
+                                index: goalListIndex,
+                                added: goalListItem.addedAmount,
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -112,7 +138,26 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                     model: _model.navBarModel,
                     updateCallback: () => safeSetState(() {}),
                     child: NavBarWidget(
-                      whichInput: () async {},
+                      whichInput: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) {
+                            return GestureDetector(
+                              onTap: () => FocusScope.of(context).unfocus(),
+                              child: Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: const SizedBox(
+                                  height: 500.0,
+                                  child: InputGoalWidget(),
+                                ),
+                              ),
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
+                      },
                     ),
                   ),
                 ],

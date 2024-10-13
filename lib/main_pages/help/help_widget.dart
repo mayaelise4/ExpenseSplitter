@@ -23,6 +23,8 @@ class _HelpWidgetState extends State<HelpWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HelpModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

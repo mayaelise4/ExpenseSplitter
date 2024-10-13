@@ -1,1 +1,1 @@
-export 'append_to_conversation_history.dart' show appendToConversationHistory;
+export 'chat_history.dart' show chatHistory;

@@ -43,6 +43,34 @@ class FFAppState extends ChangeNotifier {
       _totalSpending =
           await secureStorage.getDouble('ff_totalSpending') ?? _totalSpending;
     });
+    await _safeInitAsync(() async {
+      _goals = (await secureStorage.getStringList('ff_goals'))
+              ?.map((x) {
+                try {
+                  return GoalStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _goals;
+    });
+    await _safeInitAsync(() async {
+      _bills = (await secureStorage.getStringList('ff_bills'))
+              ?.map((x) {
+                try {
+                  return BillStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _bills;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -152,6 +180,102 @@ class FFAppState extends ChangeNotifier {
 
   void deleteTotalSpending() {
     secureStorage.delete(key: 'ff_totalSpending');
+  }
+
+  List<GoalStruct> _goals = [];
+  List<GoalStruct> get goals => _goals;
+  set goals(List<GoalStruct> value) {
+    _goals = value;
+    secureStorage.setStringList(
+        'ff_goals', value.map((x) => x.serialize()).toList());
+  }
+
+  void deleteGoals() {
+    secureStorage.delete(key: 'ff_goals');
+  }
+
+  void addToGoals(GoalStruct value) {
+    goals.add(value);
+    secureStorage.setStringList(
+        'ff_goals', _goals.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromGoals(GoalStruct value) {
+    goals.remove(value);
+    secureStorage.setStringList(
+        'ff_goals', _goals.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromGoals(int index) {
+    goals.removeAt(index);
+    secureStorage.setStringList(
+        'ff_goals', _goals.map((x) => x.serialize()).toList());
+  }
+
+  void updateGoalsAtIndex(
+    int index,
+    GoalStruct Function(GoalStruct) updateFn,
+  ) {
+    goals[index] = updateFn(_goals[index]);
+    secureStorage.setStringList(
+        'ff_goals', _goals.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInGoals(int index, GoalStruct value) {
+    goals.insert(index, value);
+    secureStorage.setStringList(
+        'ff_goals', _goals.map((x) => x.serialize()).toList());
+  }
+
+  String _geminiresponse = '';
+  String get geminiresponse => _geminiresponse;
+  set geminiresponse(String value) {
+    _geminiresponse = value;
+  }
+
+  List<BillStruct> _bills = [];
+  List<BillStruct> get bills => _bills;
+  set bills(List<BillStruct> value) {
+    _bills = value;
+    secureStorage.setStringList(
+        'ff_bills', value.map((x) => x.serialize()).toList());
+  }
+
+  void deleteBills() {
+    secureStorage.delete(key: 'ff_bills');
+  }
+
+  void addToBills(BillStruct value) {
+    bills.add(value);
+    secureStorage.setStringList(
+        'ff_bills', _bills.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromBills(BillStruct value) {
+    bills.remove(value);
+    secureStorage.setStringList(
+        'ff_bills', _bills.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromBills(int index) {
+    bills.removeAt(index);
+    secureStorage.setStringList(
+        'ff_bills', _bills.map((x) => x.serialize()).toList());
+  }
+
+  void updateBillsAtIndex(
+    int index,
+    BillStruct Function(BillStruct) updateFn,
+  ) {
+    bills[index] = updateFn(_bills[index]);
+    secureStorage.setStringList(
+        'ff_bills', _bills.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInBills(int index, BillStruct value) {
+    bills.insert(index, value);
+    secureStorage.setStringList(
+        'ff_bills', _bills.map((x) => x.serialize()).toList());
   }
 }
 

@@ -1,23 +1,24 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import 'edu_page_widget.dart' show EduPageWidget;
 import 'package:flutter/material.dart';
 
 class EduPageModel extends FlutterFlowModel<EduPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for ChoiceChips widget.
-  FormFieldController<List<String>>? choiceChipsValueController;
-  String? get choiceChipsValue =>
-      choiceChipsValueController?.value?.firstOrNull;
-  set choiceChipsValue(String? val) =>
-      choiceChipsValueController?.value = val != null ? [val] : [];
-  // State field(s) for Question widget.
+  // State field(s) for PageView widget.
+  PageController? pageViewController;
+
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
+  // State field(s) for question widget.
   FocusNode? questionFocusNode;
   TextEditingController? questionTextController;
   String? Function(BuildContext, String?)? questionTextControllerValidator;
   // Stores action output result for [Gemini - Generate Text] action in AskAction widget.
-  String? convo;
+  String? geminiresponse;
 
   @override
   void initState(BuildContext context) {}
@@ -29,5 +30,7 @@ class EduPageModel extends FlutterFlowModel<EduPageWidget> {
   }
 
   /// Action blocks.
-  Future save(BuildContext context) async {}
+  Future save(BuildContext context) async {
+    Navigator.pop(context);
+  }
 }

@@ -1,4 +1,7 @@
+import '/components/add_to_goal_widget.dart';
+import '/components/confirm_action_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +17,19 @@ class GoalCardWidget extends StatefulWidget {
     this.goalDesc,
     double? goalAmount,
     double? goalProgress,
+    required this.index,
+    double? added,
   })  : goalName = goalName ?? 'Goal Name',
         goalAmount = goalAmount ?? 0.00,
-        goalProgress = goalProgress ?? 0.00;
+        goalProgress = goalProgress ?? 0.00,
+        added = added ?? 0.0;
 
   final String goalName;
   final String? goalDesc;
   final double goalAmount;
   final double goalProgress;
+  final int? index;
+  final double added;
 
   @override
   State<GoalCardWidget> createState() => _GoalCardWidgetState();
@@ -116,6 +124,8 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -203,7 +213,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                             FlutterFlowTheme.of(context).displaySmall.override(
                                   fontFamily: 'Outfit',
                                   color: const Color(0xFF14181B),
-                                  fontSize: 36.0,
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -213,35 +223,137 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                 ).animateOnPageLoad(
                     animationsMap['columnOnPageLoadAnimation']!),
               ),
-              CircularPercentIndicator(
-                percent: valueOrDefault<double>(
-                  widget.goalProgress,
-                  0.0,
-                ),
-                radius: 45.0,
-                lineWidth: 8.0,
-                animation: true,
-                animateFromLastPercent: true,
-                progressColor: const Color(0xFF4B39EF),
-                backgroundColor: const Color(0x4C4B39EF),
-                center: Text(
-                  valueOrDefault<String>(
-                    formatNumber(
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularPercentIndicator(
+                    percent: valueOrDefault<double>(
                       widget.goalProgress,
-                      formatType: FormatType.percent,
+                      0.0,
                     ),
-                    '0',
-                  ),
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        fontFamily: 'Outfit',
-                        color: const Color(0xFF14181B),
-                        fontSize: 24.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.normal,
+                    radius: 45.0,
+                    lineWidth: 8.0,
+                    animation: true,
+                    animateFromLastPercent: true,
+                    progressColor: const Color(0xFF4B39EF),
+                    backgroundColor: const Color(0x4C4B39EF),
+                    center: Text(
+                      valueOrDefault<String>(
+                        formatNumber(
+                          widget.goalProgress,
+                          formatType: FormatType.percent,
+                        ),
+                        '0',
                       ),
-                ),
-              ).animateOnPageLoad(
-                  animationsMap['progressBarOnPageLoadAnimation']!),
+                      style:
+                          FlutterFlowTheme.of(context).headlineMedium.override(
+                                fontFamily: 'Outfit',
+                                color: const Color(0xFF14181B),
+                                fontSize: 24.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.normal,
+                              ),
+                    ),
+                  ).animateOnPageLoad(
+                      animationsMap['progressBarOnPageLoadAnimation']!),
+                  Text(
+                    valueOrDefault<String>(
+                      formatNumber(
+                        widget.added,
+                        formatType: FormatType.decimal,
+                        decimalType: DecimalType.periodDecimal,
+                        currency: '\$',
+                      ),
+                      '0.00',
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 8.0,
+                    buttonSize: 40.0,
+                    icon: Icon(
+                      Icons.delete_forever_rounded,
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 25.0,
+                    ),
+                    onPressed: () async {
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: MediaQuery.viewInsetsOf(context),
+                            child: const SizedBox(
+                              height: 300.0,
+                              child: ConfirmActionWidget(),
+                            ),
+                          );
+                        },
+                      ).then((value) =>
+                          safeSetState(() => _model.confirm = value));
+
+                      if (_model.confirm == true) {
+                        FFAppState().removeAtIndexFromGoals(widget.index!);
+                        FFAppState().update(() {});
+                      }
+
+                      safeSetState(() {});
+                    },
+                  ),
+                  Align(
+                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                      child: FlutterFlowIconButton(
+                        borderRadius: 8.0,
+                        buttonSize: 40.0,
+                        fillColor: FlutterFlowTheme.of(context).info,
+                        icon: Icon(
+                          Icons.add_circle_rounded,
+                          color: FlutterFlowTheme.of(context).primary,
+                          size: 25.0,
+                        ),
+                        onPressed: () async {
+                          if (widget.goalProgress != FFAppConstants.one) {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: SizedBox(
+                                    height: 500.0,
+                                    child: AddToGoalWidget(
+                                      index: widget.index!,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

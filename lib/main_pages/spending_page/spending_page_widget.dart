@@ -35,6 +35,8 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
           functions.sumTransactions(FFAppState().Transactions.toList())!;
       FFAppState().update(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -58,18 +60,21 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
           ? AppBar(
               backgroundColor: const Color(0xFF4B39EF),
               automaticallyImplyLeading: false,
-              leading: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30.0,
-                buttonSize: 46.0,
-                icon: const Icon(
-                  Icons.arrow_back_rounded,
-                  color: Colors.white,
-                  size: 25.0,
+              leading: Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  buttonSize: 46.0,
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
+                    color: Colors.white,
+                    size: 25.0,
+                  ),
+                  onPressed: () async {
+                    context.pop();
+                  },
                 ),
-                onPressed: () async {
-                  context.pop();
-                },
               ),
               title: Text(
                 'Spending',

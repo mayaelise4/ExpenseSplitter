@@ -1,5 +1,5 @@
-import '/components/confirm_action_widget.dart';
-import '/components/edit_bill_widget.dart';
+import '/components/confirm_action/confirm_action_widget.dart';
+import '/components/edit_bill/edit_bill_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,13 +15,19 @@ class IncomeCardWidget extends StatefulWidget {
     required this.billFrequency,
     required this.index,
     required this.date,
-  }) : moneyAmount = moneyAmount ?? 0.00;
+    String? incomeName,
+    String? incomeFreq,
+  })  : moneyAmount = moneyAmount ?? 0.00,
+        incomeName = incomeName ?? 'No desc',
+        incomeFreq = incomeFreq ?? 'No desc';
 
   final String? billName;
   final double moneyAmount;
   final String? billFrequency;
   final int? index;
   final DateTime? date;
+  final String incomeName;
+  final String incomeFreq;
 
   @override
   State<IncomeCardWidget> createState() => _IncomeCardWidgetState();
@@ -100,8 +106,8 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                               0.0, 0.0, 0.0, 20.0),
                           child: Text(
                             valueOrDefault<String>(
-                              widget.billName,
-                              'No Desc',
+                              widget.incomeName,
+                              'No desc',
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -117,8 +123,8 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                       ),
                       Text(
                         valueOrDefault<String>(
-                          widget.billFrequency,
-                          'Monthly',
+                          widget.incomeFreq,
+                          'No desc',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',

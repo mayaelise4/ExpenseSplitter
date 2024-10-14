@@ -1,5 +1,5 @@
-import '/components/add_to_goal_widget.dart';
-import '/components/confirm_action_widget.dart';
+import '/components/add_to_goal/add_to_goal_widget.dart';
+import '/components/confirm_action/confirm_action_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

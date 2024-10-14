@@ -71,6 +71,21 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _bills;
     });
+    await _safeInitAsync(() async {
+      _pocketInputHistory = (await secureStorage
+                  .getStringList('ff_pocketInputHistory'))
+              ?.map((x) {
+                try {
+                  return PocketInputStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _pocketInputHistory;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -276,6 +291,51 @@ class FFAppState extends ChangeNotifier {
     bills.insert(index, value);
     secureStorage.setStringList(
         'ff_bills', _bills.map((x) => x.serialize()).toList());
+  }
+
+  List<PocketInputStruct> _pocketInputHistory = [];
+  List<PocketInputStruct> get pocketInputHistory => _pocketInputHistory;
+  set pocketInputHistory(List<PocketInputStruct> value) {
+    _pocketInputHistory = value;
+    secureStorage.setStringList(
+        'ff_pocketInputHistory', value.map((x) => x.serialize()).toList());
+  }
+
+  void deletePocketInputHistory() {
+    secureStorage.delete(key: 'ff_pocketInputHistory');
+  }
+
+  void addToPocketInputHistory(PocketInputStruct value) {
+    pocketInputHistory.add(value);
+    secureStorage.setStringList('ff_pocketInputHistory',
+        _pocketInputHistory.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromPocketInputHistory(PocketInputStruct value) {
+    pocketInputHistory.remove(value);
+    secureStorage.setStringList('ff_pocketInputHistory',
+        _pocketInputHistory.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromPocketInputHistory(int index) {
+    pocketInputHistory.removeAt(index);
+    secureStorage.setStringList('ff_pocketInputHistory',
+        _pocketInputHistory.map((x) => x.serialize()).toList());
+  }
+
+  void updatePocketInputHistoryAtIndex(
+    int index,
+    PocketInputStruct Function(PocketInputStruct) updateFn,
+  ) {
+    pocketInputHistory[index] = updateFn(_pocketInputHistory[index]);
+    secureStorage.setStringList('ff_pocketInputHistory',
+        _pocketInputHistory.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInPocketInputHistory(int index, PocketInputStruct value) {
+    pocketInputHistory.insert(index, value);
+    secureStorage.setStringList('ff_pocketInputHistory',
+        _pocketInputHistory.map((x) => x.serialize()).toList());
   }
 }
 

@@ -1,6 +1,6 @@
-import '/components/input_transaction_widget.dart';
-import '/components/nav_bar_widget.dart';
-import '/components/transaction_widget.dart';
+import '/components/input_transaction/input_transaction_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
+import '/components/transaction/transaction_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

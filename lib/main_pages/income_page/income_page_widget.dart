@@ -1,6 +1,6 @@
-import '/components/add_bill_widget.dart';
-import '/components/income_card_widget.dart';
-import '/components/nav_bar_widget.dart';
+import '/components/add_bill/add_bill_widget.dart';
+import '/components/income_card/income_card_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

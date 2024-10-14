@@ -1,9 +1,9 @@
-import '/components/goal_card_widget.dart';
-import '/components/input_goal_widget.dart';
-import '/components/nav_bar_widget.dart';
+import '/components/goal_card/goal_card_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_pages/input_goal/input_goal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'goal_page_model.dart';

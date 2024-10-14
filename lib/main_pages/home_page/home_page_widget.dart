@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/nav_bar_widget.dart';
+import '/components/input_money/input_money_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -473,14 +474,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'Pocket ',
+                                    text: 'In Your Pocket: ',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
-                                          fontSize: 30.0,
+                                          fontSize: 25.0,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                   ),
                                   TextSpan(
@@ -490,9 +491,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       decimalType: DecimalType.periodDecimal,
                                       currency: '\$',
                                     ),
-                                    style: const TextStyle(
+                                    style: TextStyle(
+                                      color:
+                                          FlutterFlowTheme.of(context).success,
                                       fontWeight: FontWeight.w800,
-                                      fontSize: 25.0,
+                                      fontSize: 30.0,
                                     ),
                                   )
                                 ],
@@ -504,6 +507,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                               ),
                               textAlign: TextAlign.center,
+                              maxLines: 2,
                             ),
                           ),
                         ),
@@ -734,7 +738,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         model: _model.navBarModel,
                         updateCallback: () => safeSetState(() {}),
                         child: NavBarWidget(
-                          whichInput: () async {},
+                          whichInput: () async {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () => FocusScope.of(context).unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: const SizedBox(
+                                      height: 300.0,
+                                      child: InputMoneyWidget(),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
+                          },
                         ),
                       ),
                     ],

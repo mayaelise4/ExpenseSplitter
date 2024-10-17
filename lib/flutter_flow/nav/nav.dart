@@ -85,6 +85,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
+          requireAuth: true,
           builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
@@ -136,6 +137,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'IncomePage',
           path: '/incomePage',
           builder: (context, params) => const IncomePageWidget(),
+        ),
+        FFRoute(
+          name: 'tasksPage',
+          path: '/tasksPage',
+          builder: (context, params) => const TasksPageWidget(),
+        ),
+        FFRoute(
+          name: 'historyPage',
+          path: '/historyPage',
+          builder: (context, params) => const HistoryPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

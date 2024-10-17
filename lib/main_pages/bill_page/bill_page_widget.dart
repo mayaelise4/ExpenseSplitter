@@ -1,5 +1,6 @@
 import '/components/add_bill/add_bill_widget.dart';
 import '/components/bill_card/bill_card_widget.dart';
+import '/components/empty_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -85,6 +86,15 @@ class _BillPageWidgetState extends State<BillPageWidget> {
           top: true,
           child: Stack(
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1675388186738-404cdf9f5fb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8YmlsbHN8ZW58MHx8fHwxNzI5MDM0NTkwfDA&ixlib=rb-4.0.3&q=80&w=1080',
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -97,9 +107,9 @@ class _BillPageWidgetState extends State<BillPageWidget> {
                           builder: (context) {
                             final billCardList = FFAppState().bills.toList();
                             if (billCardList.isEmpty) {
-                              return Center(
-                                child: Image.asset(
-                                  '',
+                              return const Center(
+                                child: EmptyWidget(
+                                  itemName: 'Bills',
                                 ),
                               );
                             }

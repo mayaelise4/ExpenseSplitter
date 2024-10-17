@@ -1,8 +1,11 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/components/confirm_action/confirm_action_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'transaction_model.dart';
 export 'transaction_model.dart';
 
@@ -51,6 +54,8 @@ class _TransactionWidgetState extends State<TransactionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
       child: Container(
@@ -205,6 +210,16 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                       FFAppState().removeAtIndexFromTransactions(
                           widget.transactionIndex!);
                       FFAppState().update(() {});
+
+                      await currentUserReference!.update({
+                        ...mapToFirestore(
+                          {
+                            'Transactions': getTransactionListFirestoreData(
+                              FFAppState().Transactions,
+                            ),
+                          },
+                        ),
+                      });
                     }
 
                     safeSetState(() {});

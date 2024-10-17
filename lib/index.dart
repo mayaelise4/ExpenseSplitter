@@ -13,3 +13,6 @@ export '/pages/authentication/forgot_password/forgot_password_widget.dart'
 export '/pages/authentication/reset_password/reset_password_widget.dart'
     show ResetPasswordWidget;
 export '/main_pages/income_page/income_page_widget.dart' show IncomePageWidget;
+export '/main_pages/tasks_page/tasks_page_widget.dart' show TasksPageWidget;
+export '/main_pages/history_page/history_page_widget.dart'
+    show HistoryPageWidget;

@@ -1,9 +1,11 @@
+import '/components/empty_widget.dart';
 import '/components/goal_card/goal_card_widget.dart';
+import '/components/input_goal/input_goal_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/main_pages/input_goal/input_goal_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'goal_page_model.dart';
@@ -85,6 +87,20 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
           top: true,
           child: Stack(
             children: [
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    alignment: AlignmentDirectional(-0.5, 0.0),
+                    image: CachedNetworkImageProvider(
+                      'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMnx8bW9uZXklMjBiYW5rfGVufDB8fHx8MTcyOTAzNjI0OXww&ixlib=rb-4.0.3&q=85',
+                    ),
+                  ),
+                ),
+              ),
               SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -97,9 +113,9 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                         builder: (context) {
                           final goalList = FFAppState().goals.toList();
                           if (goalList.isEmpty) {
-                            return Center(
-                              child: Image.asset(
-                                '',
+                            return const Center(
+                              child: EmptyWidget(
+                                itemName: 'Goals',
                               ),
                             );
                           }

@@ -45,6 +45,16 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
+  // "Transactions" field.
+  List<TransactionStruct>? _transactions;
+  List<TransactionStruct> get transactions => _transactions ?? const [];
+  bool hasTransactions() => _transactions != null;
+
+  // "bills" field.
+  List<BillStruct>? _bills;
+  List<BillStruct> get bills => _bills ?? const [];
+  bool hasBills() => _bills != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -52,6 +62,14 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
+    _transactions = getStructList(
+      snapshotData['Transactions'],
+      TransactionStruct.fromMap,
+    );
+    _bills = getStructList(
+      snapshotData['bills'],
+      BillStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -114,12 +132,15 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
-        e1?.phoneNumber == e2?.phoneNumber;
+        e1?.phoneNumber == e2?.phoneNumber &&
+        listEquality.equals(e1?.transactions, e2?.transactions) &&
+        listEquality.equals(e1?.bills, e2?.bills);
   }
 
   @override
@@ -129,7 +150,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.photoUrl,
         e?.uid,
         e?.createdTime,
-        e?.phoneNumber
+        e?.phoneNumber,
+        e?.transactions,
+        e?.bills
       ]);
 
   @override

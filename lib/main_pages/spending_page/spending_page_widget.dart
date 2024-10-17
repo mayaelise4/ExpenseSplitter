@@ -1,3 +1,4 @@
+import '/components/empty_widget.dart';
 import '/components/input_transaction/input_transaction_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/transaction/transaction_widget.dart';
@@ -97,6 +98,15 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
           children: [
             Stack(
               children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    'https://images.unsplash.com/photo-1589758438368-0ad531db3366?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8c3BlbmRpbmd8ZW58MHx8fHwxNzI5MDM0MjEyfDA&ixlib=rb-4.0.3&q=80&w=1080',
+                    width: 410.0,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -209,12 +219,9 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                                 final transactionListItem =
                                     FFAppState().Transactions.toList();
                                 if (transactionListItem.isEmpty) {
-                                  return Center(
-                                    child: Image.asset(
-                                      'assets/images/noTransactions.png',
-                                      width: 200.0,
-                                      height: 400.0,
-                                      fit: BoxFit.fitWidth,
+                                  return const Center(
+                                    child: EmptyWidget(
+                                      itemName: 'Transactions',
                                     ),
                                   );
                                 }

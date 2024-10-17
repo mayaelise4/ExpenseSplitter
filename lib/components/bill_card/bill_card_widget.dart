@@ -54,7 +54,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 2.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 100.0,

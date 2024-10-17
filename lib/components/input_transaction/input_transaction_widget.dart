@@ -1,10 +1,12 @@
-import '/backend/schema/structs/index.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'input_transaction_model.dart';
 export 'input_transaction_model.dart';
 
@@ -49,6 +51,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -338,6 +342,17 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                           date: getCurrentTimestamp,
                                         ));
                                     safeSetState(() {});
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'Transactions':
+                                              getTransactionListFirestoreData(
+                                            FFAppState().Transactions,
+                                          ),
+                                        },
+                                      ),
+                                    });
                                   }
                                   Navigator.pop(context);
                                 },

@@ -9,18 +9,31 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'add_income_model.dart';
-export 'add_income_model.dart';
+import 'edit_bill_model.dart';
+export 'edit_bill_model.dart';
 
-class AddIncomeWidget extends StatefulWidget {
-  const AddIncomeWidget({super.key});
+class EditBillWidget extends StatefulWidget {
+  const EditBillWidget({
+    super.key,
+    required this.index,
+    this.name,
+    required this.amount,
+    required this.frequency,
+    required this.duedate,
+  });
+
+  final int? index;
+  final String? name;
+  final double? amount;
+  final String? frequency;
+  final DateTime? duedate;
 
   @override
-  State<AddIncomeWidget> createState() => _AddIncomeWidgetState();
+  State<EditBillWidget> createState() => _EditBillWidgetState();
 }
 
-class _AddIncomeWidgetState extends State<AddIncomeWidget> {
-  late AddIncomeModel _model;
+class _EditBillWidgetState extends State<EditBillWidget> {
+  late EditBillModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -31,12 +44,13 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddIncomeModel());
+    _model = createModel(context, () => EditBillModel());
 
-    _model.incomeNameTextController ??= TextEditingController();
-    _model.incomeNameFocusNode ??= FocusNode();
+    _model.billNameTextController ??= TextEditingController(text: widget.name);
+    _model.billNameFocusNode ??= FocusNode();
 
-    _model.amountTextController ??= TextEditingController();
+    _model.amountTextController ??=
+        TextEditingController(text: widget.amount.toString());
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -107,7 +121,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Add an Income',
+                          'Edit Bill',
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
@@ -122,7 +136,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
-                            'Fill in the information below to add to an income.',
+                            'Change the Bill information below.',
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
@@ -159,22 +173,21 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                       SizedBox(
                         width: 300.0,
                         child: TextFormField(
-                          controller: _model.incomeNameTextController,
-                          focusNode: _model.incomeNameFocusNode,
+                          controller: _model.billNameTextController,
+                          focusNode: _model.billNameFocusNode,
                           autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             isDense: true,
-                            labelText: 'Income Name',
+                            labelText: 'Bill Name',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
                                   fontFamily: 'Inter Tight',
                                   letterSpacing: 0.0,
                                 ),
-                            hintText: '|',
                             hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
+                                .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
@@ -217,7 +230,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                     letterSpacing: 0.0,
                                   ),
                           cursorColor: FlutterFlowTheme.of(context).primaryText,
-                          validator: _model.incomeNameTextControllerValidator
+                          validator: _model.billNameTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -305,7 +318,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         child: FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController ??=
                               FormFieldController<String>(
-                            _model.dropDownValue ??= BillTypes.Monthly.name,
+                            _model.dropDownValue ??= widget.frequency,
                           ),
                           options: BillTypes.values.map((e) => e.name).toList(),
                           onChanged: (val) async {
@@ -320,7 +333,6 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                          hintText: 'Select Frequency',
                           icon: Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -344,7 +356,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         color: Color(0xFFF1F4F8),
                       ),
                       Text(
-                        'Select a Deposit Date',
+                        'Select a Due Date',
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: 'Outfit',
@@ -359,7 +371,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         iconColor: FlutterFlowTheme.of(context).secondaryText,
                         weekFormat: false,
                         weekStartsMonday: false,
-                        initialDate: getCurrentTimestamp,
+                        initialDate: widget.duedate,
                         rowHeight: 48.0,
                         onChange: (DateTimeRange? newSelectedDate) {
                           safeSetState(() =>
@@ -403,15 +415,16 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    FFAppState().insertAtIndexInBills(
-                        0,
-                        BillStruct(
-                          name: _model.incomeNameTextController.text,
-                          amount:
-                              double.tryParse(_model.amountTextController.text),
-                          time: _model.calendarSelectedDay?.start,
-                          freq: _model.frequency,
-                        ));
+                    FFAppState().updateBillsAtIndex(
+                      widget.index!,
+                      (_) => BillStruct(
+                        name: _model.billNameTextController.text,
+                        amount:
+                            double.tryParse(_model.amountTextController.text),
+                        dueDate: _model.calendarSelectedDay?.start,
+                        freq: _model.frequency,
+                      ),
+                    );
                     FFAppState().update(() {});
                     Navigator.pop(context);
                   },

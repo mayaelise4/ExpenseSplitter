@@ -40,6 +40,9 @@ class FFAppState extends ChangeNotifier {
           _Transactions;
     });
     await _safeInitAsync(() async {
+      _userinput = await secureStorage.getString('ff_userinput') ?? _userinput;
+    });
+    await _safeInitAsync(() async {
       _totalSpending =
           await secureStorage.getDouble('ff_totalSpending') ?? _totalSpending;
     });
@@ -155,6 +158,11 @@ class FFAppState extends ChangeNotifier {
   String get userinput => _userinput;
   set userinput(String value) {
     _userinput = value;
+    secureStorage.setString('ff_userinput', value);
+  }
+
+  void deleteUserinput() {
+    secureStorage.delete(key: 'ff_userinput');
   }
 
   List<String> _chatconvo = [];

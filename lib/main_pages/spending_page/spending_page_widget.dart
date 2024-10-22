@@ -1,11 +1,12 @@
-import '/components/empty_widget.dart';
-import '/components/input_transaction/input_transaction_widget.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
-import '/components/transaction/transaction_widget.dart';
+import '/components/inputs/input_transaction/input_transaction_widget.dart';
+import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
+import '/components/list_items/transaction/transaction_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -100,8 +101,11 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1589758438368-0ad531db3366?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8c3BlbmRpbmd8ZW58MHx8fHwxNzI5MDM0MjEyfDA&ixlib=rb-4.0.3&q=80&w=1080',
+                  child: CachedNetworkImage(
+                    fadeInDuration: const Duration(milliseconds: 500),
+                    fadeOutDuration: const Duration(milliseconds: 500),
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1589758438368-0ad531db3366?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8c3BlbmRpbmd8ZW58MHx8fHwxNzI5MDM0MjEyfDA&ixlib=rb-4.0.3&q=80&w=1080',
                     width: 410.0,
                     height: double.infinity,
                     fit: BoxFit.cover,
@@ -220,7 +224,7 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                                     FFAppState().Transactions.toList();
                                 if (transactionListItem.isEmpty) {
                                   return const Center(
-                                    child: EmptyWidget(
+                                    child: EmptyListDisplayWidget(
                                       itemName: 'Transactions',
                                     ),
                                   );

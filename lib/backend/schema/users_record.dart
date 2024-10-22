@@ -55,6 +55,26 @@ class UsersRecord extends FirestoreRecord {
   List<BillStruct> get bills => _bills ?? const [];
   bool hasBills() => _bills != null;
 
+  // "pocketAmount" field.
+  double? _pocketAmount;
+  double get pocketAmount => _pocketAmount ?? 0.0;
+  bool hasPocketAmount() => _pocketAmount != null;
+
+  // "goals" field.
+  List<GoalStruct>? _goals;
+  List<GoalStruct> get goals => _goals ?? const [];
+  bool hasGoals() => _goals != null;
+
+  // "ActionHistory" field.
+  List<HistoryStruct>? _actionHistory;
+  List<HistoryStruct> get actionHistory => _actionHistory ?? const [];
+  bool hasActionHistory() => _actionHistory != null;
+
+  // "userService" field.
+  List<DocumentReference>? _userService;
+  List<DocumentReference> get userService => _userService ?? const [];
+  bool hasUserService() => _userService != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -70,6 +90,16 @@ class UsersRecord extends FirestoreRecord {
       snapshotData['bills'],
       BillStruct.fromMap,
     );
+    _pocketAmount = castToType<double>(snapshotData['pocketAmount']);
+    _goals = getStructList(
+      snapshotData['goals'],
+      GoalStruct.fromMap,
+    );
+    _actionHistory = getStructList(
+      snapshotData['ActionHistory'],
+      HistoryStruct.fromMap,
+    );
+    _userService = getDataList(snapshotData['userService']);
   }
 
   static CollectionReference get collection =>
@@ -112,6 +142,7 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  double? pocketAmount,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +152,7 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
+      'pocketAmount': pocketAmount,
     }.withoutNulls,
   );
 
@@ -140,7 +172,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         listEquality.equals(e1?.transactions, e2?.transactions) &&
-        listEquality.equals(e1?.bills, e2?.bills);
+        listEquality.equals(e1?.bills, e2?.bills) &&
+        e1?.pocketAmount == e2?.pocketAmount &&
+        listEquality.equals(e1?.goals, e2?.goals) &&
+        listEquality.equals(e1?.actionHistory, e2?.actionHistory) &&
+        listEquality.equals(e1?.userService, e2?.userService);
   }
 
   @override
@@ -152,7 +188,11 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.transactions,
-        e?.bills
+        e?.bills,
+        e?.pocketAmount,
+        e?.goals,
+        e?.actionHistory,
+        e?.userService
       ]);
 
   @override

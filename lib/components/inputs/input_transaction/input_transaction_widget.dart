@@ -1,22 +1,25 @@
-import '/backend/schema/structs/index.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'input_money_model.dart';
-export 'input_money_model.dart';
+import 'package:provider/provider.dart';
+import 'input_transaction_model.dart';
+export 'input_transaction_model.dart';
 
-class InputMoneyWidget extends StatefulWidget {
-  const InputMoneyWidget({super.key});
+class InputTransactionWidget extends StatefulWidget {
+  const InputTransactionWidget({super.key});
 
   @override
-  State<InputMoneyWidget> createState() => _InputMoneyWidgetState();
+  State<InputTransactionWidget> createState() => _InputTransactionWidgetState();
 }
 
-class _InputMoneyWidgetState extends State<InputMoneyWidget> {
-  late InputMoneyModel _model;
+class _InputTransactionWidgetState extends State<InputTransactionWidget> {
+  late InputTransactionModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -27,12 +30,17 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InputMoneyModel());
+    _model = createModel(context, () => InputTransactionModel());
+
+    _model.nameTextController ??= TextEditingController();
+    _model.nameFocusNode ??= FocusNode();
 
     _model.amountTextController ??= TextEditingController();
     _model.amountFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
+          _model.nameTextController?.text = ' ';
+        }));
   }
 
   @override
@@ -44,6 +52,8 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -100,7 +110,7 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Add Money',
+                          'New Transaction',
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
@@ -115,7 +125,7 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
-                            'How much would you like to add?',
+                            'Fill in the information below to add a transaction.',
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
@@ -156,20 +166,21 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                             SizedBox(
                               width: 200.0,
                               child: TextFormField(
-                                controller: _model.amountTextController,
-                                focusNode: _model.amountFocusNode,
+                                controller: _model.nameTextController,
+                                focusNode: _model.nameFocusNode,
                                 autofocus: false,
+                                textCapitalization: TextCapitalization.none,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
-                                  labelText: 'Amount',
+                                  labelText: 'Expense Name',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .bodyLarge
                                       .override(
                                         fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
-                                  hintText: '0.00',
+                                  alignLabelWithHint: false,
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -213,17 +224,99 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        decimal: true),
+                                maxLength: 15,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
+                                keyboardType: TextInputType.name,
                                 cursorColor:
                                     FlutterFlowTheme.of(context).primaryText,
-                                validator: _model.amountTextControllerValidator
+                                validator: _model.nameTextControllerValidator
                                     .asValidator(context),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp('^\\d{1,9}(\\.\\d{0,2})?\$'))
-                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 10.0, 0.0, 0.0),
+                              child: SizedBox(
+                                width: 200.0,
+                                child: TextFormField(
+                                  controller: _model.amountTextController,
+                                  focusNode: _model.amountFocusNode,
+                                  autofocus: false,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelText: 'Amount',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    hintText: '0.00',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyLarge
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                          decimal: true),
+                                  cursorColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  validator: _model
+                                      .amountTextControllerValidator
+                                      .asValidator(context),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('^\\d{1,9}(\\.\\d{0,2})?\$'))
+                                  ],
+                                ),
                               ),
                             ),
                             Padding(
@@ -231,26 +324,55 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                                   0.0, 10.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  FFAppState()
-                                      .insertAtIndexInPocketInputHistory(
-                                          0,
-                                          PocketInputStruct(
-                                            amount: double.tryParse(_model
-                                                .amountTextController.text),
-                                            date: getCurrentTimestamp,
-                                          ));
-                                  FFAppState().pocketAmount =
-                                      FFAppState().pocketAmount +
-                                          double.parse(
-                                              _model.amountTextController.text);
-                                  safeSetState(() {});
+                                  if (!((_model.amountTextController.text ==
+                                          '0.00') ||
+                                      (_model.amountTextController.text ==
+                                          '0.0') ||
+                                      (_model.amountTextController.text ==
+                                          '0.') ||
+                                      (_model.amountTextController.text ==
+                                          '0') ||
+                                      (_model.amountTextController.text ==
+                                              ''))) {
+                                    FFAppState().insertAtIndexInTransactions(
+                                        0,
+                                        TransactionStruct(
+                                          name: _model.nameTextController.text,
+                                          amount: double.tryParse(
+                                              _model.amountTextController.text),
+                                          date: getCurrentTimestamp,
+                                        ));
+                                    safeSetState(() {});
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'Transactions':
+                                              getTransactionListFirestoreData(
+                                            FFAppState().Transactions,
+                                          ),
+                                          'ActionHistory':
+                                              FieldValue.arrayUnion([
+                                            getHistoryFirestoreData(
+                                              createHistoryStruct(
+                                                actionItem: 'Spending',
+                                                actionDate: getCurrentTimestamp,
+                                                actionType: ActionTypes.add,
+                                                actionAmount: double.tryParse(
+                                                    _model.amountTextController
+                                                        .text),
+                                                clearUnsetFields: false,
+                                              ),
+                                              true,
+                                            )
+                                          ]),
+                                        },
+                                      ),
+                                    });
+                                  }
                                   Navigator.pop(context);
                                 },
                                 text: 'Confirm',
-                                icon: const Icon(
-                                  Icons.check,
-                                  size: 15.0,
-                                ),
                                 options: FFButtonOptions(
                                   height: 40.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(

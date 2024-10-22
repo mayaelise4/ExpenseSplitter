@@ -1,9 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/input_money/input_money_widget.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
+import '/components/inputs/input_money/input_money_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +31,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (RootPageContext.isInactiveRootPage(context)) {
+        return;
+      }
       setDarkModeSetting(context, ThemeMode.light);
     });
 
@@ -335,6 +340,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          await action_blocks.updateAppStateOnLogout(context);
                           GoRouter.of(context).prepareAuthEvent();
                           await authManager.signOut();
                           GoRouter.of(context).clearRedirectLocation();
@@ -527,11 +533,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               width: double.infinity,
                               height: 300.0,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: Image.network(
+                                  image: CachedNetworkImageProvider(
                                     'https://images.unsplash.com/photo-1593672715438-d88a70629abe?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxtb25leXxlbnwwfHx8fDE3MjkwMDg4NDB8MA&ixlib=rb-4.0.3&q=85',
-                                  ).image,
+                                  ),
                                 ),
                                 boxShadow: const [
                                   BoxShadow(
@@ -581,8 +587,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 ),
                                 FFButtonWidget(
-                                  onPressed: () {
-                                    print('HistoryButton pressed ...');
+                                  onPressed: () async {
+                                    context.pushNamed('historyPage');
                                   },
                                   text: 'History',
                                   options: FFButtonOptions(
@@ -604,8 +610,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 ),
                                 FFButtonWidget(
-                                  onPressed: () {
-                                    print('TaskButton pressed ...');
+                                  onPressed: () async {
+                                    context.pushNamed('tasksPage');
                                   },
                                   text: 'Tasks',
                                   options: FFButtonOptions(

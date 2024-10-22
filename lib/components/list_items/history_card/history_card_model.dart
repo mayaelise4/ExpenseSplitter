@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'empty_widget.dart' show EmptyWidget;
+import 'history_card_widget.dart' show HistoryCardWidget;
 import 'package:flutter/material.dart';
 
-class EmptyModel extends FlutterFlowModel<EmptyWidget> {
+class HistoryCardModel extends FlutterFlowModel<HistoryCardWidget> {
   @override
   void initState(BuildContext context) {}
 

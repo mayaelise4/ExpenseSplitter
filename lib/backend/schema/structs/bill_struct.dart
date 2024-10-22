@@ -10,13 +10,15 @@ class BillStruct extends FFFirebaseStruct {
   BillStruct({
     String? name,
     double? amount,
-    DateTime? time,
+    DateTime? dueDate,
     String? freq,
+    DateTime? actionDate,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _amount = amount,
-        _time = time,
+        _dueDate = dueDate,
         _freq = freq,
+        _actionDate = actionDate,
         super(firestoreUtilData);
 
   // "name" field.
@@ -35,13 +37,13 @@ class BillStruct extends FFFirebaseStruct {
 
   bool hasAmount() => _amount != null;
 
-  // "time" field.
-  DateTime? _time;
-  DateTime get time =>
-      _time ?? DateTime.fromMicrosecondsSinceEpoch(1728104400000000);
-  set time(DateTime? val) => _time = val;
+  // "dueDate" field.
+  DateTime? _dueDate;
+  DateTime get dueDate =>
+      _dueDate ?? DateTime.fromMicrosecondsSinceEpoch(1728104400000000);
+  set dueDate(DateTime? val) => _dueDate = val;
 
-  bool hasTime() => _time != null;
+  bool hasDueDate() => _dueDate != null;
 
   // "freq" field.
   String? _freq;
@@ -50,11 +52,19 @@ class BillStruct extends FFFirebaseStruct {
 
   bool hasFreq() => _freq != null;
 
+  // "actionDate" field.
+  DateTime? _actionDate;
+  DateTime? get actionDate => _actionDate;
+  set actionDate(DateTime? val) => _actionDate = val;
+
+  bool hasActionDate() => _actionDate != null;
+
   static BillStruct fromMap(Map<String, dynamic> data) => BillStruct(
         name: data['name'] as String?,
         amount: castToType<double>(data['amount']),
-        time: data['time'] as DateTime?,
+        dueDate: data['dueDate'] as DateTime?,
         freq: data['freq'] as String?,
+        actionDate: data['actionDate'] as DateTime?,
       );
 
   static BillStruct? maybeFromMap(dynamic data) =>
@@ -63,8 +73,9 @@ class BillStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'name': _name,
         'amount': _amount,
-        'time': _time,
+        'dueDate': _dueDate,
         'freq': _freq,
+        'actionDate': _actionDate,
       }.withoutNulls;
 
   @override
@@ -77,13 +88,17 @@ class BillStruct extends FFFirebaseStruct {
           _amount,
           ParamType.double,
         ),
-        'time': serializeParam(
-          _time,
+        'dueDate': serializeParam(
+          _dueDate,
           ParamType.DateTime,
         ),
         'freq': serializeParam(
           _freq,
           ParamType.String,
+        ),
+        'actionDate': serializeParam(
+          _actionDate,
+          ParamType.DateTime,
         ),
       }.withoutNulls;
 
@@ -99,14 +114,19 @@ class BillStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
-        time: deserializeParam(
-          data['time'],
+        dueDate: deserializeParam(
+          data['dueDate'],
           ParamType.DateTime,
           false,
         ),
         freq: deserializeParam(
           data['freq'],
           ParamType.String,
+          false,
+        ),
+        actionDate: deserializeParam(
+          data['actionDate'],
+          ParamType.DateTime,
           false,
         ),
       );
@@ -119,19 +139,22 @@ class BillStruct extends FFFirebaseStruct {
     return other is BillStruct &&
         name == other.name &&
         amount == other.amount &&
-        time == other.time &&
-        freq == other.freq;
+        dueDate == other.dueDate &&
+        freq == other.freq &&
+        actionDate == other.actionDate;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([name, amount, time, freq]);
+  int get hashCode =>
+      const ListEquality().hash([name, amount, dueDate, freq, actionDate]);
 }
 
 BillStruct createBillStruct({
   String? name,
   double? amount,
-  DateTime? time,
+  DateTime? dueDate,
   String? freq,
+  DateTime? actionDate,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -140,8 +163,9 @@ BillStruct createBillStruct({
     BillStruct(
       name: name,
       amount: amount,
-      time: time,
+      dueDate: dueDate,
       freq: freq,
+      actionDate: actionDate,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

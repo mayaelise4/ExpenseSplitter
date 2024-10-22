@@ -1,7 +1,7 @@
-import '/components/add_bill/add_bill_widget.dart';
-import '/components/bill_card/bill_card_widget.dart';
-import '/components/empty_widget.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
+import '/components/inputs/add_bill/add_bill_widget.dart';
+import '/components/list_items/bill_card/bill_card_widget.dart';
+import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -108,7 +108,7 @@ class _BillPageWidgetState extends State<BillPageWidget> {
                             final billCardList = FFAppState().bills.toList();
                             if (billCardList.isEmpty) {
                               return const Center(
-                                child: EmptyWidget(
+                                child: EmptyListDisplayWidget(
                                   itemName: 'Bills',
                                 ),
                               );
@@ -130,7 +130,7 @@ class _BillPageWidgetState extends State<BillPageWidget> {
                                   moneyAmount: billCardListItem.amount,
                                   index: billCardListIndex,
                                   billFrequency: billCardListItem.freq,
-                                  date: billCardListItem.time,
+                                  date: billCardListItem.dueDate,
                                 );
                               },
                             );

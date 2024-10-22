@@ -409,7 +409,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                           name: _model.billNameTextController.text,
                           amount:
                               double.tryParse(_model.amountTextController.text),
-                          time: _model.calendarSelectedDay?.start,
+                          dueDate: _model.calendarSelectedDay?.start,
                           freq: _model.frequency,
                         ));
                     FFAppState().update(() {});

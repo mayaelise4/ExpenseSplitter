@@ -13,12 +13,14 @@ class GoalStruct extends FFFirebaseStruct {
     String? description,
     double? progress,
     double? addedAmount,
+    DateTime? actionDate,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _amount = amount,
         _description = description,
         _progress = progress,
         _addedAmount = addedAmount,
+        _actionDate = actionDate,
         super(firestoreUtilData);
 
   // "name" field.
@@ -63,12 +65,20 @@ class GoalStruct extends FFFirebaseStruct {
 
   bool hasAddedAmount() => _addedAmount != null;
 
+  // "actionDate" field.
+  DateTime? _actionDate;
+  DateTime? get actionDate => _actionDate;
+  set actionDate(DateTime? val) => _actionDate = val;
+
+  bool hasActionDate() => _actionDate != null;
+
   static GoalStruct fromMap(Map<String, dynamic> data) => GoalStruct(
         name: data['name'] as String?,
         amount: castToType<double>(data['amount']),
         description: data['description'] as String?,
         progress: castToType<double>(data['progress']),
         addedAmount: castToType<double>(data['addedAmount']),
+        actionDate: data['actionDate'] as DateTime?,
       );
 
   static GoalStruct? maybeFromMap(dynamic data) =>
@@ -80,6 +90,7 @@ class GoalStruct extends FFFirebaseStruct {
         'description': _description,
         'progress': _progress,
         'addedAmount': _addedAmount,
+        'actionDate': _actionDate,
       }.withoutNulls;
 
   @override
@@ -103,6 +114,10 @@ class GoalStruct extends FFFirebaseStruct {
         'addedAmount': serializeParam(
           _addedAmount,
           ParamType.double,
+        ),
+        'actionDate': serializeParam(
+          _actionDate,
+          ParamType.DateTime,
         ),
       }.withoutNulls;
 
@@ -133,6 +148,11 @@ class GoalStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
+        actionDate: deserializeParam(
+          data['actionDate'],
+          ParamType.DateTime,
+          false,
+        ),
       );
 
   @override
@@ -145,12 +165,13 @@ class GoalStruct extends FFFirebaseStruct {
         amount == other.amount &&
         description == other.description &&
         progress == other.progress &&
-        addedAmount == other.addedAmount;
+        addedAmount == other.addedAmount &&
+        actionDate == other.actionDate;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([name, amount, description, progress, addedAmount]);
+      .hash([name, amount, description, progress, addedAmount, actionDate]);
 }
 
 GoalStruct createGoalStruct({
@@ -159,6 +180,7 @@ GoalStruct createGoalStruct({
   String? description,
   double? progress,
   double? addedAmount,
+  DateTime? actionDate,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -170,6 +192,7 @@ GoalStruct createGoalStruct({
       description: description,
       progress: progress,
       addedAmount: addedAmount,
+      actionDate: actionDate,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

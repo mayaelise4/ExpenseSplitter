@@ -1,11 +1,10 @@
-import '/components/empty_widget.dart';
-import '/components/goal_card/goal_card_widget.dart';
-import '/components/input_goal/input_goal_widget.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
+import '/components/inputs/input_goal/input_goal_widget.dart';
+import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
+import '/components/list_items/goal_card/goal_card_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'goal_page_model.dart';
@@ -92,12 +91,12 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                 height: double.infinity,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  image: const DecorationImage(
+                  image: DecorationImage(
                     fit: BoxFit.cover,
-                    alignment: AlignmentDirectional(-0.5, 0.0),
-                    image: CachedNetworkImageProvider(
-                      'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMnx8bW9uZXklMjBiYW5rfGVufDB8fHx8MTcyOTAzNjI0OXww&ixlib=rb-4.0.3&q=85',
-                    ),
+                    alignment: const AlignmentDirectional(-0.5, 0.0),
+                    image: Image.network(
+                      'https://images.unsplash.com/photo-1621862623900-832ef4dd24aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxzaWx2ZXIlMjBjb2luc3xlbnwwfHx8fDE3MjkyMDA0NjF8MA&ixlib=rb-4.0.3&q=80&w=1080',
+                    ).image,
                   ),
                 ),
               ),
@@ -114,7 +113,7 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                           final goalList = FFAppState().goals.toList();
                           if (goalList.isEmpty) {
                             return const Center(
-                              child: EmptyWidget(
+                              child: EmptyListDisplayWidget(
                                 itemName: 'Goals',
                               ),
                             );

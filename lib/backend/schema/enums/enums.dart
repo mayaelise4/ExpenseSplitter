@@ -8,6 +8,12 @@ enum BillTypes {
   Annually,
 }
 
+enum ActionTypes {
+  edit,
+  add,
+  delete,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -21,6 +27,8 @@ T? deserializeEnum<T>(String? value) {
   switch (T) {
     case (BillTypes):
       return BillTypes.values.deserialize(value) as T?;
+    case (ActionTypes):
+      return ActionTypes.values.deserialize(value) as T?;
     default:
       return null;
   }

@@ -8,7 +8,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'add_income_model.dart';
 export 'add_income_model.dart';
 
@@ -53,7 +56,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -73,25 +76,25 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
+        padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
                       borderWidth: 1.0,
                       buttonSize: 44.0,
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.arrow_back_rounded,
                         color: Color(0xFF57636C),
                         size: 24.0,
@@ -112,14 +115,14 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                               .headlineSmall
                               .override(
                                 fontFamily: 'Outfit',
-                                color: const Color(0xFF14181B),
+                                color: Color(0xFF14181B),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                               ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
                             'Fill in the information below to add to an income.',
@@ -127,7 +130,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
+                                  color: Color(0xFF57636C),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -140,7 +143,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                 ],
               ),
             ),
-            const Divider(
+            Divider(
               height: 24.0,
               thickness: 2.0,
               color: Color(0xFFF1F4F8),
@@ -156,7 +159,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(
+                      Container(
                         width: 300.0,
                         child: TextFormField(
                           controller: _model.incomeNameTextController,
@@ -187,7 +190,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Color(0x00000000),
                                 width: 1.0,
                               ),
@@ -223,8 +226,8 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: SizedBox(
+                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: Container(
                           width: 300.0,
                           child: TextFormField(
                             controller: _model.amountTextController,
@@ -256,7 +259,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 1.0,
                                 ),
@@ -301,7 +304,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController ??=
                               FormFieldController<String>(
@@ -330,7 +333,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                           borderColor: FlutterFlowTheme.of(context).primaryText,
                           borderWidth: 1.0,
                           borderRadius: 8.0,
-                          margin: const EdgeInsetsDirectional.fromSTEB(
+                          margin: EdgeInsetsDirectional.fromSTEB(
                               12.0, 0.0, 12.0, 0.0),
                           hidesUnderline: true,
                           isOverButton: false,
@@ -338,7 +341,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                           isMultiSelect: false,
                         ),
                       ),
-                      const Divider(
+                      Divider(
                         height: 24.0,
                         thickness: 2.0,
                         color: Color(0xFFF1F4F8),
@@ -348,7 +351,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: 'Outfit',
-                                  color: const Color(0xFF14181B),
+                                  color: Color(0xFF14181B),
                                   fontSize: 24.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -398,9 +401,9 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
               ],
             ),
             Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     FFAppState().insertAtIndexInBills(
@@ -419,9 +422,9 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter Tight',

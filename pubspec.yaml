@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   auto_size_text: 3.0.0
   cached_network_image: 3.4.1
   cached_network_image_platform_interface: 4.1.1
@@ -108,9 +110,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
-  crypto: any
-  http_parser: any
-  flutter_web_plugins: any
 dependency_overrides:
   http: 1.2.2
   uuid: ^4.0.0

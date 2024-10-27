@@ -3,29 +3,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
+import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class HistoryStruct extends FFFirebaseStruct {
   HistoryStruct({
-    String? actionItem,
+    String? itemName,
     DateTime? actionDate,
     ActionTypes? actionType,
     double? actionAmount,
+    ActionLocations? actionLocation,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _actionItem = actionItem,
+  })  : _itemName = itemName,
         _actionDate = actionDate,
         _actionType = actionType,
         _actionAmount = actionAmount,
+        _actionLocation = actionLocation,
         super(firestoreUtilData);
 
-  // "actionItem" field.
-  String? _actionItem;
-  String get actionItem => _actionItem ?? '';
-  set actionItem(String? val) => _actionItem = val;
+  // "itemName" field.
+  String? _itemName;
+  String get itemName => _itemName ?? '';
+  set itemName(String? val) => _itemName = val;
 
-  bool hasActionItem() => _actionItem != null;
+  bool hasItemName() => _itemName != null;
 
   // "actionDate" field.
   DateTime? _actionDate;
@@ -51,27 +55,37 @@ class HistoryStruct extends FFFirebaseStruct {
 
   bool hasActionAmount() => _actionAmount != null;
 
+  // "actionLocation" field.
+  ActionLocations? _actionLocation;
+  ActionLocations? get actionLocation => _actionLocation;
+  set actionLocation(ActionLocations? val) => _actionLocation = val;
+
+  bool hasActionLocation() => _actionLocation != null;
+
   static HistoryStruct fromMap(Map<String, dynamic> data) => HistoryStruct(
-        actionItem: data['actionItem'] as String?,
+        itemName: data['itemName'] as String?,
         actionDate: data['actionDate'] as DateTime?,
         actionType: deserializeEnum<ActionTypes>(data['actionType']),
         actionAmount: castToType<double>(data['actionAmount']),
+        actionLocation:
+            deserializeEnum<ActionLocations>(data['actionLocation']),
       );
 
   static HistoryStruct? maybeFromMap(dynamic data) =>
       data is Map ? HistoryStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'actionItem': _actionItem,
+        'itemName': _itemName,
         'actionDate': _actionDate,
         'actionType': _actionType?.serialize(),
         'actionAmount': _actionAmount,
+        'actionLocation': _actionLocation?.serialize(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'actionItem': serializeParam(
-          _actionItem,
+        'itemName': serializeParam(
+          _itemName,
           ParamType.String,
         ),
         'actionDate': serializeParam(
@@ -86,12 +100,16 @@ class HistoryStruct extends FFFirebaseStruct {
           _actionAmount,
           ParamType.double,
         ),
+        'actionLocation': serializeParam(
+          _actionLocation,
+          ParamType.Enum,
+        ),
       }.withoutNulls;
 
   static HistoryStruct fromSerializableMap(Map<String, dynamic> data) =>
       HistoryStruct(
-        actionItem: deserializeParam(
-          data['actionItem'],
+        itemName: deserializeParam(
+          data['itemName'],
           ParamType.String,
           false,
         ),
@@ -110,6 +128,11 @@ class HistoryStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
+        actionLocation: deserializeParam<ActionLocations>(
+          data['actionLocation'],
+          ParamType.Enum,
+          false,
+        ),
       );
 
   @override
@@ -118,32 +141,35 @@ class HistoryStruct extends FFFirebaseStruct {
   @override
   bool operator ==(Object other) {
     return other is HistoryStruct &&
-        actionItem == other.actionItem &&
+        itemName == other.itemName &&
         actionDate == other.actionDate &&
         actionType == other.actionType &&
-        actionAmount == other.actionAmount;
+        actionAmount == other.actionAmount &&
+        actionLocation == other.actionLocation;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([actionItem, actionDate, actionType, actionAmount]);
+      .hash([itemName, actionDate, actionType, actionAmount, actionLocation]);
 }
 
 HistoryStruct createHistoryStruct({
-  String? actionItem,
+  String? itemName,
   DateTime? actionDate,
   ActionTypes? actionType,
   double? actionAmount,
+  ActionLocations? actionLocation,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     HistoryStruct(
-      actionItem: actionItem,
+      itemName: itemName,
       actionDate: actionDate,
       actionType: actionType,
       actionAmount: actionAmount,
+      actionLocation: actionLocation,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

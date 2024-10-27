@@ -12,6 +12,14 @@ enum ActionTypes {
   edit,
   add,
   delete,
+  created,
+}
+
+enum ActionLocations {
+  Spending,
+  Goals,
+  Pocket,
+  Bills,
 }
 
 extension FFEnumExtensions<T extends Enum> on T {
@@ -29,6 +37,8 @@ T? deserializeEnum<T>(String? value) {
       return BillTypes.values.deserialize(value) as T?;
     case (ActionTypes):
       return ActionTypes.values.deserialize(value) as T?;
+    case (ActionLocations):
+      return ActionLocations.values.deserialize(value) as T?;
     default:
       return null;
   }

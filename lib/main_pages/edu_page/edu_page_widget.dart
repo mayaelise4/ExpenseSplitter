@@ -3,8 +3,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'edu_page_model.dart';
 export 'edu_page_model.dart';
 
@@ -30,7 +33,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await _model.pageViewController?.animateToPage(
         2,
-        duration: const Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 500),
         curve: Curves.ease,
       );
     });
@@ -67,7 +70,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                   borderRadius: 30.0,
                   borderWidth: 1.0,
                   buttonSize: 60.0,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.white,
                     size: 30.0,
@@ -84,7 +87,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                         letterSpacing: 0.0,
                       ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: true,
                 elevation: 10.0,
               )
@@ -106,17 +109,17 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                       onPressed: () async {
                         await _model.pageViewController?.animateToPage(
                           0,
-                          duration: const Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       },
                       text: 'Ask Splitter',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -132,17 +135,17 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                       onPressed: () async {
                         await _model.pageViewController?.animateToPage(
                           1,
-                          duration: const Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       },
                       text: 'Budgeting',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -158,17 +161,17 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                       onPressed: () async {
                         await _model.pageViewController?.animateToPage(
                           2,
-                          duration: const Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       },
                       text: 'Saving',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -184,17 +187,17 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                       onPressed: () async {
                         await _model.pageViewController?.animateToPage(
                           3,
-                          duration: const Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       },
                       text: 'Income',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -210,17 +213,17 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                       onPressed: () async {
                         await _model.pageViewController?.animateToPage(
                           4,
-                          duration: const Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       },
                       text: 'Investing',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -236,17 +239,17 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                       onPressed: () async {
                         await _model.pageViewController?.animateToPage(
                           5,
-                          duration: const Duration(milliseconds: 500),
+                          duration: Duration(milliseconds: 500),
                           curve: Curves.ease,
                         );
                       },
                       text: 'Debt',
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -262,12 +265,12 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                 ),
               ),
               Expanded(
-                child: SizedBox(
+                child: Container(
                   width: double.infinity,
                   height: 500.0,
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
                     child: PageView(
                       controller: _model.pageViewController ??=
                           PageController(initialPage: 0),
@@ -294,7 +297,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: RichText(
                                         textScaler:
                                             MediaQuery.of(context).textScaler,
@@ -357,7 +360,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 12.0, 10.0, 0.0),
                                       child: TextFormField(
                                         controller:
@@ -471,7 +474,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(0.0, 1.0),
+                                    alignment: AlignmentDirectional(0.0, 1.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         // Sending user question to gemini and saving geminis response into the variable convo
@@ -488,12 +491,12 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                       text: 'send',
                                       options: FFButtonOptions(
                                         height: 35.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
+                                            EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
-                                        color: const Color(0xC693C572),
+                                        color: Color(0xC693C572),
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
@@ -561,7 +564,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
-                                  const TextSpan(
+                                  TextSpan(
                                     text:
                                         'Budgeting isn\'t just for grown-ups with full-time jobs—it\'s for anyone who wants to be in control of their money. As a student, budgeting can help you manage tuition, books, rent, and still have enough left over for fun without the guilt.',
                                     style: TextStyle(),
@@ -576,7 +579,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,
                                 text: TextSpan(
@@ -593,7 +596,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text: '',
                                       style: TextStyle(),
                                     )
@@ -608,7 +611,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,
                                 text: TextSpan(
@@ -624,7 +627,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'Whether it\'s from a part-time job, internships, or student loans, the first step is knowing how much money you have coming in each month. Got different income streams? No worries, Splitter makes it easy to track them all in one place.',
                                       style: TextStyle(),
@@ -640,7 +643,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,
                                 text: TextSpan(
@@ -656,7 +659,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'List out everything you spend money on—rent, food, textbooks, and yes, even that daily coffee habit. Don’t forget subscriptions like Netflix or Spotify!',
                                       style: TextStyle(),
@@ -672,7 +675,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,
                                 text: TextSpan(
@@ -688,7 +691,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'Want to save for spring break or pay off some student loans? Set goals in the app and Splitter will help you track your progress and give tips on how to reach them.',
                                       style: TextStyle(),
@@ -704,7 +707,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,
                                 text: TextSpan(
@@ -720,7 +723,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'After you account for all your bills and expenses, how much money do you have left for fun? Splitter will calculate your \"safe-to-spend\" amount so you don’t accidentally blow your budget.',
                                       style: TextStyle(),
@@ -736,9 +739,9 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               ),
                             ),
                           ]
-                              .divide(const SizedBox(height: 10.0))
-                              .addToStart(const SizedBox(height: 10.0))
-                              .addToEnd(const SizedBox(height: 30.0)),
+                              .divide(SizedBox(height: 10.0))
+                              .addToStart(SizedBox(height: 10.0))
+                              .addToEnd(SizedBox(height: 30.0)),
                         ),
                         SingleChildScrollView(
                           child: Column(
@@ -794,7 +797,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'We get it—saving might seem impossible when you\'re in college, but starting small can have a big payoff. Even setting aside a little each month builds healthy habits and gives you a cushion for unexpected expenses (think car repairs or last-minute flights).',
                                       style: TextStyle(),
@@ -809,7 +812,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -826,7 +829,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -841,7 +844,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -857,7 +860,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Set up Splitter to automatically move a small portion of your income into a savings category every month. Out of sight, out of mind.',
                                         style: TextStyle(),
@@ -873,7 +876,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -889,7 +892,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Create a safety net for yourself by saving enough to cover 1-3 months of expenses. Start small, but build up over time.',
                                         style: TextStyle(),
@@ -905,7 +908,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -921,7 +924,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Make saving fun! Try a challenge like saving \$5 every week or putting aside money from odd jobs or freelance gigs.',
                                         style: TextStyle(),
@@ -951,7 +954,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'Whether it\'s a new laptop, a car, or a dream vacation, you can set and track savings goals right in the app. We\'ll give you a breakdown of how much you need to save every month to hit your goal in time.',
                                       style: TextStyle(),
@@ -966,9 +969,9 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 10.0))
-                                .addToStart(const SizedBox(height: 10.0))
-                                .addToEnd(const SizedBox(height: 30.0)),
+                                .divide(SizedBox(height: 10.0))
+                                .addToStart(SizedBox(height: 10.0))
+                                .addToEnd(SizedBox(height: 30.0)),
                           ),
                         ),
                         SingleChildScrollView(
@@ -1008,7 +1011,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 color: FlutterFlowTheme.of(context).alternate,
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1025,7 +1028,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -1041,7 +1044,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1057,7 +1060,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'This is your steady paycheck, like a part-time job, where you know exactly how much you\'ll earn each month.',
                                         style: TextStyle(),
@@ -1075,7 +1078,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1091,7 +1094,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Freelancing, gig work (like driving for Uber or freelancing on Fiverr), or selling items online—your earnings may vary each month.',
                                         style: TextStyle(),
@@ -1109,7 +1112,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1126,7 +1129,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -1141,7 +1144,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1157,7 +1160,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Whether it’s tutoring, designing websites, or doing odd jobs, side hustles are a great way to bring in extra cash while studying.',
                                         style: TextStyle(),
@@ -1174,7 +1177,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1190,7 +1193,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Use platforms like Upwork or Fiverr to offer your skills (writing, coding, graphic design, etc.) to clients who will pay you on a per-project basis.',
                                         style: TextStyle(),
@@ -1207,7 +1210,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1223,7 +1226,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Look for flexible on-campus jobs. Working at the library, student center, or as a research assistant can be convenient and often allows you to work around your class schedule.',
                                         style: TextStyle(),
@@ -1240,7 +1243,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1257,7 +1260,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             ' Splitter’s flexible budgeting is perfect for students with inconsistent or irregular income. You can add in your earnings, even if it’s different each time, and Splitter will adjust your budget accordingly.',
                                         style: TextStyle(
@@ -1276,9 +1279,9 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 10.0))
-                                .addToStart(const SizedBox(height: 10.0))
-                                .addToEnd(const SizedBox(height: 30.0)),
+                                .divide(SizedBox(height: 10.0))
+                                .addToStart(SizedBox(height: 10.0))
+                                .addToEnd(SizedBox(height: 30.0)),
                           ),
                         ),
                         SingleChildScrollView(
@@ -1320,7 +1323,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 color: FlutterFlowTheme.of(context).alternate,
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1336,7 +1339,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             ' It might seem too soon to think about investing, but the earlier you start, the more time your money has to grow. Even small investments can add up thanks to something called compound interest. Start small and learn as you go.',
                                         style: TextStyle(),
@@ -1353,7 +1356,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1370,7 +1373,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -1385,7 +1388,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1401,7 +1404,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             ' Owning a share of a company means you have a stake in its profits. Some stocks pay dividends, meaning you\'ll earn money just for owning them.',
                                         style: TextStyle(),
@@ -1419,7 +1422,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1435,7 +1438,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Think of these like a bundle of stocks—when you buy one ETF, you\'re investing in a range of companies.',
                                         style: TextStyle(),
@@ -1453,7 +1456,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1469,7 +1472,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Bonds are a bit safer than stocks and pay you interest for lending your money to the government or companies.',
                                         style: TextStyle(),
@@ -1487,7 +1490,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1504,7 +1507,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -1519,7 +1522,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1535,7 +1538,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Use apps like Robinhood or Acorns that make it easy to invest small amounts. You don’t need a ton of cash to start!',
                                         style: TextStyle(),
@@ -1552,7 +1555,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1568,7 +1571,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Set aside money in Splitter for investments and treat it like another bill to pay every month.',
                                         style: TextStyle(),
@@ -1585,7 +1588,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1601,7 +1604,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Don\'t put all your money in one place. Diversify your investments—stocks, bonds, and ETFs can all help you grow your savings over time.',
                                         style: TextStyle(
@@ -1620,9 +1623,9 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 10.0))
-                                .addToStart(const SizedBox(height: 10.0))
-                                .addToEnd(const SizedBox(height: 30.0)),
+                                .divide(SizedBox(height: 10.0))
+                                .addToStart(SizedBox(height: 10.0))
+                                .addToEnd(SizedBox(height: 30.0)),
                           ),
                         ),
                         SingleChildScrollView(
@@ -1676,7 +1679,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'Debt is a reality for most students, whether it’s student loans, credit cards, or personal loans. The key is to manage it smartly so it doesn’t get out of hand.',
                                       style: TextStyle(),
@@ -1691,7 +1694,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1707,7 +1710,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -1722,7 +1725,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1738,7 +1741,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'Federal loans usually have lower interest rates and better repayment options compared to private loans.',
                                         style: TextStyle(),
@@ -1754,7 +1757,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1770,7 +1773,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'They’re convenient but come with high-interest rates. Avoid carrying a balance month-to-month to avoid hefty interest fees.',
                                         style: TextStyle(),
@@ -1786,7 +1789,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1802,7 +1805,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text: '',
                                         style: TextStyle(),
                                       )
@@ -1817,7 +1820,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1834,7 +1837,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'If possible, always pay more than the minimum amount on loans or credit card debt to avoid paying tons of interest over time.',
                                         style: TextStyle(),
@@ -1850,7 +1853,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: RichText(
                                   textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
@@ -1866,7 +1869,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
-                                      const TextSpan(
+                                      TextSpan(
                                         text:
                                             'The avalanche method targets high-interest debt first, while the snowball method focuses on paying off smaller debts first. Choose the one that keeps you motivated.',
                                         style: TextStyle(),
@@ -1896,7 +1899,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text:
                                           'Use Splitter to list all your debts and track payments. It’ll remind you of due dates and show you how your payments are reducing your overall balance.',
                                       style: TextStyle(),
@@ -1911,9 +1914,9 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 10.0))
-                                .addToStart(const SizedBox(height: 10.0))
-                                .addToEnd(const SizedBox(height: 30.0)),
+                                .divide(SizedBox(height: 10.0))
+                                .addToStart(SizedBox(height: 10.0))
+                                .addToEnd(SizedBox(height: 30.0)),
                           ),
                         ),
                       ],
@@ -1921,7 +1924,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                   ),
                 ),
               ),
-            ].addToEnd(const SizedBox(height: 32.0)),
+            ].addToEnd(SizedBox(height: 32.0)),
           ),
         ),
       ),

@@ -3,9 +3,13 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'reset_password_model.dart';
 export 'reset_password_model.dart';
 
@@ -60,15 +64,15 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.0, 60.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(-0.349, 0),
-            end: const Offset(0, 0),
+            begin: Offset(-0.349, 0),
+            end: Offset(0, 0),
           ),
         ],
       ),
@@ -101,24 +105,24 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                 child: Container(
                   width: 100.0,
                   height: double.infinity,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
                   ),
-                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.0, -1.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 44.0, 0.0, 0.0),
                           child: Container(
                             width: double.infinity,
-                            constraints: const BoxConstraints(
+                            constraints: BoxConstraints(
                               maxWidth: 602.0,
                             ),
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(16.0),
@@ -127,16 +131,16 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                 topRight: Radius.circular(0.0),
                               ),
                             ),
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
+                            alignment: AlignmentDirectional(-1.0, 0.0),
                             child: Align(
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(-1.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Splitter',
@@ -144,7 +148,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                           .headlineMedium
                                           .override(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: const Color(0xFF101213),
+                                            color: Color(0xFF101213),
                                             fontSize: 24.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
@@ -159,29 +163,29 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                         Container(
                           width: double.infinity,
                           height: 700.0,
-                          constraints: const BoxConstraints(
+                          constraints: BoxConstraints(
                             maxWidth: 602.0,
                           ),
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.white,
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             child: Column(
                               children: [
                                 Align(
-                                  alignment: const Alignment(-1.0, 0),
+                                  alignment: Alignment(-1.0, 0),
                                   child: TabBar(
                                     isScrollable: true,
-                                    labelColor: const Color(0xFF101213),
-                                    unselectedLabelColor: const Color(0xFF57636C),
-                                    labelPadding: const EdgeInsets.all(16.0),
+                                    labelColor: Color(0xFF101213),
+                                    unselectedLabelColor: Color(0xFF57636C),
+                                    labelPadding: EdgeInsets.all(16.0),
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .displaySmall
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF101213),
+                                          color: Color(0xFF101213),
                                           fontSize: 36.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
@@ -191,16 +195,16 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                             .displaySmall
                                             .override(
                                               fontFamily: 'Plus Jakarta Sans',
-                                              color: const Color(0xFF101213),
+                                              color: Color(0xFF101213),
                                               fontSize: 36.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
                                             ),
-                                    indicatorColor: const Color(0xFF4B39EF),
+                                    indicatorColor: Color(0xFF4B39EF),
                                     indicatorWeight: 4.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 16.0, 12.0),
-                                    tabs: const [
+                                    tabs: [
                                       Tab(
                                         text: 'Password Reset',
                                       ),
@@ -217,10 +221,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                     children: [
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 0.0, 12.0, 12.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -228,7 +232,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 12.0, 0.0, 24.0),
                                                 child: Text(
@@ -240,7 +244,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF57636C),
+                                                            Color(0xFF57636C),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -249,10 +253,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 16.0),
-                                                child: SizedBox(
+                                                child: Container(
                                                   width: double.infinity,
                                                   child: TextFormField(
                                                     controller: _model
@@ -260,7 +264,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                     focusNode: _model
                                                         .newPasswordFocusNode,
                                                     autofocus: false,
-                                                    autofillHints: const [
+                                                    autofillHints: [
                                                       AutofillHints.newPassword
                                                     ],
                                                     obscureText: !_model
@@ -274,7 +278,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: const Color(
+                                                                color: Color(
                                                                     0xFF57636C),
                                                                 fontSize: 14.0,
                                                                 letterSpacing:
@@ -285,7 +289,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                               ),
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFE0E3E7),
                                                           width: 2.0,
@@ -296,7 +300,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFF4B39EF),
                                                           width: 2.0,
@@ -307,7 +311,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       ),
                                                       errorBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFFF5963),
                                                           width: 2.0,
@@ -318,7 +322,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       ),
                                                       focusedErrorBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFFF5963),
                                                           width: 2.0,
@@ -330,7 +334,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       filled: true,
                                                       fillColor: Colors.white,
                                                       contentPadding:
-                                                          const EdgeInsets.all(24.0),
+                                                          EdgeInsets.all(24.0),
                                                       suffixIcon: InkWell(
                                                         onTap: () =>
                                                             safeSetState(
@@ -349,7 +353,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                               : Icons
                                                                   .visibility_off_outlined,
                                                           color:
-                                                              const Color(0xFF757575),
+                                                              Color(0xFF757575),
                                                           size: 22.0,
                                                         ),
                                                       ),
@@ -361,14 +365,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
                                                     cursorColor:
-                                                        const Color(0xFF4B39EF),
+                                                        Color(0xFF4B39EF),
                                                     validator: _model
                                                         .newPasswordTextControllerValidator
                                                         .asValidator(context),
@@ -376,10 +380,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 16.0),
-                                                child: SizedBox(
+                                                child: Container(
                                                   width: double.infinity,
                                                   child: TextFormField(
                                                     controller: _model
@@ -387,7 +391,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                     focusNode: _model
                                                         .confirmNewPasswordFocusNode,
                                                     autofocus: false,
-                                                    autofillHints: const [
+                                                    autofillHints: [
                                                       AutofillHints.newPassword
                                                     ],
                                                     obscureText: !_model
@@ -402,7 +406,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: const Color(
+                                                                color: Color(
                                                                     0xFF57636C),
                                                                 fontSize: 14.0,
                                                                 letterSpacing:
@@ -413,7 +417,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                               ),
                                                       enabledBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFE0E3E7),
                                                           width: 2.0,
@@ -424,7 +428,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       ),
                                                       focusedBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFF4B39EF),
                                                           width: 2.0,
@@ -435,7 +439,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       ),
                                                       errorBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFFF5963),
                                                           width: 2.0,
@@ -446,7 +450,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       ),
                                                       focusedErrorBorder:
                                                           OutlineInputBorder(
-                                                        borderSide: const BorderSide(
+                                                        borderSide: BorderSide(
                                                           color:
                                                               Color(0xFFFF5963),
                                                           width: 2.0,
@@ -458,7 +462,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       filled: true,
                                                       fillColor: Colors.white,
                                                       contentPadding:
-                                                          const EdgeInsets.all(24.0),
+                                                          EdgeInsets.all(24.0),
                                                       suffixIcon: InkWell(
                                                         onTap: () =>
                                                             safeSetState(
@@ -477,7 +481,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                               : Icons
                                                                   .visibility_off_outlined,
                                                           color:
-                                                              const Color(0xFF57636C),
+                                                              Color(0xFF57636C),
                                                           size: 24.0,
                                                         ),
                                                       ),
@@ -489,14 +493,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
                                                     cursorColor:
-                                                        const Color(0xFF4B39EF),
+                                                        Color(0xFF4B39EF),
                                                     validator: _model
                                                         .confirmNewPasswordTextControllerValidator
                                                         .asValidator(context),
@@ -504,10 +508,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
                                                   child: FFButtonWidget(
@@ -522,7 +526,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                             _model.apiResult2pp =
                                                                 await ResetPasswordCall
                                                                     .call(
-                                                              oobCode: widget
+                                                              oobCode: widget!
                                                                   .oobCode,
                                                               newPassword: _model
                                                                   .newPasswordTextController
@@ -544,20 +548,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                       width: 230.0,
                                                       height: 52.0,
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
                                                                   0.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
                                                                   0.0,
                                                                   0.0),
-                                                      color: const Color(0xFF4B39EF),
+                                                      color: Color(0xFF4B39EF),
                                                       textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -575,7 +579,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                                                                         .w500,
                                                               ),
                                                       elevation: 3.0,
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -616,7 +620,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget>
                     height: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.cover,
                         image: CachedNetworkImageProvider(
                           'https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',

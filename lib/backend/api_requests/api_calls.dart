@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
 
@@ -17,13 +19,13 @@ class ResetPasswordCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "oobCode": "$oobCode",
-  "newPassword": "$newPassword"
+  "oobCode": "${oobCode}",
+  "newPassword": "${newPassword}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'resetPassword',
       apiUrl:
-          'https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=$apiKey',
+          'https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=${apiKey}',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',

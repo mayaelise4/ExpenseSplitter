@@ -1,10 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/inputs/confirm_action/confirm_action_widget.dart';
+import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/confirm_action/confirm_action_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'transaction_model.dart';
 export 'transaction_model.dart';
@@ -16,8 +20,8 @@ class TransactionWidget extends StatefulWidget {
     double? transactionAmount,
     required this.transactionDate,
     required this.transactionIndex,
-  })  : transactionName = transactionName ?? ' ',
-        transactionAmount = transactionAmount ?? 0.00;
+  })  : this.transactionName = transactionName ?? ' ',
+        this.transactionAmount = transactionAmount ?? 0.00;
 
   final String transactionName;
   final double transactionAmount;
@@ -57,13 +61,13 @@ class _TransactionWidgetState extends State<TransactionWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 80.0,
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               blurRadius: 3.0,
               color: Color(0x35000000),
@@ -76,25 +80,25 @@ class _TransactionWidgetState extends State<TransactionWidget> {
           borderRadius: BorderRadius.circular(8.0),
           shape: BoxShape.rectangle,
           border: Border.all(
-            color: const Color(0xFFF1F4F8),
+            color: Color(0xFFF1F4F8),
             width: 1.0,
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(4.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                 child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: const Color(0x4C4B39EF),
+                  color: Color(0x4C4B39EF),
                   elevation: 0.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0),
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.monetization_on_rounded,
@@ -106,7 +110,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +118,12 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                     children: [
                       Text(
                         valueOrDefault<String>(
-                          widget.transactionName,
+                          widget!.transactionName,
                           'transaction',
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
                               fontFamily: 'Plus Jakarta Sans',
-                              color: const Color(0xFF14181B),
+                              color: Color(0xFF14181B),
                               fontSize: 16.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
@@ -130,7 +134,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +143,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                     Text(
                       valueOrDefault<String>(
                         formatNumber(
-                          widget.transactionAmount,
+                          widget!.transactionAmount,
                           formatType: FormatType.decimal,
                           decimalType: DecimalType.periodDecimal,
                           currency: '\$',
@@ -149,7 +153,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.of(context).titleLarge.override(
                             fontFamily: 'Outfit',
-                            color: const Color(0xFF14181B),
+                            color: Color(0xFF14181B),
                             fontSize: 22.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
@@ -157,12 +161,12 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
                           dateTimeFormat(
                             "Md",
-                            widget.transactionDate,
+                            widget!.transactionDate,
                             locale: FFLocalizations.of(context).languageCode,
                           ),
                           'date',
@@ -171,7 +175,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                         style:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
+                                  color: Color(0xFF57636C),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -182,7 +186,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderRadius: 8.0,
                   buttonSize: 40.0,
@@ -200,7 +204,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                       builder: (context) {
                         return Padding(
                           padding: MediaQuery.viewInsetsOf(context),
-                          child: const ConfirmActionWidget(),
+                          child: ConfirmActionWidget(),
                         );
                       },
                     ).then(
@@ -208,7 +212,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
 
                     if (_model.confirm == true) {
                       FFAppState().removeAtIndexFromTransactions(
-                          widget.transactionIndex!);
+                          widget!.transactionIndex!);
                       FFAppState().update(() {});
 
                       await currentUserReference!.update({
@@ -217,6 +221,19 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                             'Transactions': getTransactionListFirestoreData(
                               FFAppState().Transactions,
                             ),
+                            'ActionHistory': FieldValue.arrayUnion([
+                              getHistoryFirestoreData(
+                                createHistoryStruct(
+                                  itemName: widget!.transactionName,
+                                  actionDate: getCurrentTimestamp,
+                                  actionType: ActionTypes.delete,
+                                  actionAmount: widget!.transactionAmount,
+                                  actionLocation: ActionLocations.Spending,
+                                  clearUnsetFields: false,
+                                ),
+                                true,
+                              )
+                            ]),
                           },
                         ),
                       });

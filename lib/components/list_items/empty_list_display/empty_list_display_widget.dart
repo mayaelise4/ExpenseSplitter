@@ -1,6 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'empty_list_display_model.dart';
 export 'empty_list_display_model.dart';
 
@@ -43,7 +45,7 @@ class _EmptyListDisplayWidgetState extends State<EmptyListDisplayWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
       child: Stack(
         children: [
           Column(
@@ -52,9 +54,9 @@ class _EmptyListDisplayWidgetState extends State<EmptyListDisplayWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                   child: Container(
                     width: valueOrDefault<double>(
                       MediaQuery.sizeOf(context).width,
@@ -63,7 +65,7 @@ class _EmptyListDisplayWidgetState extends State<EmptyListDisplayWidget> {
                     height: 200.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -89,9 +91,9 @@ class _EmptyListDisplayWidgetState extends State<EmptyListDisplayWidget> {
                           size: 72.0,
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Text(
-                            'No ${widget.itemName}',
+                            'No ${widget!.itemName}',
                             style: FlutterFlowTheme.of(context)
                                 .headlineMedium
                                 .override(
@@ -102,7 +104,7 @@ class _EmptyListDisplayWidgetState extends State<EmptyListDisplayWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
                             'It seems that this list is empty',

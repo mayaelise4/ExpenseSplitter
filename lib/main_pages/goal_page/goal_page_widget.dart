@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/components/inputs/input_goal/input_goal_widget.dart';
 import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/goal_card/goal_card_widget.dart';
@@ -5,7 +6,9 @@ import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'goal_page_model.dart';
 export 'goal_page_model.dart';
@@ -45,20 +48,20 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFF1F4F8),
+        backgroundColor: Color(0xFFF1F4F8),
         appBar: responsiveVisibility(
           context: context,
           tabletLandscape: false,
         )
             ? AppBar(
-                backgroundColor: const Color(0xFF4B39EF),
+                backgroundColor: Color(0xFF4B39EF),
                 automaticallyImplyLeading: false,
                 leading: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 30.0,
                   borderWidth: 1.0,
                   buttonSize: 60.0,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.white,
                     size: 30.0,
@@ -77,7 +80,7 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                         fontWeight: FontWeight.w500,
                       ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 0.0,
               )
@@ -93,7 +96,7 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    alignment: const AlignmentDirectional(-0.5, 0.0),
+                    alignment: AlignmentDirectional(-0.5, 0.0),
                     image: Image.network(
                       'https://images.unsplash.com/photo-1621862623900-832ef4dd24aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxzaWx2ZXIlMjBjb2luc3xlbnwwfHx8fDE3MjkyMDA0NjF8MA&ixlib=rb-4.0.3&q=80&w=1080',
                     ).image,
@@ -107,12 +110,12 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                       child: Builder(
                         builder: (context) {
                           final goalList = FFAppState().goals.toList();
                           if (goalList.isEmpty) {
-                            return const Center(
+                            return Center(
                               child: EmptyListDisplayWidget(
                                 itemName: 'Goals',
                               ),
@@ -164,7 +167,7 @@ class _GoalPageWidgetState extends State<GoalPageWidget> {
                               onTap: () => FocusScope.of(context).unfocus(),
                               child: Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
-                                child: const SizedBox(
+                                child: Container(
                                   height: 500.0,
                                   child: InputGoalWidget(),
                                 ),

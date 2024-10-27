@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/components/inputs/input_transaction/input_transaction_widget.dart';
 import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/transaction/transaction_widget.dart';
@@ -5,10 +6,12 @@ import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'spending_page_model.dart';
 export 'spending_page_model.dart';
@@ -54,21 +57,21 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF1F4F8),
+      backgroundColor: Color(0xFFF1F4F8),
       appBar: responsiveVisibility(
         context: context,
         tabletLandscape: false,
       )
           ? AppBar(
-              backgroundColor: const Color(0xFF4B39EF),
+              backgroundColor: Color(0xFF4B39EF),
               automaticallyImplyLeading: false,
               leading: Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 30.0,
                   buttonSize: 46.0,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.white,
                     size: 25.0,
@@ -88,7 +91,7 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              actions: const [],
+              actions: [],
               centerTitle: false,
               elevation: 0.0,
             )
@@ -102,8 +105,8 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: CachedNetworkImage(
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    fadeOutDuration: const Duration(milliseconds: 500),
+                    fadeInDuration: Duration(milliseconds: 500),
+                    fadeOutDuration: Duration(milliseconds: 500),
                     imageUrl:
                         'https://images.unsplash.com/photo-1589758438368-0ad531db3366?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8c3BlbmRpbmd8ZW58MHx8fHwxNzI5MDM0MjEyfDA&ixlib=rb-4.0.3&q=80&w=1080',
                     width: 410.0,
@@ -117,10 +120,10 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Color(0xFF4B39EF),
                             boxShadow: [
                               BoxShadow(
@@ -140,13 +143,13 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 8.0, 20.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -158,7 +161,7 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 4.0, 0.0),
                                             child: Text(
                                               'Total Spent',
@@ -169,7 +172,7 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                                                   .override(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xB3FFFFFF),
+                                                    color: Color(0xB3FFFFFF),
                                                     fontSize: 12.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w300,
@@ -216,14 +219,14 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 24.0),
                             child: Builder(
                               builder: (context) {
                                 final transactionListItem =
                                     FFAppState().Transactions.toList();
                                 if (transactionListItem.isEmpty) {
-                                  return const Center(
+                                  return Center(
                                     child: EmptyListDisplayWidget(
                                       itemName: 'Transactions',
                                     ),
@@ -264,7 +267,7 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                                               transactionListItemIndex,
                                         ),
                                       );
-                                    }).addToEnd(const SizedBox(height: 88.0)),
+                                    }).addToEnd(SizedBox(height: 88.0)),
                                   ),
                                 );
                               },
@@ -292,7 +295,7 @@ class _SpendingPageWidgetState extends State<SpendingPageWidget> {
                             builder: (context) {
                               return Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
-                                child: const SizedBox(
+                                child: Container(
                                   height: 500.0,
                                   child: InputTransactionWidget(),
                                 ),

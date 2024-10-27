@@ -1,11 +1,14 @@
+import '/backend/schema/structs/index.dart';
 import '/components/inputs/add_bill/add_bill_widget.dart';
 import '/components/list_items/income_card/income_card_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'income_page_model.dart';
 export 'income_page_model.dart';
@@ -45,20 +48,20 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFF1F4F8),
+        backgroundColor: Color(0xFFF1F4F8),
         appBar: responsiveVisibility(
           context: context,
           tabletLandscape: false,
         )
             ? AppBar(
-                backgroundColor: const Color(0xFF4B39EF),
+                backgroundColor: Color(0xFF4B39EF),
                 automaticallyImplyLeading: false,
                 leading: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 30.0,
                   borderWidth: 1.0,
                   buttonSize: 60.0,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.white,
                     size: 30.0,
@@ -77,7 +80,7 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                         fontWeight: FontWeight.w500,
                       ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 0.0,
               )
@@ -146,7 +149,7 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                 ],
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -166,7 +169,7 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                                 onTap: () => FocusScope.of(context).unfocus(),
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: const AddBillWidget(),
+                                  child: AddBillWidget(),
                                 ),
                               );
                             },

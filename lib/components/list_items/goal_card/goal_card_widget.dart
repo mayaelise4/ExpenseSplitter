@@ -1,12 +1,21 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/confirm_action/confirm_action_widget.dart';
 import '/components/inputs/add_to_goal/add_to_goal_widget.dart';
-import '/components/inputs/confirm_action/confirm_action_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:provider/provider.dart';
 import 'goal_card_model.dart';
 export 'goal_card_model.dart';
 
@@ -19,10 +28,10 @@ class GoalCardWidget extends StatefulWidget {
     double? goalProgress,
     required this.index,
     double? added,
-  })  : goalName = goalName ?? 'Goal Name',
-        goalAmount = goalAmount ?? 0.00,
-        goalProgress = goalProgress ?? 0.00,
-        added = added ?? 0.0;
+  })  : this.goalName = goalName ?? 'Goal Name',
+        this.goalAmount = goalAmount ?? 0.00,
+        this.goalProgress = goalProgress ?? 0.00,
+        this.added = added ?? 0.0;
 
   final String goalName;
   final String? goalDesc;
@@ -67,8 +76,8 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(0.0, 50.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 50.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -86,8 +95,8 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(40.0, 0.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(40.0, 0.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -105,15 +114,15 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(-50.0, 0.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(-50.0, 0.0),
+            end: Offset(0.0, 0.0),
           ),
           ScaleEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(0.7, 0.7),
-            end: const Offset(1.0, 1.0),
+            begin: Offset(0.7, 0.7),
+            end: Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -137,14 +146,16 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 2.0),
+      padding: EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 2.0),
       child: Container(
         width: double.infinity,
         height: 170.0,
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               blurRadius: 5.0,
               color: Color(0x23000000),
@@ -157,7 +168,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -168,11 +179,11 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.goalName,
+                      widget!.goalName,
                       style:
                           FlutterFlowTheme.of(context).headlineSmall.override(
                                 fontFamily: 'Outfit',
-                                color: const Color(0xFF14181B),
+                                color: Color(0xFF14181B),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
@@ -180,16 +191,16 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
-                          widget.goalDesc,
+                          widget!.goalDesc,
                           'Goal Desc',
                         ),
                         style:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
+                                  color: Color(0xFF57636C),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -198,11 +209,11 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
                           formatNumber(
-                            widget.goalAmount,
+                            widget!.goalAmount,
                             formatType: FormatType.decimal,
                             decimalType: DecimalType.periodDecimal,
                             currency: '\$',
@@ -212,7 +223,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                         style:
                             FlutterFlowTheme.of(context).displaySmall.override(
                                   fontFamily: 'Outfit',
-                                  color: const Color(0xFF14181B),
+                                  color: Color(0xFF14181B),
                                   fontSize: 22.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -229,19 +240,19 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                 children: [
                   CircularPercentIndicator(
                     percent: valueOrDefault<double>(
-                      widget.goalProgress,
+                      widget!.goalProgress,
                       0.0,
                     ),
                     radius: 45.0,
                     lineWidth: 8.0,
                     animation: true,
                     animateFromLastPercent: true,
-                    progressColor: const Color(0xFF4B39EF),
-                    backgroundColor: const Color(0x4C4B39EF),
+                    progressColor: Color(0xFF4B39EF),
+                    backgroundColor: Color(0x4C4B39EF),
                     center: Text(
                       valueOrDefault<String>(
                         formatNumber(
-                          widget.goalProgress,
+                          widget!.goalProgress,
                           formatType: FormatType.percent,
                         ),
                         '0',
@@ -249,7 +260,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
                                 fontFamily: 'Outfit',
-                                color: const Color(0xFF14181B),
+                                color: Color(0xFF14181B),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,
@@ -260,7 +271,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                   Text(
                     valueOrDefault<String>(
                       formatNumber(
-                        widget.added,
+                        widget!.added,
                         formatType: FormatType.decimal,
                         decimalType: DecimalType.periodDecimal,
                         currency: '\$',
@@ -297,7 +308,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: const SizedBox(
+                            child: Container(
                               height: 300.0,
                               child: ConfirmActionWidget(),
                             ),
@@ -307,18 +318,41 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
-                        FFAppState().removeAtIndexFromGoals(widget.index!);
+                        FFAppState().removeAtIndexFromGoals(widget!.index!);
                         FFAppState().update(() {});
+
+                        await currentUserReference!.update({
+                          ...mapToFirestore(
+                            {
+                              'goals': getGoalListFirestoreData(
+                                FFAppState().goals,
+                              ),
+                              'ActionHistory': FieldValue.arrayUnion([
+                                getHistoryFirestoreData(
+                                  createHistoryStruct(
+                                    itemName: widget!.goalName,
+                                    actionDate: getCurrentTimestamp,
+                                    actionType: ActionTypes.delete,
+                                    actionLocation: ActionLocations.Goals,
+                                    actionAmount: widget!.added,
+                                    clearUnsetFields: false,
+                                  ),
+                                  true,
+                                )
+                              ]),
+                            },
+                          ),
+                        });
                       }
 
                       safeSetState(() {});
                     },
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                       child: FlutterFlowIconButton(
                         borderRadius: 8.0,
                         buttonSize: 40.0,
@@ -329,7 +363,7 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                           size: 25.0,
                         ),
                         onPressed: () async {
-                          if (widget.goalProgress != FFAppConstants.one) {
+                          if (widget!.goalProgress != FFAppConstants.one) {
                             await showModalBottomSheet(
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
@@ -338,10 +372,10 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                               builder: (context) {
                                 return Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: SizedBox(
+                                  child: Container(
                                     height: 500.0,
                                     child: AddToGoalWidget(
-                                      index: widget.index!,
+                                      index: widget!.index!,
                                     ),
                                   ),
                                 );

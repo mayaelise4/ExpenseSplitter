@@ -1,10 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/history_card/history_card_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'history_page_model.dart';
 export 'history_page_model.dart';
 
@@ -66,71 +70,86 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                     context.pop();
                   },
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: true,
                 elevation: 0.0,
               )
             : null,
         body: SafeArea(
           top: true,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
-                  child: Text(
-                    'History',
-                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                          fontFamily: 'Inter Tight',
-                          letterSpacing: 0.0,
-                        ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 0.0),
-                  child: Text(
-                    'Below is the history of actions made by you',
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Inter',
-                          letterSpacing: 0.0,
-                        ),
-                  ),
-                ),
-                AuthUserStreamWidget(
-                  builder: (context) => Builder(
-                    builder: (context) {
-                      final historyList =
-                          (currentUserDocument?.actionHistory.toList() ?? [])
-                              .toList();
-                      if (historyList.isEmpty) {
-                        return const EmptyListDisplayWidget(
-                          itemName: 'History',
-                        );
-                      }
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        'History',
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Inter Tight',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 0.0),
+                      child: Text(
+                        'Below is the history of actions made by you',
+                        textAlign: TextAlign.start,
+                        style:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                      ),
+                    ),
+                    AuthUserStreamWidget(
+                      builder: (context) => Builder(
+                        builder: (context) {
+                          final historyList =
+                              (currentUserDocument?.actionHistory?.toList() ??
+                                      [])
+                                  .sortedList(
+                                      keyOf: (e) => getCurrentTimestamp,
+                                      desc: true)
+                                  .toList();
+                          if (historyList.isEmpty) {
+                            return EmptyListDisplayWidget(
+                              itemName: 'History',
+                            );
+                          }
 
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(historyList.length,
-                            (historyListIndex) {
-                          final historyListItem = historyList[historyListIndex];
-                          return HistoryCardWidget(
-                            key: Key(
-                                'Keyvu0_${historyListIndex}_of_${historyList.length}'),
-                            actionItem: historyListItem.actionItem,
-                            actionDate: historyListItem.actionDate!,
-                            actionType: historyListItem.actionType!,
-                            actionAmount: historyListItem.actionAmount,
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: List.generate(historyList.length,
+                                (historyListIndex) {
+                              final historyListItem =
+                                  historyList[historyListIndex];
+                              return HistoryCardWidget(
+                                key: Key(
+                                    'Keyvu0_${historyListIndex}_of_${historyList.length}'),
+                                itemName: historyListItem.itemName,
+                                actionDate: historyListItem.actionDate!,
+                                actionType: historyListItem.actionType!,
+                                actionAmount: historyListItem.actionAmount,
+                                actionLocation: historyListItem.actionLocation!,
+                              );
+                            }),
                           );
-                        }),
-                      );
-                    },
-                  ),
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

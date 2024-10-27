@@ -3,9 +3,13 @@ import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'tasks_page_model.dart';
 export 'tasks_page_model.dart';
 
@@ -46,8 +50,8 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(-40.0, 0.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(-40.0, 0.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -94,7 +98,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                     BoxShadow(
                       blurRadius: 0.0,
                       color: FlutterFlowTheme.of(context).alternate,
-                      offset: const Offset(
+                      offset: Offset(
                         1.0,
                         0.0,
                       ),
@@ -103,14 +107,14 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                   borderRadius: BorderRadius.circular(0.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -118,7 +122,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             boxShadow: [
                               BoxShadow(
                                 color: FlutterFlowTheme.of(context).accent1,
-                                offset: const Offset(
+                                offset: Offset(
                                   0.0,
                                   1.0,
                                 ),
@@ -129,7 +133,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 24.0, 16.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -140,7 +144,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                       size: 32.0,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         'check.io',
@@ -159,7 +163,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 20.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -179,15 +183,15 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(2.0),
+                                        padding: EdgeInsets.all(2.0),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           child: CachedNetworkImage(
                                             fadeInDuration:
-                                                const Duration(milliseconds: 500),
+                                                Duration(milliseconds: 500),
                                             fadeOutDuration:
-                                                const Duration(milliseconds: 500),
+                                                Duration(milliseconds: 500),
                                             imageUrl:
                                                 'https://images.unsplash.com/photo-1624561172888-ac93c696e10c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjJ8fHVzZXJzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
                                             width: 44.0,
@@ -199,7 +203,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 0.0, 0.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -221,7 +225,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                       ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 4.0, 0.0, 0.0),
                                               child: Text(
                                                 'admin@gmail.com',
@@ -254,7 +258,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 12.0),
                         child: Container(
                           width: double.infinity,
@@ -269,13 +273,13 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 12.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 12.0, 12.0),
                                   child: Container(
                                     width: 4.0,
@@ -292,7 +296,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                   size: 28.0,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Dashboard',
@@ -312,7 +316,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 12.0),
                         child: Container(
                           width: double.infinity,
@@ -323,13 +327,13 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             shape: BoxShape.rectangle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 12.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 12.0, 12.0),
                                   child: Container(
                                     width: 4.0,
@@ -347,7 +351,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                   size: 28.0,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Transactions',
@@ -367,7 +371,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 12.0),
                         child: Container(
                           width: double.infinity,
@@ -378,13 +382,13 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             shape: BoxShape.rectangle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 12.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 12.0, 12.0),
                                   child: Container(
                                     width: 4.0,
@@ -402,7 +406,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                   size: 28.0,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Projects',
@@ -422,7 +426,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 12.0),
                         child: Container(
                           width: double.infinity,
@@ -433,13 +437,13 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             shape: BoxShape.rectangle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 12.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 12.0, 12.0),
                                   child: Container(
                                     width: 4.0,
@@ -457,7 +461,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                   size: 28.0,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Users',
@@ -478,7 +482,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -491,7 +495,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                 color: FlutterFlowTheme.of(context).accent1,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -523,16 +527,16 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
+                                      padding: EdgeInsets.all(2.0),
                                       child: Stack(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(-0.9, 0.0),
+                                                AlignmentDirectional(-0.9, 0.0),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(6.0, 0.0, 0.0, 0.0),
                                               child: Icon(
                                                 Icons.wb_sunny_rounded,
@@ -545,9 +549,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
+                                                AlignmentDirectional(1.0, 0.0),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 6.0, 0.0),
                                               child: Icon(
                                                 Icons.mode_night_rounded,
@@ -560,7 +564,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
+                                                AlignmentDirectional(1.0, 0.0),
                                             child: Container(
                                               width: 36.0,
                                               height: 36.0,
@@ -568,7 +572,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .info,
-                                                boxShadow: const [
+                                                boxShadow: [
                                                   BoxShadow(
                                                     blurRadius: 4.0,
                                                     color: Color(0x430B0D0F),
@@ -593,7 +597,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                   ),
                                 ),
                               ),
-                            ].divide(const SizedBox(height: 12.0)),
+                            ].divide(SizedBox(height: 12.0)),
                           ),
                         ),
                       ),
@@ -603,25 +607,25 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
               ),
             Expanded(
               child: Align(
-                alignment: const AlignmentDirectional(0.0, -1.0),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                   child: Container(
-                    constraints: const BoxConstraints(
+                    constraints: BoxConstraints(
                       maxWidth: 900.0,
                     ),
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding: EdgeInsets.all(4.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 12.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -646,9 +650,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                   options: FFButtonOptions(
                                     width: 130.0,
                                     height: 40.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -659,12 +663,12 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                           letterSpacing: 0.0,
                                         ),
                                     elevation: 2.0,
-                                    borderSide: const BorderSide(
+                                    borderSide: BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
-                                    hoverColor: const Color(0xFF2B16ED),
+                                    hoverColor: Color(0xFF2B16ED),
                                     hoverTextColor: Colors.white,
                                   ),
                                 ),
@@ -675,7 +679,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                             child: Column(
                               children: [
                                 Align(
-                                  alignment: const Alignment(-1.0, 0),
+                                  alignment: Alignment(-1.0, 0),
                                   child: FlutterFlowButtonTabBar(
                                     useToggleButtonStyle: false,
                                     isScrollable: true,
@@ -708,12 +712,12 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                     borderRadius: 12.0,
                                     elevation: 0.0,
                                     labelPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
+                                        EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                     buttonMargin:
-                                        const EdgeInsetsDirectional.fromSTEB(
+                                        EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 16.0, 0.0),
-                                    tabs: const [
+                                    tabs: [
                                       Tab(
                                         text: 'My Tasks',
                                       ),
@@ -740,10 +744,10 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                     children: [
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 16.0, 0.0, 16.0),
                                           child: Container(
                                             width: double.infinity,
@@ -760,7 +764,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 24.0, 16.0, 24.0),
                                               child: Column(
@@ -772,7 +776,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     4.0,
                                                                     0.0,
@@ -790,7 +794,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -823,11 +827,11 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                       12.0),
                                                         ),
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -851,7 +855,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 8.0,
                                                                 0.0, 0.0),
                                                     child: ListView(
@@ -870,7 +874,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         12.0,
@@ -896,7 +900,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                       ),
                                                                     ),
                                                                     unselectedWidgetColor:
-                                                                        const Color(
+                                                                        Color(
                                                                             0xFFE0E3E7),
                                                                   ),
                                                                   child:
@@ -911,7 +915,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                               newValue!);
                                                                     },
                                                                     side:
-                                                                        const BorderSide(
+                                                                        BorderSide(
                                                                       width: 2,
                                                                       color: Color(
                                                                           0xFFE0E3E7),
@@ -937,7 +941,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             0.0,
@@ -961,7 +965,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 12.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -976,7 +980,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -988,9 +992,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               child: Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                 child: Text(
                                                                                   'Product',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1020,7 +1024,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         12.0,
@@ -1088,7 +1092,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             0.0,
@@ -1112,7 +1116,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 12.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1127,7 +1131,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1139,9 +1143,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               child: Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                 child: Text(
                                                                                   'Design System',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1171,7 +1175,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         12.0,
@@ -1239,7 +1243,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             0.0,
@@ -1262,7 +1266,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 12.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1277,7 +1281,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1289,9 +1293,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               child: Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                 child: Text(
                                                                                   'FF Development',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1322,10 +1326,10 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 16.0, 0.0, 16.0),
                                           child: Container(
                                             width: double.infinity,
@@ -1342,7 +1346,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 24.0, 16.0, 24.0),
                                               child: Column(
@@ -1354,7 +1358,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     4.0,
                                                                     0.0,
@@ -1372,7 +1376,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                       Expanded(
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -1405,11 +1409,11 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                       12.0),
                                                         ),
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -1433,7 +1437,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 8.0,
                                                                 0.0, 0.0),
                                                     child: ListView(
@@ -1452,7 +1456,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         12.0,
@@ -1478,7 +1482,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                       ),
                                                                     ),
                                                                     unselectedWidgetColor:
-                                                                        const Color(
+                                                                        Color(
                                                                             0xFFE0E3E7),
                                                                   ),
                                                                   child:
@@ -1493,7 +1497,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                               newValue!);
                                                                     },
                                                                     side:
-                                                                        const BorderSide(
+                                                                        BorderSide(
                                                                       width: 2,
                                                                       color: Color(
                                                                           0xFFE0E3E7),
@@ -1519,7 +1523,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             0.0,
@@ -1543,7 +1547,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 12.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1558,7 +1562,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1570,9 +1574,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               child: Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                 child: Text(
                                                                                   'Product',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1602,7 +1606,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         12.0,
@@ -1670,7 +1674,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             0.0,
@@ -1694,7 +1698,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 12.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1709,7 +1713,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1721,9 +1725,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               child: Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                 child: Text(
                                                                                   'Design System',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1753,7 +1757,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         12.0,
@@ -1821,7 +1825,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
                                                                             8.0,
                                                                             0.0,
@@ -1844,7 +1848,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 12.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1859,7 +1863,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                             ),
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 8.0,
                                                                                 0.0,
@@ -1871,9 +1875,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                               child: Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                 child: Text(
                                                                                   'FF Development',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1932,7 +1936,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                   height: double.infinity,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         blurRadius: 3.0,
                         color: Color(0x33000000),
@@ -1947,13 +1951,13 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 12.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -1983,7 +1987,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           size: 24.0,
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 12.0),
                           child: Text(
                             'Update our command Palette to be more usable.',
@@ -1996,7 +2000,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -2005,7 +2009,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                               Expanded(
                                 flex: 2,
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
                                   child: Text(
                                     'Subtasks',
@@ -2034,7 +2038,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -2043,7 +2047,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                               Expanded(
                                 flex: 2,
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
                                   child: Text(
                                     'Created',
@@ -2072,7 +2076,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -2081,7 +2085,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                               Expanded(
                                 flex: 2,
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 4.0),
                                   child: Text(
                                     'Due Date',
@@ -2095,7 +2099,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 12.0, 0.0),
                                 child: Icon(
                                   Icons.date_range_outlined,
@@ -2120,14 +2124,14 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 24.0, 4.0),
                                 child: Text(
                                   'Categories',
@@ -2140,7 +2144,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 8.0, 0.0),
                                 child: Container(
                                   height: 28.0,
@@ -2148,9 +2152,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                     color: FlutterFlowTheme.of(context).accent1,
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     child: Text(
                                       'Design System',
@@ -2165,7 +2169,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 8.0, 0.0),
                                 child: Container(
                                   height: 28.0,
@@ -2173,9 +2177,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                     color: FlutterFlowTheme.of(context).accent2,
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     child: Text(
                                       'Product',
@@ -2193,7 +2197,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 24.0, 4.0),
                           child: Text(
                             'Description',
@@ -2206,7 +2210,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 0.0),
                           child: TextFormField(
                             controller: _model.textController,
@@ -2266,9 +2270,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           ),
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
+                          alignment: AlignmentDirectional(1.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () {
@@ -2278,9 +2282,9 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                               options: FFButtonOptions(
                                 width: 130.0,
                                 height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -2291,12 +2295,12 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                       letterSpacing: 0.0,
                                     ),
                                 elevation: 2.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
-                                hoverColor: const Color(0xFF2B16ED),
+                                hoverColor: Color(0xFF2B16ED),
                                 hoverTextColor: Colors.white,
                               ),
                             ),

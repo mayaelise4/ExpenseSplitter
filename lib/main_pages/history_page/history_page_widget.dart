@@ -1,14 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/history_card/history_card_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'history_page_model.dart';
 export 'history_page_model.dart';
 
@@ -70,7 +66,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                     context.pop();
                   },
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: true,
                 elevation: 0.0,
               )
@@ -86,7 +82,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                       child: Text(
                         'History',
                         style: FlutterFlowTheme.of(context)
@@ -99,7 +95,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 0.0),
                       child: Text(
                         'Below is the history of actions made by you',
                         textAlign: TextAlign.start,
@@ -114,14 +110,13 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                       builder: (context) => Builder(
                         builder: (context) {
                           final historyList =
-                              (currentUserDocument?.actionHistory?.toList() ??
+                              (currentUserDocument?.actionHistory.toList() ??
                                       [])
                                   .sortedList(
-                                      keyOf: (e) => getCurrentTimestamp,
-                                      desc: true)
+                                      keyOf: (e) => e.actionDate!, desc: true)
                                   .toList();
                           if (historyList.isEmpty) {
-                            return EmptyListDisplayWidget(
+                            return const EmptyListDisplayWidget(
                               itemName: 'History',
                             );
                           }
@@ -132,14 +127,23 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                 (historyListIndex) {
                               final historyListItem =
                                   historyList[historyListIndex];
-                              return HistoryCardWidget(
-                                key: Key(
-                                    'Keyvu0_${historyListIndex}_of_${historyList.length}'),
-                                itemName: historyListItem.itemName,
-                                actionDate: historyListItem.actionDate!,
-                                actionType: historyListItem.actionType!,
-                                actionAmount: historyListItem.actionAmount,
-                                actionLocation: historyListItem.actionLocation!,
+                              return wrapWithModel(
+                                model: _model.historyCardModels.getModel(
+                                  historyListIndex.toString(),
+                                  historyListIndex,
+                                ),
+                                updateCallback: () => safeSetState(() {}),
+                                child: HistoryCardWidget(
+                                  key: Key(
+                                    'Keyvu0_${historyListIndex.toString()}',
+                                  ),
+                                  itemName: historyListItem.itemName,
+                                  actionDate: historyListItem.actionDate!,
+                                  actionType: historyListItem.actionType!,
+                                  actionAmount: historyListItem.actionAmount,
+                                  actionLocation:
+                                      historyListItem.actionLocation!,
+                                ),
                               );
                             }),
                           );

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
-import '/backend/api_requests/api_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
 import 'package:synchronized/synchronized.dart';
@@ -22,7 +20,7 @@ class FFAppState extends ChangeNotifier {
   }
 
   Future initializePersistedState() async {
-    secureStorage = FlutterSecureStorage();
+    secureStorage = const FlutterSecureStorage();
     await _safeInitAsync(() async {
       _pocketAmount =
           await secureStorage.getDouble('ff_pocketAmount') ?? _pocketAmount;
@@ -75,6 +73,25 @@ class FFAppState extends ChangeNotifier {
               .withoutNulls
               .toList() ??
           _bills;
+    });
+    await _safeInitAsync(() async {
+      _incompleteTaskExists =
+          await secureStorage.getBool('ff_incompleteTaskExists') ??
+              _incompleteTaskExists;
+    });
+    await _safeInitAsync(() async {
+      _income = (await secureStorage.getStringList('ff_income'))
+              ?.map((x) {
+                try {
+                  return IncomeStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _income;
     });
   }
 
@@ -287,6 +304,62 @@ class FFAppState extends ChangeNotifier {
     secureStorage.setStringList(
         'ff_bills', _bills.map((x) => x.serialize()).toList());
   }
+
+  bool _incompleteTaskExists = false;
+  bool get incompleteTaskExists => _incompleteTaskExists;
+  set incompleteTaskExists(bool value) {
+    _incompleteTaskExists = value;
+    secureStorage.setBool('ff_incompleteTaskExists', value);
+  }
+
+  void deleteIncompleteTaskExists() {
+    secureStorage.delete(key: 'ff_incompleteTaskExists');
+  }
+
+  List<IncomeStruct> _income = [];
+  List<IncomeStruct> get income => _income;
+  set income(List<IncomeStruct> value) {
+    _income = value;
+    secureStorage.setStringList(
+        'ff_income', value.map((x) => x.serialize()).toList());
+  }
+
+  void deleteIncome() {
+    secureStorage.delete(key: 'ff_income');
+  }
+
+  void addToIncome(IncomeStruct value) {
+    income.add(value);
+    secureStorage.setStringList(
+        'ff_income', _income.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromIncome(IncomeStruct value) {
+    income.remove(value);
+    secureStorage.setStringList(
+        'ff_income', _income.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromIncome(int index) {
+    income.removeAt(index);
+    secureStorage.setStringList(
+        'ff_income', _income.map((x) => x.serialize()).toList());
+  }
+
+  void updateIncomeAtIndex(
+    int index,
+    IncomeStruct Function(IncomeStruct) updateFn,
+  ) {
+    income[index] = updateFn(_income[index]);
+    secureStorage.setStringList(
+        'ff_income', _income.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInIncome(int index, IncomeStruct value) {
+    income.insert(index, value);
+    secureStorage.setStringList(
+        'ff_income', _income.map((x) => x.serialize()).toList());
+  }
 }
 
 void _safeInit(Function() initializeField) {
@@ -334,12 +407,12 @@ extension FlutterSecureStorageExtensions on FlutterSecureStorage {
         if (result == null || result.isEmpty) {
           return null;
         }
-        return CsvToListConverter()
+        return const CsvToListConverter()
             .convert(result)
             .first
             .map((e) => e.toString())
             .toList();
       });
   Future<void> setStringList(String key, List<String> value) async =>
-      await writeSync(key: key, value: ListToCsvConverter().convert([value]));
+      await writeSync(key: key, value: const ListToCsvConverter().convert([value]));
 }

@@ -1,19 +1,15 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_bill_model.dart';
 export 'add_bill_model.dart';
@@ -61,7 +57,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
 
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -81,25 +77,25 @@ class _AddBillWidgetState extends State<AddBillWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
                       borderWidth: 1.0,
                       buttonSize: 44.0,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_rounded,
                         color: Color(0xFF57636C),
                         size: 24.0,
@@ -120,14 +116,14 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                               .headlineSmall
                               .override(
                                 fontFamily: 'Outfit',
-                                color: Color(0xFF14181B),
+                                color: const Color(0xFF14181B),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                               ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
                             'Fill in the information below to add to a bill.',
@@ -135,7 +131,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF57636C),
+                                  color: const Color(0xFF57636C),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -148,7 +144,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               height: 24.0,
               thickness: 2.0,
               color: Color(0xFFF1F4F8),
@@ -164,7 +160,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 300.0,
                         child: TextFormField(
                           controller: _model.billNameTextController,
@@ -195,7 +191,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1.0,
                               ),
@@ -231,8 +227,8 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: Container(
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: SizedBox(
                           width: 300.0,
                           child: TextFormField(
                             controller: _model.amountTextController,
@@ -264,7 +260,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1.0,
                                 ),
@@ -309,7 +305,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController ??=
                               FormFieldController<String>(
@@ -338,7 +334,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                           borderColor: FlutterFlowTheme.of(context).primaryText,
                           borderWidth: 1.0,
                           borderRadius: 8.0,
-                          margin: EdgeInsetsDirectional.fromSTEB(
+                          margin: const EdgeInsetsDirectional.fromSTEB(
                               12.0, 0.0, 12.0, 0.0),
                           hidesUnderline: true,
                           isOverButton: false,
@@ -346,7 +342,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                           isMultiSelect: false,
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         height: 24.0,
                         thickness: 2.0,
                         color: Color(0xFFF1F4F8),
@@ -356,49 +352,91 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: 'Outfit',
-                                  color: Color(0xFF14181B),
+                                  color: const Color(0xFF14181B),
                                   fontSize: 24.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                       ),
-                      FlutterFlowCalendar(
-                        color: FlutterFlowTheme.of(context).primary,
-                        iconColor: FlutterFlowTheme.of(context).secondaryText,
-                        weekFormat: false,
-                        weekStartsMonday: false,
-                        initialDate: getCurrentTimestamp,
-                        rowHeight: 48.0,
-                        onChange: (DateTimeRange? newSelectedDate) {
-                          safeSetState(() =>
-                              _model.calendarSelectedDay = newSelectedDate);
+                      FFButtonWidget(
+                        onPressed: () async {
+                          final datePickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: getCurrentTimestamp,
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2050),
+                            builder: (context, child) {
+                              return wrapInMaterialDatePickerTheme(
+                                context,
+                                child!,
+                                headerBackgroundColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                headerForegroundColor:
+                                    FlutterFlowTheme.of(context).info,
+                                headerTextStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .override(
+                                      fontFamily: 'Inter Tight',
+                                      fontSize: 32.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                pickerBackgroundColor:
+                                    FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                pickerForegroundColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                selectedDateTimeBackgroundColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                selectedDateTimeForegroundColor:
+                                    FlutterFlowTheme.of(context).info,
+                                actionButtonForegroundColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                iconSize: 24.0,
+                              );
+                            },
+                          );
+
+                          if (datePickedDate != null) {
+                            safeSetState(() {
+                              _model.datePicked = DateTime(
+                                datePickedDate.year,
+                                datePickedDate.month,
+                                datePickedDate.day,
+                              );
+                            });
+                          }
+                          _model.selectedDate = _model.datePicked;
+                          safeSetState(() {});
                         },
-                        titleStyle:
-                            FlutterFlowTheme.of(context).titleLarge.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        dayOfWeekStyle:
-                            FlutterFlowTheme.of(context).bodyLarge.override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                        dateStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                        selectedDateStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
-                        inactiveDateStyle:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                        locale: FFLocalizations.of(context).languageCode,
+                        text: _model.selectedDate == null
+                            ? 'Date Picker'
+                            : dateTimeFormat(
+                                "Md",
+                                _model.selectedDate,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ),
+                        icon: const Icon(
+                          Icons.calendar_today,
+                          size: 15.0,
+                        ),
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Inter Tight',
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                  ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                     ],
                   ),
@@ -406,58 +444,67 @@ class _AddBillWidgetState extends State<AddBillWidget> {
               ],
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                 child: FFButtonWidget(
-                  onPressed: () async {
-                    FFAppState().addToBills(BillStruct(
-                      name: _model.billNameTextController.text,
-                      amount: double.tryParse(_model.amountTextController.text),
-                      dueDate: _model.calendarSelectedDay?.end,
-                      freq: _model.dropDownValue,
-                      actionDate: getCurrentTimestamp,
-                    ));
-                    // sorts the list by due date
-                    FFAppState().bills = FFAppState()
-                        .bills
-                        .sortedList(keyOf: (e) => e.dueDate, desc: false)
-                        .toList()
-                        .cast<BillStruct>();
-                    FFAppState().update(() {});
+                  onPressed: (_model.datePicked == null)
+                      ? null
+                      : () async {
+                          if (_model.datePicked! <= getCurrentTimestamp) {
+                            _model.selectedDate = functions.moveBillDate(
+                                _model.datePicked!, _model.dropDownValue!);
+                            safeSetState(() {});
+                          }
+                          FFAppState().addToBills(BillStruct(
+                            name: _model.billNameTextController.text,
+                            amount: double.tryParse(
+                                _model.amountTextController.text),
+                            dueDate: _model.selectedDate,
+                            freq: _model.dropDownValue,
+                            actionDate: getCurrentTimestamp,
+                          ));
+                          // sorts the list by due date
+                          FFAppState().bills = FFAppState()
+                              .bills
+                              .sortedList(keyOf: (e) => e.dueDate, desc: false)
+                              .toList()
+                              .cast<BillStruct>();
+                          _model.updatePage(() {});
 
-                    await currentUserReference!.update({
-                      ...mapToFirestore(
-                        {
-                          'bills': getBillListFirestoreData(
-                            FFAppState().bills,
-                          ),
-                          'ActionHistory': FieldValue.arrayUnion([
-                            getHistoryFirestoreData(
-                              createHistoryStruct(
-                                itemName: _model.billNameTextController.text,
-                                actionDate: getCurrentTimestamp,
-                                actionType: ActionTypes.created,
-                                actionAmount: double.tryParse(
-                                    _model.amountTextController.text),
-                                actionLocation: ActionLocations.Bills,
-                                clearUnsetFields: false,
-                              ),
-                              true,
-                            )
-                          ]),
+                          await currentUserReference!.update({
+                            ...mapToFirestore(
+                              {
+                                'bills': getBillListFirestoreData(
+                                  FFAppState().bills,
+                                ),
+                                'ActionHistory': FieldValue.arrayUnion([
+                                  getHistoryFirestoreData(
+                                    createHistoryStruct(
+                                      itemName:
+                                          _model.billNameTextController.text,
+                                      actionDate: getCurrentTimestamp,
+                                      actionType: ActionTypes.created,
+                                      actionAmount: double.tryParse(
+                                          _model.amountTextController.text),
+                                      actionLocation: ActionLocations.Bills,
+                                      clearUnsetFields: false,
+                                    ),
+                                    true,
+                                  )
+                                ]),
+                              },
+                            ),
+                          });
+                          Navigator.pop(context);
                         },
-                      ),
-                    });
-                    Navigator.pop(context);
-                  },
                   text: 'Confirm',
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter Tight',
@@ -466,6 +513,7 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(8.0),
+                    disabledColor: FlutterFlowTheme.of(context).accent1,
                   ),
                 ),
               ),

@@ -1,14 +1,9 @@
-import '/backend/schema/structs/index.dart';
-import '/components/inputs/add_bill/add_bill_widget.dart';
 import '/components/list_items/income_card/income_card_widget.dart';
-import '/components/nav_bar_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'income_page_model.dart';
 export 'income_page_model.dart';
@@ -48,20 +43,20 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF1F4F8),
+        backgroundColor: const Color(0xFFF1F4F8),
         appBar: responsiveVisibility(
           context: context,
           tabletLandscape: false,
         )
             ? AppBar(
-                backgroundColor: Color(0xFF4B39EF),
+                backgroundColor: const Color(0xFF4B39EF),
                 automaticallyImplyLeading: false,
                 leading: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 30.0,
                   borderWidth: 1.0,
                   buttonSize: 60.0,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.white,
                     size: 30.0,
@@ -80,7 +75,7 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                         fontWeight: FontWeight.w500,
                       ),
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: false,
                 elevation: 0.0,
               )
@@ -99,8 +94,8 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                       children: [
                         Builder(
                           builder: (context) {
-                            final billCardList = FFAppState().bills.toList();
-                            if (billCardList.isEmpty) {
+                            final incomeCardList = FFAppState().income.toList();
+                            if (incomeCardList.isEmpty) {
                               return Center(
                                 child: Image.asset(
                                   '',
@@ -113,31 +108,18 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                               primary: false,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
-                              itemCount: billCardList.length,
-                              itemBuilder: (context, billCardListIndex) {
-                                final billCardListItem =
-                                    billCardList[billCardListIndex];
+                              itemCount: incomeCardList.length,
+                              itemBuilder: (context, incomeCardListIndex) {
+                                final incomeCardListItem =
+                                    incomeCardList[incomeCardListIndex];
                                 return IncomeCardWidget(
                                   key: Key(
-                                      'Keyrbo_${billCardListIndex}_of_${billCardList.length}'),
-                                  billName: random_data.randomString(
-                                    0,
-                                    0,
-                                    true,
-                                    false,
-                                    false,
-                                  ),
-                                  moneyAmount:
-                                      random_data.randomDouble(0.0, 1.0),
-                                  billFrequency: random_data.randomString(
-                                    0,
-                                    0,
-                                    true,
-                                    false,
-                                    false,
-                                  ),
-                                  index: random_data.randomInteger(0, 10),
-                                  date: getCurrentTimestamp,
+                                      'Keyrbo_${incomeCardListIndex}_of_${incomeCardList.length}'),
+                                  moneyAmount: incomeCardListItem.amount,
+                                  index: incomeCardListIndex,
+                                  date: incomeCardListItem.payDate,
+                                  incomeName: incomeCardListItem.name,
+                                  incomeFreq: incomeCardListItem.freq,
                                 );
                               },
                             );
@@ -149,32 +131,23 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    wrapWithModel(
-                      model: _model.navBarModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: NavBarWidget(
-                        whichInput: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () => FocusScope.of(context).unfocus(),
-                                child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: AddBillWidget(),
-                                ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
-                        },
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {},
+                      child: wrapWithModel(
+                        model: _model.navBarModel,
+                        updateCallback: () => safeSetState(() {}),
+                        child: NavBarWidget(
+                          whichInput: () async {},
+                        ),
                       ),
                     ),
                   ],

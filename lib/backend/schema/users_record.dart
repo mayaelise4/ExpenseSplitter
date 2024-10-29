@@ -3,17 +3,15 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
@@ -77,6 +75,11 @@ class UsersRecord extends FirestoreRecord {
   List<DocumentReference> get userService => _userService ?? const [];
   bool hasUserService() => _userService != null;
 
+  // "incomes" field.
+  List<IncomeStruct>? _incomes;
+  List<IncomeStruct> get incomes => _incomes ?? const [];
+  bool hasIncomes() => _incomes != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -102,6 +105,10 @@ class UsersRecord extends FirestoreRecord {
       HistoryStruct.fromMap,
     );
     _userService = getDataList(snapshotData['userService']);
+    _incomes = getStructList(
+      snapshotData['incomes'],
+      IncomeStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -178,7 +185,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.pocketAmount == e2?.pocketAmount &&
         listEquality.equals(e1?.goals, e2?.goals) &&
         listEquality.equals(e1?.actionHistory, e2?.actionHistory) &&
-        listEquality.equals(e1?.userService, e2?.userService);
+        listEquality.equals(e1?.userService, e2?.userService) &&
+        listEquality.equals(e1?.incomes, e2?.incomes);
   }
 
   @override
@@ -194,7 +202,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.pocketAmount,
         e?.goals,
         e?.actionHistory,
-        e?.userService
+        e?.userService,
+        e?.incomes
       ]);
 
   @override

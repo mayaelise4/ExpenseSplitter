@@ -4,8 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
@@ -55,7 +53,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
     return Container(
       width: double.infinity,
       height: 90.0,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0x00EEEEEE),
       ),
       child: Stack(
@@ -67,7 +65,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               Material(
                 color: Colors.transparent,
                 elevation: 0.0,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(0.0),
                     bottomRight: Radius.circular(0.0),
@@ -80,7 +78,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   height: 90.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 10.0,
                         color: Color(0x1A57636C),
@@ -91,7 +89,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         spreadRadius: 0.1,
                       )
                     ],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(0.0),
                       bottomRight: Radius.circular(0.0),
                       topLeft: Radius.circular(20.0),
@@ -118,7 +116,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 child: Container(
                   width: 50.0,
                   height: 70.0,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +126,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         borderRadius: 30.0,
                         borderWidth: 1.0,
                         buttonSize: 50.0,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.home_rounded,
                           color: Color(0xFF9299A1),
                           size: 24.0,
@@ -159,7 +157,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 child: Container(
                   width: 50.0,
                   height: 70.0,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +167,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         borderRadius: 30.0,
                         borderWidth: 1.0,
                         buttonSize: 50.0,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.request_page,
                           color: Color(0xFF9299A1),
                           size: 24.0,
@@ -195,14 +193,14 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 25.0,
                       borderWidth: 1.0,
                       buttonSize: 60.0,
                       fillColor: FlutterFlowTheme.of(context).primary,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add,
                         color: Colors.white,
                         size: 30.0,
@@ -225,7 +223,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 child: Container(
                   width: 50.0,
                   height: 70.0,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -235,7 +233,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         borderRadius: 30.0,
                         borderWidth: 1.0,
                         buttonSize: 50.0,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.golf_course_rounded,
                           color: Color(0xFF9299A1),
                           size: 24.0,
@@ -266,7 +264,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 child: Container(
                   width: 50.0,
                   height: 70.0,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -276,7 +274,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         borderRadius: 30.0,
                         borderWidth: 1.0,
                         buttonSize: 50.0,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.pending_actions,
                           color: Color(0xFF9299A1),
                           size: 24.0,

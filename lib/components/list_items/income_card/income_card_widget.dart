@@ -1,33 +1,24 @@
-import '/backend/schema/structs/index.dart';
 import '/components/confirm_action/confirm_action_widget.dart';
-import '/components/inputs/edit_bill/edit_bill_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'income_card_model.dart';
 export 'income_card_model.dart';
 
 class IncomeCardWidget extends StatefulWidget {
   const IncomeCardWidget({
     super.key,
-    this.billName,
     double? moneyAmount,
-    required this.billFrequency,
     required this.index,
     required this.date,
     String? incomeName,
     String? incomeFreq,
-  })  : this.moneyAmount = moneyAmount ?? 0.00,
-        this.incomeName = incomeName ?? 'No desc',
-        this.incomeFreq = incomeFreq ?? 'No desc';
+  })  : moneyAmount = moneyAmount ?? 0.00,
+        incomeName = incomeName ?? '',
+        incomeFreq = incomeFreq ?? 'Monthly';
 
-  final String? billName;
   final double moneyAmount;
-  final String? billFrequency;
   final int? index;
   final DateTime? date;
   final String incomeName;
@@ -64,13 +55,13 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 2.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 2.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 100.0,
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 12.0,
               color: Color(0x34000000),
@@ -83,7 +74,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -91,33 +82,33 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                 width: 4.0,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color(0xFF4B39EF),
+                  color: const Color(0xFF4B39EF),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
                           child: Text(
                             valueOrDefault<String>(
-                              widget!.incomeName,
+                              widget.incomeName,
                               'No desc',
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF4B39EF),
+                                  color: const Color(0xFF4B39EF),
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -127,7 +118,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                       ),
                       Text(
                         valueOrDefault<String>(
-                          widget!.incomeFreq,
+                          widget.incomeFreq,
                           'No desc',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -153,11 +144,11 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                             TextSpan(
                               text: dateTimeFormat(
                                 "Md",
-                                widget!.date,
+                                widget.date,
                                 locale:
                                     FFLocalizations.of(context).languageCode,
                               ),
-                              style: TextStyle(),
+                              style: const TextStyle(),
                             )
                           ],
                           style:
@@ -172,7 +163,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -180,18 +171,18 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 4.0, 5.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
                                 formatNumber(
-                                  widget!.moneyAmount,
+                                  widget.moneyAmount,
                                   formatType: FormatType.decimal,
                                   decimalType: DecimalType.periodDecimal,
                                   currency: '\$',
@@ -202,7 +193,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                                   .headlineSmall
                                   .override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF14181B),
+                                    color: const Color(0xFF14181B),
                                     fontSize: 24.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
@@ -238,7 +229,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
+                            child: const SizedBox(
                               height: 300.0,
                               child: ConfirmActionWidget(),
                             ),
@@ -248,7 +239,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
-                        FFAppState().removeAtIndexFromBills(widget!.index!);
+                        FFAppState().removeAtIndexFromBills(widget.index!);
                         FFAppState().update(() {});
                       }
 
@@ -256,7 +247,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                     },
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 8.0,
@@ -267,25 +258,8 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                         color: FlutterFlowTheme.of(context).primary,
                         size: 20.0,
                       ),
-                      onPressed: () async {
-                        await showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          enableDrag: false,
-                          context: context,
-                          builder: (context) {
-                            return Padding(
-                              padding: MediaQuery.viewInsetsOf(context),
-                              child: EditBillWidget(
-                                index: widget!.index!,
-                                name: widget!.billName,
-                                amount: widget!.moneyAmount,
-                                frequency: widget!.billFrequency!,
-                                duedate: widget!.date!,
-                              ),
-                            );
-                          },
-                        ).then((value) => safeSetState(() {}));
+                      onPressed: () {
+                        print('IconButton pressed ...');
                       },
                     ),
                   ),

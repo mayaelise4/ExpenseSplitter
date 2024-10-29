@@ -6,24 +6,24 @@ import '/backend/schema/util/firestore_util.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 
-class BillStruct extends FFFirebaseStruct {
-  BillStruct({
+class IncomeStruct extends FFFirebaseStruct {
+  IncomeStruct({
     String? name,
     double? amount,
-    DateTime? dueDate,
+    DateTime? payDate,
     String? freq,
     DateTime? actionDate,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _amount = amount,
-        _dueDate = dueDate,
+        _payDate = payDate,
         _freq = freq,
         _actionDate = actionDate,
         super(firestoreUtilData);
 
   // "name" field.
   String? _name;
-  String get name => _name ?? 'billName';
+  String get name => _name ?? 'incomeName';
   set name(String? val) => _name = val;
 
   bool hasName() => _name != null;
@@ -37,13 +37,13 @@ class BillStruct extends FFFirebaseStruct {
 
   bool hasAmount() => _amount != null;
 
-  // "dueDate" field.
-  DateTime? _dueDate;
-  DateTime get dueDate =>
-      _dueDate ?? DateTime.fromMicrosecondsSinceEpoch(1728104400000000);
-  set dueDate(DateTime? val) => _dueDate = val;
+  // "payDate" field.
+  DateTime? _payDate;
+  DateTime get payDate =>
+      _payDate ?? DateTime.fromMicrosecondsSinceEpoch(1730091600000000);
+  set payDate(DateTime? val) => _payDate = val;
 
-  bool hasDueDate() => _dueDate != null;
+  bool hasPayDate() => _payDate != null;
 
   // "freq" field.
   String? _freq;
@@ -59,21 +59,21 @@ class BillStruct extends FFFirebaseStruct {
 
   bool hasActionDate() => _actionDate != null;
 
-  static BillStruct fromMap(Map<String, dynamic> data) => BillStruct(
+  static IncomeStruct fromMap(Map<String, dynamic> data) => IncomeStruct(
         name: data['name'] as String?,
         amount: castToType<double>(data['amount']),
-        dueDate: data['dueDate'] as DateTime?,
+        payDate: data['payDate'] as DateTime?,
         freq: data['freq'] as String?,
         actionDate: data['actionDate'] as DateTime?,
       );
 
-  static BillStruct? maybeFromMap(dynamic data) =>
-      data is Map ? BillStruct.fromMap(data.cast<String, dynamic>()) : null;
+  static IncomeStruct? maybeFromMap(dynamic data) =>
+      data is Map ? IncomeStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,
         'amount': _amount,
-        'dueDate': _dueDate,
+        'payDate': _payDate,
         'freq': _freq,
         'actionDate': _actionDate,
       }.withoutNulls;
@@ -88,8 +88,8 @@ class BillStruct extends FFFirebaseStruct {
           _amount,
           ParamType.double,
         ),
-        'dueDate': serializeParam(
-          _dueDate,
+        'payDate': serializeParam(
+          _payDate,
           ParamType.DateTime,
         ),
         'freq': serializeParam(
@@ -102,8 +102,8 @@ class BillStruct extends FFFirebaseStruct {
         ),
       }.withoutNulls;
 
-  static BillStruct fromSerializableMap(Map<String, dynamic> data) =>
-      BillStruct(
+  static IncomeStruct fromSerializableMap(Map<String, dynamic> data) =>
+      IncomeStruct(
         name: deserializeParam(
           data['name'],
           ParamType.String,
@@ -114,8 +114,8 @@ class BillStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
-        dueDate: deserializeParam(
-          data['dueDate'],
+        payDate: deserializeParam(
+          data['payDate'],
           ParamType.DateTime,
           false,
         ),
@@ -132,27 +132,27 @@ class BillStruct extends FFFirebaseStruct {
       );
 
   @override
-  String toString() => 'BillStruct(${toMap()})';
+  String toString() => 'IncomeStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is BillStruct &&
+    return other is IncomeStruct &&
         name == other.name &&
         amount == other.amount &&
-        dueDate == other.dueDate &&
+        payDate == other.payDate &&
         freq == other.freq &&
         actionDate == other.actionDate;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([name, amount, dueDate, freq, actionDate]);
+      const ListEquality().hash([name, amount, payDate, freq, actionDate]);
 }
 
-BillStruct createBillStruct({
+IncomeStruct createIncomeStruct({
   String? name,
   double? amount,
-  DateTime? dueDate,
+  DateTime? payDate,
   String? freq,
   DateTime? actionDate,
   Map<String, dynamic> fieldValues = const {},
@@ -160,10 +160,10 @@ BillStruct createBillStruct({
   bool create = false,
   bool delete = false,
 }) =>
-    BillStruct(
+    IncomeStruct(
       name: name,
       amount: amount,
-      dueDate: dueDate,
+      payDate: payDate,
       freq: freq,
       actionDate: actionDate,
       firestoreUtilData: FirestoreUtilData(
@@ -174,59 +174,60 @@ BillStruct createBillStruct({
       ),
     );
 
-BillStruct? updateBillStruct(
-  BillStruct? bill, {
+IncomeStruct? updateIncomeStruct(
+  IncomeStruct? income, {
   bool clearUnsetFields = true,
   bool create = false,
 }) =>
-    bill
+    income
       ?..firestoreUtilData = FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
       );
 
-void addBillStructData(
+void addIncomeStructData(
   Map<String, dynamic> firestoreData,
-  BillStruct? bill,
+  IncomeStruct? income,
   String fieldName, [
   bool forFieldValue = false,
 ]) {
   firestoreData.remove(fieldName);
-  if (bill == null) {
+  if (income == null) {
     return;
   }
-  if (bill.firestoreUtilData.delete) {
+  if (income.firestoreUtilData.delete) {
     firestoreData[fieldName] = FieldValue.delete();
     return;
   }
-  final clearFields = !forFieldValue && bill.firestoreUtilData.clearUnsetFields;
+  final clearFields =
+      !forFieldValue && income.firestoreUtilData.clearUnsetFields;
   if (clearFields) {
     firestoreData[fieldName] = <String, dynamic>{};
   }
-  final billData = getBillFirestoreData(bill, forFieldValue);
-  final nestedData = billData.map((k, v) => MapEntry('$fieldName.$k', v));
+  final incomeData = getIncomeFirestoreData(income, forFieldValue);
+  final nestedData = incomeData.map((k, v) => MapEntry('$fieldName.$k', v));
 
-  final mergeFields = bill.firestoreUtilData.create || clearFields;
+  final mergeFields = income.firestoreUtilData.create || clearFields;
   firestoreData
       .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
 }
 
-Map<String, dynamic> getBillFirestoreData(
-  BillStruct? bill, [
+Map<String, dynamic> getIncomeFirestoreData(
+  IncomeStruct? income, [
   bool forFieldValue = false,
 ]) {
-  if (bill == null) {
+  if (income == null) {
     return {};
   }
-  final firestoreData = mapToFirestore(bill.toMap());
+  final firestoreData = mapToFirestore(income.toMap());
 
   // Add any Firestore field values
-  bill.firestoreUtilData.fieldValues.forEach((k, v) => firestoreData[k] = v);
+  income.firestoreUtilData.fieldValues.forEach((k, v) => firestoreData[k] = v);
 
   return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
 }
 
-List<Map<String, dynamic>> getBillListFirestoreData(
-  List<BillStruct>? bills,
+List<Map<String, dynamic>> getIncomeListFirestoreData(
+  List<IncomeStruct>? incomes,
 ) =>
-    bills?.map((e) => getBillFirestoreData(e, true)).toList() ?? [];
+    incomes?.map((e) => getIncomeFirestoreData(e, true)).toList() ?? [];

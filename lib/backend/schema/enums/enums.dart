@@ -13,6 +13,7 @@ enum ActionTypes {
   add,
   delete,
   created,
+  completed,
 }
 
 enum ActionLocations {
@@ -20,6 +21,26 @@ enum ActionLocations {
   Goals,
   Pocket,
   Bills,
+  Incomes,
+  Tasks,
+}
+
+enum TaskStatus {
+  complete,
+  incomplete,
+}
+
+enum TaskType {
+  Goal,
+  Bill,
+}
+
+enum IncomeTypes {
+  biWeekly,
+  Monthly,
+  Quarterly,
+  SemiAnnually,
+  Annually,
 }
 
 extension FFEnumExtensions<T extends Enum> on T {
@@ -39,6 +60,12 @@ T? deserializeEnum<T>(String? value) {
       return ActionTypes.values.deserialize(value) as T?;
     case (ActionLocations):
       return ActionLocations.values.deserialize(value) as T?;
+    case (TaskStatus):
+      return TaskStatus.values.deserialize(value) as T?;
+    case (TaskType):
+      return TaskType.values.deserialize(value) as T?;
+    case (IncomeTypes):
+      return IncomeTypes.values.deserialize(value) as T?;
     default:
       return null;
   }

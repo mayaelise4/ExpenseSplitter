@@ -1,15 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/components/inputs/input_money/input_money_widget.dart';
-import '/components/nav_bar_widget.dart';
+import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -61,10 +59,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         drawer: Drawer(
           elevation: 16.0,
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Container(
               width: 300.0,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
@@ -84,19 +82,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
+                          const EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 0.0, 0.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -113,7 +111,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF14181B),
+                                          color: const Color(0xFF14181B),
                                           fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
@@ -121,7 +119,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 0.0),
                                   child: Text(
                                     currentUserEmail,
@@ -129,7 +127,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .bodySmall
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF4B39EF),
+                                          color: const Color(0xFF4B39EF),
                                           fontSize: 12.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -142,29 +140,35 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 1.0,
                       color: Color(0xFFE0E3E7),
                     ),
                     MouseRegion(
                       opaque: false,
                       cursor: MouseCursor.defer ?? MouseCursor.defer,
+                      onEnter: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered1 = true);
+                      }),
+                      onExit: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered1 = false);
+                      }),
                       child: AnimatedContainer(
-                        duration: Duration(milliseconds: 150),
+                        duration: const Duration(milliseconds: 150),
                         curve: Curves.easeInOut,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: _model.mouseRegionHovered1!
-                              ? Color(0xFFF1F4F8)
+                          color: _model.mouseRegionHovered1
+                              ? const Color(0xFFF1F4F8)
                               : Colors.white,
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 0.0, 0.0),
                                 child: Icon(
@@ -175,7 +179,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'My Account',
@@ -183,7 +187,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF14181B),
+                                          color: const Color(0xFF14181B),
                                           fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -195,32 +199,32 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                      onEnter: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered1 = true);
-                      }),
-                      onExit: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered1 = false);
-                      }),
                     ),
                     MouseRegion(
                       opaque: false,
                       cursor: SystemMouseCursors.basic ?? MouseCursor.defer,
+                      onEnter: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered2 = true);
+                      }),
+                      onExit: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered2 = false);
+                      }),
                       child: AnimatedContainer(
-                        duration: Duration(milliseconds: 150),
+                        duration: const Duration(milliseconds: 150),
                         curve: Curves.easeInOut,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: _model.mouseRegionHovered2!
-                              ? Color(0xFFF1F4F8)
+                          color: _model.mouseRegionHovered2
+                              ? const Color(0xFFF1F4F8)
                               : Colors.white,
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 0.0, 0.0),
                                 child: Icon(
@@ -231,7 +235,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Settings',
@@ -239,7 +243,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF14181B),
+                                          color: const Color(0xFF14181B),
                                           fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -251,16 +255,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                      onEnter: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered2 = true);
-                      }),
-                      onExit: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered2 = false);
-                      }),
                     ),
                     MouseRegion(
                       opaque: false,
                       cursor: MouseCursor.defer ?? MouseCursor.defer,
+                      onEnter: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered3 = true);
+                      }),
+                      onExit: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered3 = false);
+                      }),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -270,21 +274,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           context.pushNamed('Help');
                         },
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 150),
+                          duration: const Duration(milliseconds: 150),
                           curve: Curves.easeInOut,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: _model.mouseRegionHovered3!
-                                ? Color(0xFFF1F4F8)
+                            color: _model.mouseRegionHovered3
+                                ? const Color(0xFFF1F4F8)
                                 : Colors.white,
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Icon(
@@ -295,7 +299,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Help',
@@ -303,7 +307,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF14181B),
+                                            color: const Color(0xFF14181B),
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
@@ -316,20 +320,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                      onEnter: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered3 = true);
-                      }),
-                      onExit: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered3 = false);
-                      }),
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 1.0,
                       color: Color(0xFFE0E3E7),
                     ),
                     MouseRegion(
                       opaque: false,
                       cursor: SystemMouseCursors.click ?? MouseCursor.defer,
+                      onEnter: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered4 = true);
+                      }),
+                      onExit: ((event) async {
+                        safeSetState(() => _model.mouseRegionHovered4 = false);
+                      }),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -344,21 +348,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           context.goNamedAuth('LoginPage', context.mounted);
                         },
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 150),
+                          duration: const Duration(milliseconds: 150),
                           curve: Curves.easeInOut,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: _model.mouseRegionHovered4!
-                                ? Color(0xFFF1F4F8)
+                            color: _model.mouseRegionHovered4
+                                ? const Color(0xFFF1F4F8)
                                 : Colors.white,
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 0.0, 0.0),
                                   child: Icon(
@@ -369,7 +373,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Log out',
@@ -377,7 +381,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF14181B),
+                                            color: const Color(0xFF14181B),
                                             fontSize: 14.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
@@ -390,12 +394,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                      onEnter: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered4 = true);
-                      }),
-                      onExit: ((event) async {
-                        safeSetState(() => _model.mouseRegionHovered4 = false);
-                      }),
                     ),
                   ],
                 ),
@@ -419,9 +417,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     options: FFButtonOptions(
                       height: 30.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -429,10 +427,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 letterSpacing: 0.0,
                               ),
                       elevation: 0.0,
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         width: 2.0,
                       ),
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
                         bottomRight: Radius.circular(0.0),
                         topLeft: Radius.circular(0.0),
@@ -459,7 +457,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         children: [
                           Flexible(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 0.0),
                               child: Container(
                                 width: 414.0,
@@ -467,7 +465,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 4.0,
                                       color: Color(0x33000000),
@@ -481,7 +479,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: RichText(
                                     textScaler:
                                         MediaQuery.of(context).textScaler,
@@ -529,19 +527,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: Container(
                               width: double.infinity,
                               height: 300.0,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(
                                     'https://images.unsplash.com/photo-1593672715438-d88a70629abe?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxtb25leXxlbnwwfHx8fDE3MjkwMDg4NDB8MA&ixlib=rb-4.0.3&q=85',
                                   ),
                                 ),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -557,7 +555,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                           Flexible(
                             child: ListView(
-                              padding: EdgeInsets.fromLTRB(
+                              padding: const EdgeInsets.fromLTRB(
                                 0,
                                 10.0,
                                 0,
@@ -568,13 +566,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               scrollDirection: Axis.vertical,
                               children: [
                                 FFButtonWidget(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    context.pushNamed('IncomePage');
+                                  },
                                   text: 'Income',
                                   options: FFButtonOptions(
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -593,16 +593,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     context.pushNamed('historyPage');
                                   },
                                   text: 'History',
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.history,
                                     size: 25.0,
                                   ),
                                   options: FFButtonOptions(
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     iconAlignment: IconAlignment.end,
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -623,9 +623,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   text: 'Tasks',
                                   options: FFButtonOptions(
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -639,7 +639,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                              ].divide(SizedBox(height: 5.0)),
+                              ].divide(const SizedBox(height: 5.0)),
                             ),
                           ),
                         ],
@@ -669,7 +669,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: Container(
+                                        child: const SizedBox(
                                           height: 300.0,
                                           child: InputMoneyWidget(),
                                         ),

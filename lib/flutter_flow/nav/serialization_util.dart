@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 
-import '../../flutter_flow/lat_lng.dart';
 import '../../flutter_flow/place.dart';
 import '../../flutter_flow/uploaded_file.dart';
 
@@ -209,8 +206,8 @@ dynamic deserializeParam<T>(
         return null;
       }
       return paramValues
-          .where((p) => p is String)
-          .map((p) => p as String)
+          .whereType<String>()
+          .map((p) => p)
           .map((p) => deserializeParam<T>(
                 p,
                 paramType,
@@ -284,7 +281,7 @@ Future<List<T>> Function(String) getDocList<T>(
     List<String> docIds = [];
     try {
       final ids = json.decode(idsList) as Iterable;
-      docIds = ids.where((d) => d is String).map((d) => d as String).toList();
+      docIds = ids.whereType<String>().map((d) => d).toList();
     } catch (_) {}
     return Future.wait(
       docIds.map(

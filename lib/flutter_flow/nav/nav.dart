@@ -1,22 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -81,7 +74,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => RootPageContext.wrap(
-        appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+        appStateNotifier.loggedIn ? const HomePageWidget() : const LoginPageWidget(),
         errorRoute: state.uri.toString(),
       ),
       routes: [
@@ -89,49 +82,49 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: '_initialize',
           path: '/',
           builder: (context, _) => RootPageContext.wrap(
-            appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+            appStateNotifier.loggedIn ? const HomePageWidget() : const LoginPageWidget(),
           ),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
           requireAuth: true,
-          builder: (context, params) => HomePageWidget(),
+          builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
           name: 'BillPage',
           path: '/billPage',
-          builder: (context, params) => BillPageWidget(),
+          builder: (context, params) => const BillPageWidget(),
         ),
         FFRoute(
           name: 'SpendingPage',
           path: '/spendingPage',
-          builder: (context, params) => SpendingPageWidget(),
+          builder: (context, params) => const SpendingPageWidget(),
         ),
         FFRoute(
           name: 'GoalPage',
           path: '/goalPage',
-          builder: (context, params) => GoalPageWidget(),
+          builder: (context, params) => const GoalPageWidget(),
         ),
         FFRoute(
           name: 'LoginPage',
           path: '/loginPage',
-          builder: (context, params) => LoginPageWidget(),
+          builder: (context, params) => const LoginPageWidget(),
         ),
         FFRoute(
           name: 'Help',
           path: '/help',
-          builder: (context, params) => HelpWidget(),
+          builder: (context, params) => const HelpWidget(),
         ),
         FFRoute(
           name: 'EduPage',
           path: '/eduPage',
-          builder: (context, params) => EduPageWidget(),
+          builder: (context, params) => const EduPageWidget(),
         ),
         FFRoute(
           name: 'forgotPassword',
           path: '/forgotPassword',
-          builder: (context, params) => ForgotPasswordWidget(),
+          builder: (context, params) => const ForgotPasswordWidget(),
         ),
         FFRoute(
           name: 'ResetPassword',
@@ -146,17 +139,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'IncomePage',
           path: '/incomePage',
-          builder: (context, params) => IncomePageWidget(),
+          builder: (context, params) => const IncomePageWidget(),
         ),
         FFRoute(
           name: 'tasksPage',
           path: '/tasksPage',
-          builder: (context, params) => TasksPageWidget(),
+          requireAuth: true,
+          builder: (context, params) => const TasksPageWidget(),
         ),
         FFRoute(
           name: 'historyPage',
           path: '/historyPage',
-          builder: (context, params) => HistoryPageWidget(),
+          builder: (context, params) => const HistoryPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -396,7 +390,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

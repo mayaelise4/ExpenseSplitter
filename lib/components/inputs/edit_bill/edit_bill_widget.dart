@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -9,11 +8,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'edit_bill_model.dart';
 export 'edit_bill_model.dart';
@@ -52,11 +49,11 @@ class _EditBillWidgetState extends State<EditBillWidget> {
     super.initState();
     _model = createModel(context, () => EditBillModel());
 
-    _model.billNameTextController ??= TextEditingController(text: widget!.name);
+    _model.billNameTextController ??= TextEditingController(text: widget.name);
     _model.billNameFocusNode ??= FocusNode();
 
     _model.amountTextController ??=
-        TextEditingController(text: widget!.amount.toString());
+        TextEditingController(text: widget.amount.toString());
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -75,7 +72,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
 
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -95,25 +92,25 @@ class _EditBillWidgetState extends State<EditBillWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 16.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 30.0,
                       borderWidth: 1.0,
                       buttonSize: 44.0,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_rounded,
                         color: Color(0xFF57636C),
                         size: 24.0,
@@ -134,14 +131,14 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                               .headlineSmall
                               .override(
                                 fontFamily: 'Outfit',
-                                color: Color(0xFF14181B),
+                                color: const Color(0xFF14181B),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                               ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
                             'Change the Bill information below.',
@@ -149,7 +146,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF57636C),
+                                  color: const Color(0xFF57636C),
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -162,7 +159,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               height: 24.0,
               thickness: 2.0,
               color: Color(0xFFF1F4F8),
@@ -178,7 +175,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 300.0,
                         child: TextFormField(
                           controller: _model.billNameTextController,
@@ -208,7 +205,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1.0,
                               ),
@@ -244,8 +241,8 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: Container(
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: SizedBox(
                           width: 300.0,
                           child: TextFormField(
                             controller: _model.amountTextController,
@@ -277,7 +274,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1.0,
                                 ),
@@ -322,11 +319,11 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController ??=
                               FormFieldController<String>(
-                            _model.dropDownValue ??= widget!.frequency,
+                            _model.dropDownValue ??= widget.frequency,
                           ),
                           options: BillTypes.values.map((e) => e.name).toList(),
                           onChanged: (val) async {
@@ -350,7 +347,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                           borderColor: FlutterFlowTheme.of(context).primaryText,
                           borderWidth: 1.0,
                           borderRadius: 8.0,
-                          margin: EdgeInsetsDirectional.fromSTEB(
+                          margin: const EdgeInsetsDirectional.fromSTEB(
                               12.0, 0.0, 12.0, 0.0),
                           hidesUnderline: true,
                           isOverButton: false,
@@ -358,7 +355,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                           isMultiSelect: false,
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         height: 24.0,
                         thickness: 2.0,
                         color: Color(0xFFF1F4F8),
@@ -368,7 +365,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: 'Outfit',
-                                  color: Color(0xFF14181B),
+                                  color: const Color(0xFF14181B),
                                   fontSize: 24.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -379,7 +376,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                         iconColor: FlutterFlowTheme.of(context).secondaryText,
                         weekFormat: false,
                         weekStartsMonday: false,
-                        initialDate: widget!.duedate,
+                        initialDate: widget.duedate,
                         rowHeight: 48.0,
                         onChange: (DateTimeRange? newSelectedDate) {
                           safeSetState(() =>
@@ -418,13 +415,13 @@ class _EditBillWidgetState extends State<EditBillWidget> {
               ],
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     FFAppState().updateBillsAtIndex(
-                      widget!.index!,
+                      widget.index!,
                       (_) => BillStruct(
                         name: _model.billNameTextController.text,
                         amount:
@@ -434,6 +431,17 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                       ),
                     );
                     FFAppState().update(() {});
+                    if (FFAppState().bills[widget.index!].dueDate <
+                        getCurrentTimestamp) {
+                      FFAppState().updateBillsAtIndex(
+                        widget.index!,
+                        (e) => e
+                          ..dueDate = functions.moveBillDate(
+                              FFAppState().bills[widget.index!].dueDate,
+                              _model.dropDownValue!),
+                      );
+                      _model.updatePage(() {});
+                    }
                     // sorts the list by due date
                     FFAppState().bills = FFAppState()
                         .bills
@@ -471,9 +479,9 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Inter Tight',

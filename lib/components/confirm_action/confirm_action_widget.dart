@@ -2,8 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'confirm_action_model.dart';
 export 'confirm_action_model.dart';
 
@@ -45,7 +43,7 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
       height: 270.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 5.0,
             color: Color(0x3B1D2429),
@@ -55,7 +53,7 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
             ),
           )
         ],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(16.0),
@@ -63,7 +61,7 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -76,22 +74,22 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
                   ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   Navigator.pop(context, false);
                 },
                 text: 'Cancel',
-                icon: Icon(
+                icon: const Icon(
                   Icons.cancel_outlined,
                   size: 15.0,
                 ),
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 60.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primaryBackground,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'Lexend Deca',
@@ -101,7 +99,7 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
                         fontWeight: FontWeight.normal,
                       ),
                   elevation: 2.0,
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                     width: 0.0,
                   ),
@@ -113,15 +111,15 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
                 Navigator.pop(context, true);
               },
               text: 'Confirm',
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
                 size: 15.0,
               ),
               options: FFButtonOptions(
                 width: double.infinity,
                 height: 60.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primaryBackground,
                 textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'Inter',
@@ -129,7 +127,7 @@ class _ConfirmActionWidgetState extends State<ConfirmActionWidget> {
                       letterSpacing: 0.0,
                     ),
                 elevation: 2.0,
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1.0,
                 ),

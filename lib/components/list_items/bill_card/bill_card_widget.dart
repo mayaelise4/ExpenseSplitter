@@ -1,16 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/confirm_action/confirm_action_widget.dart';
 import '/components/inputs/edit_bill/edit_bill_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'bill_card_model.dart';
 export 'bill_card_model.dart';
@@ -23,7 +21,7 @@ class BillCardWidget extends StatefulWidget {
     required this.billFrequency,
     required this.index,
     required this.date,
-  }) : this.moneyAmount = moneyAmount ?? 0.00;
+  }) : moneyAmount = moneyAmount ?? 0.00;
 
   final String? billName;
   final double moneyAmount;
@@ -49,6 +47,36 @@ class _BillCardWidgetState extends State<BillCardWidget> {
     super.initState();
     _model = createModel(context, () => BillCardModel());
 
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.date! <= getCurrentTimestamp) {
+        FFAppState().updateBillsAtIndex(
+          widget.index!,
+          (e) => e
+            ..dueDate =
+                functions.moveBillDate(widget.date!, widget.billFrequency!),
+        );
+        _model.updatePage(() {});
+        // subtracts that bill's amount from the pocket when it occurs
+        FFAppState().pocketAmount = FFAppState().pocketAmount +
+            (-(FFAppState().bills[widget.index!].amount));
+        safeSetState(() {});
+
+        await TasksRecord.createDoc(currentUserReference!)
+            .set(createTasksRecordData(
+          date: getCurrentTimestamp,
+          tag: 'Bill Due',
+          status: TaskStatus.incomplete,
+          type: TaskType.Bill,
+          bill: updateBillStruct(
+            FFAppState().bills[widget.index!],
+            clearUnsetFields: false,
+            create: true,
+          ),
+        ));
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -64,13 +92,13 @@ class _BillCardWidgetState extends State<BillCardWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 100.0,
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 12.0,
               color: Color(0x34000000),
@@ -83,7 +111,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -91,33 +119,33 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                 width: 4.0,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color(0xFF4B39EF),
+                  color: const Color(0xFF4B39EF),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
                           child: Text(
                             valueOrDefault<String>(
-                              widget!.billName,
+                              widget.billName,
                               'No Desc',
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF4B39EF),
+                                  color: const Color(0xFF4B39EF),
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -127,7 +155,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                       ),
                       Text(
                         valueOrDefault<String>(
-                          widget!.billFrequency,
+                          widget.billFrequency,
                           'Monthly',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -153,11 +181,11 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                             TextSpan(
                               text: dateTimeFormat(
                                 "Md",
-                                widget!.date,
+                                widget.date,
                                 locale:
                                     FFLocalizations.of(context).languageCode,
                               ),
-                              style: TextStyle(),
+                              style: const TextStyle(),
                             )
                           ],
                           style:
@@ -172,7 +200,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -180,18 +208,18 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 4.0, 4.0, 5.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
                                 formatNumber(
-                                  widget!.moneyAmount,
+                                  widget.moneyAmount,
                                   formatType: FormatType.decimal,
                                   decimalType: DecimalType.periodDecimal,
                                   currency: '\$',
@@ -202,7 +230,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                                   .headlineSmall
                                   .override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF14181B),
+                                    color: const Color(0xFF14181B),
                                     fontSize: 24.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
@@ -238,7 +266,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
+                            child: const SizedBox(
                               height: 300.0,
                               child: ConfirmActionWidget(),
                             ),
@@ -248,7 +276,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
-                        FFAppState().removeAtIndexFromBills(widget!.index!);
+                        FFAppState().removeAtIndexFromBills(widget.index!);
                         FFAppState().update(() {});
 
                         await currentUserReference!.update({
@@ -260,10 +288,10 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                               'ActionHistory': FieldValue.arrayUnion([
                                 getHistoryFirestoreData(
                                   createHistoryStruct(
-                                    itemName: widget!.billName,
+                                    itemName: widget.billName,
                                     actionDate: getCurrentTimestamp,
                                     actionType: ActionTypes.delete,
-                                    actionAmount: widget!.moneyAmount,
+                                    actionAmount: widget.moneyAmount,
                                     actionLocation: ActionLocations.Bills,
                                     clearUnsetFields: false,
                                   ),
@@ -279,7 +307,7 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                     },
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
                       borderRadius: 8.0,
@@ -299,14 +327,14 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                           builder: (context) {
                             return Padding(
                               padding: MediaQuery.viewInsetsOf(context),
-                              child: Container(
+                              child: SizedBox(
                                 height: 900.0,
                                 child: EditBillWidget(
-                                  index: widget!.index!,
-                                  name: widget!.billName,
-                                  amount: widget!.moneyAmount,
-                                  frequency: widget!.billFrequency!,
-                                  duedate: widget!.date!,
+                                  index: widget.index!,
+                                  name: widget.billName,
+                                  amount: widget.moneyAmount,
+                                  frequency: widget.billFrequency!,
+                                  duedate: widget.date!,
                                 ),
                               ),
                             );

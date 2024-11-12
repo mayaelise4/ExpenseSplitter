@@ -50,6 +50,18 @@ class _BillCardWidgetState extends State<BillCardWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget.date! <= getCurrentTimestamp) {
+        // subtracts that bill's amount from the pocket when it occurs
+        FFAppState().incompleteTaskExists = true;
+        _model.updatePage(() {});
+
+        await currentUserReference!.update({
+          ...mapToFirestore(
+            {
+              'pocketAmount': FieldValue.increment(
+                  -(FFAppState().bills[widget.index!].amount)),
+            },
+          ),
+        });
         FFAppState().updateBillsAtIndex(
           widget.index!,
           (e) => e
@@ -57,10 +69,16 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                 functions.moveBillDate(widget.date!, widget.billFrequency!),
         );
         _model.updatePage(() {});
-        // subtracts that bill's amount from the pocket when it occurs
-        FFAppState().pocketAmount = FFAppState().pocketAmount +
-            (-(FFAppState().bills[widget.index!].amount));
-        safeSetState(() {});
+
+        await currentUserReference!.update({
+          ...mapToFirestore(
+            {
+              'bills': getBillListFirestoreData(
+                FFAppState().bills,
+              ),
+            },
+          ),
+        });
 
         await TasksRecord.createDoc(currentUserReference!)
             .set(createTasksRecordData(

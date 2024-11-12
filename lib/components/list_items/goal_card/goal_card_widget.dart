@@ -313,6 +313,17 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
+                        // return the allocated money if goal is incomplete to pocket
+                        if (widget.goalProgress != FFAppConstants.one) {
+                          await currentUserReference!.update({
+                            ...mapToFirestore(
+                              {
+                                'pocketAmount':
+                                    FieldValue.increment(widget.added),
+                              },
+                            ),
+                          });
+                        }
                         FFAppState().removeAtIndexFromGoals(widget.index!);
                         FFAppState().update(() {});
 

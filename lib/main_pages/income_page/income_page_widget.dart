@@ -1,3 +1,5 @@
+import '/components/inputs/add_income/add_income_widget.dart';
+import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/income_card/income_card_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -96,9 +98,9 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                           builder: (context) {
                             final incomeCardList = FFAppState().income.toList();
                             if (incomeCardList.isEmpty) {
-                              return Center(
-                                child: Image.asset(
-                                  '',
+                              return const Center(
+                                child: EmptyListDisplayWidget(
+                                  itemName: 'Incomes',
                                 ),
                               );
                             }
@@ -112,14 +114,22 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                               itemBuilder: (context, incomeCardListIndex) {
                                 final incomeCardListItem =
                                     incomeCardList[incomeCardListIndex];
-                                return IncomeCardWidget(
-                                  key: Key(
-                                      'Keyrbo_${incomeCardListIndex}_of_${incomeCardList.length}'),
-                                  moneyAmount: incomeCardListItem.amount,
-                                  index: incomeCardListIndex,
-                                  date: incomeCardListItem.payDate,
-                                  incomeName: incomeCardListItem.name,
-                                  incomeFreq: incomeCardListItem.freq,
+                                return wrapWithModel(
+                                  model: _model.incomeCardModels.getModel(
+                                    incomeCardListIndex.toString(),
+                                    incomeCardListIndex,
+                                  ),
+                                  updateCallback: () => safeSetState(() {}),
+                                  child: IncomeCardWidget(
+                                    key: Key(
+                                      'Keyrbo_${incomeCardListIndex.toString()}',
+                                    ),
+                                    moneyAmount: incomeCardListItem.amount,
+                                    index: incomeCardListIndex,
+                                    date: incomeCardListItem.payDate,
+                                    incomeName: incomeCardListItem.name,
+                                    incomeFreq: incomeCardListItem.freq,
+                                  ),
                                 );
                               },
                             );
@@ -136,18 +146,27 @@ class _IncomePageWidgetState extends State<IncomePageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {},
-                      child: wrapWithModel(
-                        model: _model.navBarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: NavBarWidget(
-                          whichInput: () async {},
-                        ),
+                    wrapWithModel(
+                      model: _model.navBarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: NavBarWidget(
+                        whichInput: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: const AddIncomeWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
                       ),
                     ),
                   ],

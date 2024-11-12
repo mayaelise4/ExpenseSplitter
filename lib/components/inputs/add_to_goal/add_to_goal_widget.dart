@@ -248,6 +248,9 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                   0.0, 10.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  _model.amount = double.parse(
+                                      _model.amountTextController.text);
+                                  safeSetState(() {});
                                   if (!((_model.amountTextController.text ==
                                           '0.00') ||
                                       (_model.amountTextController.text ==
@@ -257,7 +260,34 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                       (_model.amountTextController.text ==
                                           '0') ||
                                       (_model.amountTextController.text ==
-                                              ''))) {
+                                              '') ||
+                                      (valueOrDefault(
+                                              currentUserDocument?.pocketAmount,
+                                              0.0) <=
+                                          FFAppConstants.zero))) {
+                                    // if the added amount is greater than the pocket, use the rest of what's left in pocket
+                                    if (_model.amount >=
+                                        valueOrDefault(
+                                            currentUserDocument?.pocketAmount,
+                                            0.0)) {
+                                      _model.amount = valueOrDefault(
+                                          currentUserDocument?.pocketAmount,
+                                          0.0);
+                                      safeSetState(() {});
+                                    } else {
+                                      _model.amount = double.parse(
+                                          _model.amountTextController.text);
+                                      safeSetState(() {});
+                                    }
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'pocketAmount': FieldValue.increment(
+                                              -(_model.amount)),
+                                        },
+                                      ),
+                                    });
                                     _model.addedAmount = FFAppState()
                                         .goals[widget.index!]
                                         .addedAmount;
@@ -265,8 +295,7 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                     FFAppState().updateGoalsAtIndex(
                                       widget.index!,
                                       (e) => e
-                                        ..incrementAddedAmount(double.parse(
-                                            _model.amountTextController.text)),
+                                        ..incrementAddedAmount(_model.amount),
                                     );
                                     safeSetState(() {});
                                     if (FFAppState()
@@ -280,6 +309,16 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                               .amount -
                                           _model.addedAmount;
                                       safeSetState(() {});
+
+                                      await currentUserReference!.update({
+                                        ...mapToFirestore(
+                                          {
+                                            'pocketAmount':
+                                                FieldValue.increment(
+                                                    _model.overflowDifference!),
+                                          },
+                                        ),
+                                      });
                                       FFAppState().updateGoalsAtIndex(
                                         widget.index!,
                                         (e) => e
@@ -288,6 +327,7 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                               .goals[widget.index!]
                                               .amount,
                                       );
+                                      FFAppState().incompleteTaskExists = true;
                                       safeSetState(() {});
 
                                       await currentUserReference!.update({
@@ -376,7 +416,26 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                         ),
                                       });
                                     }
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Pocket is 0 or Amount is 0',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: const Duration(milliseconds: 3000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
                                   }
+
                                   Navigator.pop(context);
                                 },
                                 text: 'Confirm',

@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'input_money_model.dart';
 export 'input_money_model.dart';
 
@@ -47,8 +46,6 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -236,19 +233,14 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                                   0.0, 10.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  FFAppState().pocketAmount =
-                                      FFAppState().pocketAmount +
-                                          double.parse(
-                                              _model.amountTextController.text);
-                                  safeSetState(() {});
                                   // updates pocketAmount on firebase
 
                                   await currentUserReference!.update({
-                                    ...createUsersRecordData(
-                                      pocketAmount: FFAppState().pocketAmount,
-                                    ),
                                     ...mapToFirestore(
                                       {
+                                        'pocketAmount': FieldValue.increment(
+                                            double.parse(_model
+                                                .amountTextController.text)),
                                         'ActionHistory': FieldValue.arrayUnion([
                                           getHistoryFirestoreData(
                                             createHistoryStruct(

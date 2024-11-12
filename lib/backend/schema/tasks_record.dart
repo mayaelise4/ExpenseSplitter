@@ -46,6 +46,11 @@ class TasksRecord extends FirestoreRecord {
   BillStruct get bill => _bill ?? BillStruct();
   bool hasBill() => _bill != null;
 
+  // "income" field.
+  IncomeStruct? _income;
+  IncomeStruct get income => _income ?? IncomeStruct();
+  bool hasIncome() => _income != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -55,6 +60,7 @@ class TasksRecord extends FirestoreRecord {
     _status = deserializeEnum<TaskStatus>(snapshotData['status']);
     _type = deserializeEnum<TaskType>(snapshotData['type']);
     _bill = BillStruct.maybeFromMap(snapshotData['bill']);
+    _income = IncomeStruct.maybeFromMap(snapshotData['income']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -102,6 +108,7 @@ Map<String, dynamic> createTasksRecordData({
   TaskStatus? status,
   TaskType? type,
   BillStruct? bill,
+  IncomeStruct? income,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -111,6 +118,7 @@ Map<String, dynamic> createTasksRecordData({
       'status': status,
       'type': type,
       'bill': BillStruct().toMap(),
+      'income': IncomeStruct().toMap(),
     }.withoutNulls,
   );
 
@@ -119,6 +127,9 @@ Map<String, dynamic> createTasksRecordData({
 
   // Handle nested data for "bill" field.
   addBillStructData(firestoreData, bill, 'bill');
+
+  // Handle nested data for "income" field.
+  addIncomeStructData(firestoreData, income, 'income');
 
   return firestoreData;
 }
@@ -133,12 +144,13 @@ class TasksRecordDocumentEquality implements Equality<TasksRecord> {
         e1?.goal == e2?.goal &&
         e1?.status == e2?.status &&
         e1?.type == e2?.type &&
-        e1?.bill == e2?.bill;
+        e1?.bill == e2?.bill &&
+        e1?.income == e2?.income;
   }
 
   @override
   int hash(TasksRecord? e) => const ListEquality()
-      .hash([e?.date, e?.tag, e?.goal, e?.status, e?.type, e?.bill]);
+      .hash([e?.date, e?.tag, e?.goal, e?.status, e?.type, e?.bill, e?.income]);
 
   @override
   bool isValidKey(Object? o) => o is TasksRecord;

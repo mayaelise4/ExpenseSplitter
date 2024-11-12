@@ -9,9 +9,6 @@ Future updateAppStateOnLogout(BuildContext context) async {
   FFAppState().deleteTransactions();
   FFAppState().Transactions = [];
 
-  FFAppState().deletePocketAmount();
-  FFAppState().pocketAmount = 0.0;
-
   FFAppState().deleteBills();
   FFAppState().bills = [];
 
@@ -21,13 +18,17 @@ Future updateAppStateOnLogout(BuildContext context) async {
   FFAppState().deleteTotalSpending();
   FFAppState().totalSpending = 0.0;
 
+  FFAppState().deleteIncome();
+  FFAppState().income = [];
+
+  FFAppState().deleteIncompleteTaskExists();
+  FFAppState().incompleteTaskExists = false;
+
   FFAppState().update(() {});
 }
 
 Future updateAppStateOnLogIn(BuildContext context) async {
   // will fill the app state information with data from firebase when this component is loaded
-  FFAppState().pocketAmount =
-      valueOrDefault(currentUserDocument?.pocketAmount, 0.0);
   FFAppState().Transactions =
       (currentUserDocument?.transactions.toList() ?? [])
           .toList()
@@ -38,5 +39,9 @@ Future updateAppStateOnLogIn(BuildContext context) async {
       .cast<BillStruct>();
   FFAppState().goals =
       (currentUserDocument?.goals.toList() ?? []).toList().cast<GoalStruct>();
+  FFAppState().income = (currentUserDocument?.incomes.toList() ?? [])
+      .sortedList(keyOf: (e) => e.payDate, desc: false)
+      .toList()
+      .cast<IncomeStruct>();
   FFAppState().update(() {});
 }

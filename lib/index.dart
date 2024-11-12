@@ -6,7 +6,7 @@ export '/main_pages/spending_page/spending_page_widget.dart'
 export '/main_pages/goal_page/goal_page_widget.dart' show GoalPageWidget;
 export '/pages/authentication/login_page/login_page_widget.dart'
     show LoginPageWidget;
-export '/main_pages/help/help_widget.dart' show HelpWidget;
+export '/main_pages/help_page/help_page_widget.dart' show HelpPageWidget;
 export '/main_pages/edu_page/edu_page_widget.dart' show EduPageWidget;
 export '/pages/authentication/forgot_password/forgot_password_widget.dart'
     show ForgotPasswordWidget;
@@ -16,3 +16,4 @@ export '/main_pages/income_page/income_page_widget.dart' show IncomePageWidget;
 export '/main_pages/tasks_page/tasks_page_widget.dart' show TasksPageWidget;
 export '/main_pages/history_page/history_page_widget.dart'
     show HistoryPageWidget;
+export '/education_test/education_test_widget.dart' show EducationTestWidget;

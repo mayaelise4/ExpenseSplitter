@@ -52,13 +52,6 @@ DateTime moveBillDate(
   return date;
 }
 
-bool checkForIncompleteTask(List<TasksRecord> tasks) {
-  for (var doc in tasks) {
-    if (doc.type == TaskStatus.incomplete) return true;
-  }
-  return false;
-}
-
 DateTime moveIncomeDate(
   DateTime date,
   String freq,

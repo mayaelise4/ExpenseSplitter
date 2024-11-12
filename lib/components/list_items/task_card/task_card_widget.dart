@@ -95,10 +95,14 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                       },
                     ),
                   });
+                  FFAppState().incompleteTaskExists = false;
+                  _model.updatePage(() {});
                 } else {
                   await widget.task!.reference.update(createTasksRecordData(
                     status: TaskStatus.incomplete,
                   ));
+                  FFAppState().incompleteTaskExists = true;
+                  _model.updatePage(() {});
                 }
               },
             ),

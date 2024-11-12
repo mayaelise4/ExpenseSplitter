@@ -22,10 +22,6 @@ class FFAppState extends ChangeNotifier {
   Future initializePersistedState() async {
     secureStorage = const FlutterSecureStorage();
     await _safeInitAsync(() async {
-      _pocketAmount =
-          await secureStorage.getDouble('ff_pocketAmount') ?? _pocketAmount;
-    });
-    await _safeInitAsync(() async {
       _Transactions = (await secureStorage.getStringList('ff_Transactions'))
               ?.map((x) {
                 try {
@@ -38,9 +34,6 @@ class FFAppState extends ChangeNotifier {
               .withoutNulls
               .toList() ??
           _Transactions;
-    });
-    await _safeInitAsync(() async {
-      _userinput = await secureStorage.getString('ff_userinput') ?? _userinput;
     });
     await _safeInitAsync(() async {
       _totalSpending =
@@ -93,6 +86,16 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _income;
     });
+    await _safeInitAsync(() async {
+      _userinput = await secureStorage.getString('ff_userinput') ?? _userinput;
+    });
+    await _safeInitAsync(() async {
+      _geminiresponse =
+          await secureStorage.getString('ff_geminiresponse') ?? _geminiresponse;
+    });
+    await _safeInitAsync(() async {
+      _chat = await secureStorage.getString('ff_chat') ?? _chat;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -101,17 +104,6 @@ class FFAppState extends ChangeNotifier {
   }
 
   late FlutterSecureStorage secureStorage;
-
-  double _pocketAmount = 0.0;
-  double get pocketAmount => _pocketAmount;
-  set pocketAmount(double value) {
-    _pocketAmount = value;
-    secureStorage.setDouble('ff_pocketAmount', value);
-  }
-
-  void deletePocketAmount() {
-    secureStorage.delete(key: 'ff_pocketAmount');
-  }
 
   List<TransactionStruct> _Transactions = [];
   List<TransactionStruct> get Transactions => _Transactions;
@@ -156,46 +148,6 @@ class FFAppState extends ChangeNotifier {
     Transactions.insert(index, value);
     secureStorage.setStringList(
         'ff_Transactions', _Transactions.map((x) => x.serialize()).toList());
-  }
-
-  String _userinput = '';
-  String get userinput => _userinput;
-  set userinput(String value) {
-    _userinput = value;
-    secureStorage.setString('ff_userinput', value);
-  }
-
-  void deleteUserinput() {
-    secureStorage.delete(key: 'ff_userinput');
-  }
-
-  List<String> _chatconvo = [];
-  List<String> get chatconvo => _chatconvo;
-  set chatconvo(List<String> value) {
-    _chatconvo = value;
-  }
-
-  void addToChatconvo(String value) {
-    chatconvo.add(value);
-  }
-
-  void removeFromChatconvo(String value) {
-    chatconvo.remove(value);
-  }
-
-  void removeAtIndexFromChatconvo(int index) {
-    chatconvo.removeAt(index);
-  }
-
-  void updateChatconvoAtIndex(
-    int index,
-    String Function(String) updateFn,
-  ) {
-    chatconvo[index] = updateFn(_chatconvo[index]);
-  }
-
-  void insertAtIndexInChatconvo(int index, String value) {
-    chatconvo.insert(index, value);
   }
 
   double _totalSpending = 0.0;
@@ -252,12 +204,6 @@ class FFAppState extends ChangeNotifier {
     goals.insert(index, value);
     secureStorage.setStringList(
         'ff_goals', _goals.map((x) => x.serialize()).toList());
-  }
-
-  String _geminiresponse = '';
-  String get geminiresponse => _geminiresponse;
-  set geminiresponse(String value) {
-    _geminiresponse = value;
   }
 
   List<BillStruct> _bills = [];
@@ -359,6 +305,151 @@ class FFAppState extends ChangeNotifier {
     income.insert(index, value);
     secureStorage.setStringList(
         'ff_income', _income.map((x) => x.serialize()).toList());
+  }
+
+  String _userinput = '';
+  String get userinput => _userinput;
+  set userinput(String value) {
+    _userinput = value;
+    secureStorage.setString('ff_userinput', value);
+  }
+
+  void deleteUserinput() {
+    secureStorage.delete(key: 'ff_userinput');
+  }
+
+  String _geminiresponse = '';
+  String get geminiresponse => _geminiresponse;
+  set geminiresponse(String value) {
+    _geminiresponse = value;
+    secureStorage.setString('ff_geminiresponse', value);
+  }
+
+  void deleteGeminiresponse() {
+    secureStorage.delete(key: 'ff_geminiresponse');
+  }
+
+  String _chat = '';
+  String get chat => _chat;
+  set chat(String value) {
+    _chat = value;
+    secureStorage.setString('ff_chat', value);
+  }
+
+  void deleteChat() {
+    secureStorage.delete(key: 'ff_chat');
+  }
+
+  bool _isIntroductionExpanded = false;
+  bool get isIntroductionExpanded => _isIntroductionExpanded;
+  set isIntroductionExpanded(bool value) {
+    _isIntroductionExpanded = value;
+  }
+
+  bool _isSettingFinancialGoalsExpanded = false;
+  bool get isSettingFinancialGoalsExpanded => _isSettingFinancialGoalsExpanded;
+  set isSettingFinancialGoalsExpanded(bool value) {
+    _isSettingFinancialGoalsExpanded = value;
+  }
+
+  bool _isBudgetingBasicsExpanded = false;
+  bool get isBudgetingBasicsExpanded => _isBudgetingBasicsExpanded;
+  set isBudgetingBasicsExpanded(bool value) {
+    _isBudgetingBasicsExpanded = value;
+  }
+
+  bool _isManagingIrregularIncomeExpanded = false;
+  bool get isManagingIrregularIncomeExpanded =>
+      _isManagingIrregularIncomeExpanded;
+  set isManagingIrregularIncomeExpanded(bool value) {
+    _isManagingIrregularIncomeExpanded = value;
+  }
+
+  bool _isBuildingCreditExpanded = false;
+  bool get isBuildingCreditExpanded => _isBuildingCreditExpanded;
+  set isBuildingCreditExpanded(bool value) {
+    _isBuildingCreditExpanded = value;
+  }
+
+  bool _isUnderstandingDebtExpanded = false;
+  bool get isUnderstandingDebtExpanded => _isUnderstandingDebtExpanded;
+  set isUnderstandingDebtExpanded(bool value) {
+    _isUnderstandingDebtExpanded = value;
+  }
+
+  bool _isChoosingTheBestCreditCardForYouExpanded = false;
+  bool get isChoosingTheBestCreditCardForYouExpanded =>
+      _isChoosingTheBestCreditCardForYouExpanded;
+  set isChoosingTheBestCreditCardForYouExpanded(bool value) {
+    _isChoosingTheBestCreditCardForYouExpanded = value;
+  }
+
+  bool _isSmartBorrowingExpanded = false;
+  bool get isSmartBorrowingExpanded => _isSmartBorrowingExpanded;
+  set isSmartBorrowingExpanded(bool value) {
+    _isSmartBorrowingExpanded = value;
+  }
+
+  bool _isGoalOrientedSavingExpanded = false;
+  bool get isGoalOrientedSavingExpanded => _isGoalOrientedSavingExpanded;
+  set isGoalOrientedSavingExpanded(bool value) {
+    _isGoalOrientedSavingExpanded = value;
+  }
+
+  bool _isGrantsAndScholarshipsExpanded = false;
+  bool get isGrantsAndScholarshipsExpanded => _isGrantsAndScholarshipsExpanded;
+  set isGrantsAndScholarshipsExpanded(bool value) {
+    _isGrantsAndScholarshipsExpanded = value;
+  }
+
+  bool _isStudentLoansExpanded = false;
+  bool get isStudentLoansExpanded => _isStudentLoansExpanded;
+  set isStudentLoansExpanded(bool value) {
+    _isStudentLoansExpanded = value;
+  }
+
+  bool _isBestPracticesExpanded = false;
+  bool get isBestPracticesExpanded => _isBestPracticesExpanded;
+  set isBestPracticesExpanded(bool value) {
+    _isBestPracticesExpanded = value;
+  }
+
+  bool _isRecognizingScamsExpanded = false;
+  bool get isRecognizingScamsExpanded => _isRecognizingScamsExpanded;
+  set isRecognizingScamsExpanded(bool value) {
+    _isRecognizingScamsExpanded = value;
+  }
+
+  bool _isInvestingOptionsExpanded = false;
+  bool get isInvestingOptionsExpanded => _isInvestingOptionsExpanded;
+  set isInvestingOptionsExpanded(bool value) {
+    _isInvestingOptionsExpanded = value;
+  }
+
+  bool _isBasicInvestmentStrategiesExpanded = false;
+  bool get isBasicInvestmentStrategiesExpanded =>
+      _isBasicInvestmentStrategiesExpanded;
+  set isBasicInvestmentStrategiesExpanded(bool value) {
+    _isBasicInvestmentStrategiesExpanded = value;
+  }
+
+  bool _isInvestmentResourcesAndToolsExpanded = false;
+  bool get isInvestmentResourcesAndToolsExpanded =>
+      _isInvestmentResourcesAndToolsExpanded;
+  set isInvestmentResourcesAndToolsExpanded(bool value) {
+    _isInvestmentResourcesAndToolsExpanded = value;
+  }
+
+  bool _isWorkStudyExpanded = false;
+  bool get isWorkStudyExpanded => _isWorkStudyExpanded;
+  set isWorkStudyExpanded(bool value) {
+    _isWorkStudyExpanded = value;
+  }
+
+  bool _onSplitterChat = false;
+  bool get onSplitterChat => _onSplitterChat;
+  set onSplitterChat(bool value) {
+    _onSplitterChat = value;
   }
 }
 

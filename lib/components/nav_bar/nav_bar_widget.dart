@@ -111,6 +111,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
+                  if (Navigator.of(context).canPop()) {
+                    context.pop();
+                  }
                   context.pushNamed('HomePage');
                 },
                 child: Container(

@@ -1,8 +1,15 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/components/confirm_action/confirm_action_widget.dart';
+import '/components/inputs/edit_income/edit_income_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'income_card_model.dart';
 export 'income_card_model.dart';
 
@@ -42,6 +49,53 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
     super.initState();
     _model = createModel(context, () => IncomeCardModel());
 
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.date! <= getCurrentTimestamp) {
+        FFAppState().incompleteTaskExists = true;
+        safeSetState(() {});
+
+        await currentUserReference!.update({
+          ...mapToFirestore(
+            {
+              'pocketAmount': FieldValue.increment(
+                  FFAppState().income[widget.index!].amount),
+            },
+          ),
+        });
+        FFAppState().updateIncomeAtIndex(
+          widget.index!,
+          (e) => e
+            ..payDate =
+                functions.moveIncomeDate(widget.date!, widget.incomeFreq),
+        );
+        safeSetState(() {});
+
+        await currentUserReference!.update({
+          ...mapToFirestore(
+            {
+              'incomes': getIncomeListFirestoreData(
+                FFAppState().income,
+              ),
+            },
+          ),
+        });
+
+        await TasksRecord.createDoc(currentUserReference!)
+            .set(createTasksRecordData(
+          date: getCurrentTimestamp,
+          tag: 'Pay Date',
+          status: TaskStatus.incomplete,
+          type: TaskType.Income,
+          income: updateIncomeStruct(
+            FFAppState().income[widget.index!],
+            clearUnsetFields: false,
+            create: true,
+          ),
+        ));
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -54,6 +108,8 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(16.0, 2.0, 16.0, 2.0),
       child: Container(
@@ -133,7 +189,7 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: 'Due: ',
+                              text: 'payDay: ',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -239,8 +295,31 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
-                        FFAppState().removeAtIndexFromBills(widget.index!);
+                        FFAppState().removeAtIndexFromIncome(widget.index!);
                         FFAppState().update(() {});
+
+                        await currentUserReference!.update({
+                          ...mapToFirestore(
+                            {
+                              'ActionHistory': FieldValue.arrayUnion([
+                                getHistoryFirestoreData(
+                                  createHistoryStruct(
+                                    itemName: widget.incomeName,
+                                    actionDate: getCurrentTimestamp,
+                                    actionType: ActionTypes.delete,
+                                    actionAmount: widget.moneyAmount,
+                                    actionLocation: ActionLocations.Incomes,
+                                    clearUnsetFields: false,
+                                  ),
+                                  true,
+                                )
+                              ]),
+                              'incomes': getIncomeListFirestoreData(
+                                FFAppState().income,
+                              ),
+                            },
+                          ),
+                        });
                       }
 
                       safeSetState(() {});
@@ -258,8 +337,28 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                         color: FlutterFlowTheme.of(context).primary,
                         size: 20.0,
                       ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
+                      onPressed: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: SizedBox(
+                                height: 900.0,
+                                child: EditIncomeWidget(
+                                  index: widget.index!,
+                                  name: widget.incomeName,
+                                  amount: widget.moneyAmount,
+                                  frequency: widget.incomeFreq,
+                                  payDate: widget.date!,
+                                ),
+                              ),
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
                       },
                     ),
                   ),

@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/task_card/task_card_widget.dart';
+import '/components/new_task_notification/new_task_notification_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -32,7 +33,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await queryTasksRecordOnce(
+      _model.tasksList = await queryTasksRecordOnce(
         parent: currentUserReference,
       );
     });
@@ -63,7 +64,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
               !const ListEquality(TasksRecordDocumentEquality()).equals(
                   tasksPageTasksRecordList, _model.tasksPagePreviousSnapshot)) {
             () async {
-              await queryTasksRecordOnce(
+              _model.newTasksList = await queryTasksRecordOnce(
                 parent: currentUserReference,
               );
 
@@ -164,6 +165,16 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                             fontFamily: 'Inter Tight',
                                             letterSpacing: 0.0,
                                           ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 10.0, 0.0),
+                                      child: wrapWithModel(
+                                        model: _model.newTaskNotificationModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: const NewTaskNotificationWidget(),
+                                      ),
                                     ),
                                   ],
                                 ),

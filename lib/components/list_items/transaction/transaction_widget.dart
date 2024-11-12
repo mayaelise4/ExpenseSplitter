@@ -208,6 +208,15 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                         (value) => safeSetState(() => _model.confirm = value));
 
                     if (_model.confirm == true) {
+                      await currentUserReference!.update({
+                        ...mapToFirestore(
+                          {
+                            'pocketAmount': FieldValue.increment(FFAppState()
+                                .Transactions[widget.transactionIndex!]
+                                .amount),
+                          },
+                        ),
+                      });
                       FFAppState().removeAtIndexFromTransactions(
                           widget.transactionIndex!);
                       FFAppState().update(() {});

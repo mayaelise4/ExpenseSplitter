@@ -33,6 +33,7 @@ enum TaskStatus {
 enum TaskType {
   Goal,
   Bill,
+  Income,
 }
 
 enum IncomeTypes {

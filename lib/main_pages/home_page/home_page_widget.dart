@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -271,7 +270,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('Help');
+                          context.pushNamed('HelpPage');
                         },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 150),
@@ -498,11 +497,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                         TextSpan(
                                           text: formatNumber(
-                                            FFAppState().pocketAmount,
+                                            valueOrDefault(
+                                                currentUserDocument
+                                                    ?.pocketAmount,
+                                                0.0),
                                             formatType: FormatType.decimal,
                                             decimalType:
                                                 DecimalType.periodDecimal,
-                                            currency: '\$',
+                                            currency: '',
                                           ),
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
@@ -533,11 +535,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               width: double.infinity,
                               height: 300.0,
                               decoration: BoxDecoration(
-                                image: const DecorationImage(
+                                image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: CachedNetworkImageProvider(
-                                    'https://images.unsplash.com/photo-1593672715438-d88a70629abe?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxtb25leXxlbnwwfHx8fDE3MjkwMDg4NDB8MA&ixlib=rb-4.0.3&q=85',
-                                  ),
+                                  image: Image.network(
+                                    'https://images.unsplash.com/photo-1593672715438-d88a70629abe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyfHxtb25leXxlbnwwfHx8fDE3MzA2NTExMjl8MA&ixlib=rb-4.0.3&q=80&w=1080',
+                                  ).image,
                                 ),
                                 boxShadow: const [
                                   BoxShadow(
@@ -621,10 +623,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     context.pushNamed('tasksPage');
                                   },
                                   text: 'Tasks',
+                                  icon: Icon(
+                                    Icons.notifications_active_outlined,
+                                    color: FFAppState().incompleteTaskExists
+                                        ? FlutterFlowTheme.of(context).secondary
+                                        : Colors.white,
+                                    size: 25.0,
+                                  ),
                                   options: FFButtonOptions(
                                     height: 40.0,
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
+                                    iconAlignment: IconAlignment.end,
                                     iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,

@@ -5,13 +5,7 @@ import 'package:flutter/material.dart';
 class AddToGoalModel extends FlutterFlowModel<AddToGoalWidget> {
   ///  Local state fields for this component.
 
-  String name = 'goal';
-
   double amount = 0.0;
-
-  double progress = 0.0;
-
-  String? description;
 
   double? overflowDifference = 0.0;
 

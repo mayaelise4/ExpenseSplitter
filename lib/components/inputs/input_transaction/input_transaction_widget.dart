@@ -334,6 +334,28 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                           '0') ||
                                       (_model.amountTextController.text ==
                                               ''))) {
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'pocketAmount': FieldValue.increment(
+                                              -(double.parse(_model
+                                                  .amountTextController.text))),
+                                          'ActionHistory':
+                                              FieldValue.arrayRemove([
+                                            getHistoryFirestoreData(
+                                              createHistoryStruct(
+                                                actionAmount: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.pocketAmount,
+                                                    0.0),
+                                                clearUnsetFields: false,
+                                              ),
+                                              true,
+                                            )
+                                          ]),
+                                        },
+                                      ),
+                                    });
                                     FFAppState().insertAtIndexInTransactions(
                                         0,
                                         TransactionStruct(

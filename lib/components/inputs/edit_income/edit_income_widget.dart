@@ -12,18 +12,31 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'add_income_model.dart';
-export 'add_income_model.dart';
+import 'edit_income_model.dart';
+export 'edit_income_model.dart';
 
-class AddIncomeWidget extends StatefulWidget {
-  const AddIncomeWidget({super.key});
+class EditIncomeWidget extends StatefulWidget {
+  const EditIncomeWidget({
+    super.key,
+    required this.index,
+    this.name,
+    required this.amount,
+    required this.frequency,
+    required this.payDate,
+  });
+
+  final int? index;
+  final String? name;
+  final double? amount;
+  final String? frequency;
+  final DateTime? payDate;
 
   @override
-  State<AddIncomeWidget> createState() => _AddIncomeWidgetState();
+  State<EditIncomeWidget> createState() => _EditIncomeWidgetState();
 }
 
-class _AddIncomeWidgetState extends State<AddIncomeWidget> {
-  late AddIncomeModel _model;
+class _EditIncomeWidgetState extends State<EditIncomeWidget> {
+  late EditIncomeModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -34,12 +47,14 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddIncomeModel());
+    _model = createModel(context, () => EditIncomeModel());
 
-    _model.incomeNameTextController ??= TextEditingController();
+    _model.incomeNameTextController ??=
+        TextEditingController(text: widget.name);
     _model.incomeNameFocusNode ??= FocusNode();
 
-    _model.amountTextController ??= TextEditingController();
+    _model.amountTextController ??=
+        TextEditingController(text: widget.amount.toString());
     _model.amountFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -112,7 +127,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Add an Income',
+                          'Edit Income',
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
@@ -127,7 +142,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
-                            'Fill in the information below to add to an income.',
+                            'Change the Income information below.',
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
@@ -177,9 +192,8 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                   fontFamily: 'Inter Tight',
                                   letterSpacing: 0.0,
                                 ),
-                            hintText: '|',
                             hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
+                                .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
@@ -310,7 +324,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         child: FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController ??=
                               FormFieldController<String>(
-                            _model.dropDownValue ??= BillTypes.Monthly.name,
+                            _model.dropDownValue ??= widget.frequency,
                           ),
                           options: BillTypes.values.map((e) => e.name).toList(),
                           onChanged: (val) async {
@@ -325,7 +339,6 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                          hintText: 'Select Frequency',
                           icon: Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -349,7 +362,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         color: Color(0xFFF1F4F8),
                       ),
                       Text(
-                        'Select a Deposit Date',
+                        'Select a Due Date',
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: 'Outfit',
@@ -364,7 +377,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         iconColor: FlutterFlowTheme.of(context).secondaryText,
                         weekFormat: false,
                         weekStartsMonday: false,
-                        initialDate: getCurrentTimestamp,
+                        initialDate: widget.payDate,
                         rowHeight: 48.0,
                         onChange: (DateTimeRange? newSelectedDate) {
                           safeSetState(() =>
@@ -408,19 +421,29 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    if (_model.calendarSelectedDay!.end < getCurrentTimestamp) {
-                      _model.selectedDate = functions.moveIncomeDate(
-                          _model.calendarSelectedDay!.end,
-                          _model.dropDownValue!);
-                      safeSetState(() {});
+                    FFAppState().updateIncomeAtIndex(
+                      widget.index!,
+                      (_) => IncomeStruct(
+                        name: _model.incomeNameTextController.text,
+                        amount:
+                            double.tryParse(_model.amountTextController.text),
+                        freq: widget.frequency,
+                        payDate: _model.calendarSelectedDay?.start,
+                      ),
+                    );
+                    FFAppState().update(() {});
+                    if (FFAppState().income[widget.index!].payDate <
+                        getCurrentTimestamp) {
+                      FFAppState().updateIncomeAtIndex(
+                        widget.index!,
+                        (e) => e
+                          ..payDate = functions.moveIncomeDate(
+                              FFAppState().income[widget.index!].payDate,
+                              _model.dropDownValue!),
+                      );
+                      _model.updatePage(() {});
                     }
-                    FFAppState().addToIncome(IncomeStruct(
-                      name: _model.incomeNameTextController.text,
-                      amount: double.tryParse(_model.amountTextController.text),
-                      payDate: _model.calendarSelectedDay?.end,
-                      freq: _model.dropDownValue,
-                      actionDate: getCurrentTimestamp,
-                    ));
+                    // sorts the list by due date
                     FFAppState().income = FFAppState()
                         .income
                         .sortedList(keyOf: (e) => e.payDate, desc: false)
@@ -436,10 +459,10 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                               createHistoryStruct(
                                 itemName: _model.incomeNameTextController.text,
                                 actionDate: getCurrentTimestamp,
+                                actionType: ActionTypes.edit,
                                 actionAmount: double.tryParse(
                                     _model.amountTextController.text),
                                 actionLocation: ActionLocations.Incomes,
-                                actionType: ActionTypes.created,
                                 clearUnsetFields: false,
                               ),
                               true,

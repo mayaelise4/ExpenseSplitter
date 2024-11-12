@@ -99,11 +99,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'SpendingPage',
           path: '/spendingPage',
+          requireAuth: true,
           builder: (context, params) => const SpendingPageWidget(),
         ),
         FFRoute(
           name: 'GoalPage',
           path: '/goalPage',
+          requireAuth: true,
           builder: (context, params) => const GoalPageWidget(),
         ),
         FFRoute(
@@ -112,9 +114,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoginPageWidget(),
         ),
         FFRoute(
-          name: 'Help',
-          path: '/help',
-          builder: (context, params) => const HelpWidget(),
+          name: 'HelpPage',
+          path: '/helpPage',
+          builder: (context, params) => const HelpPageWidget(),
         ),
         FFRoute(
           name: 'EduPage',
@@ -139,6 +141,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'IncomePage',
           path: '/incomePage',
+          requireAuth: true,
           builder: (context, params) => const IncomePageWidget(),
         ),
         FFRoute(
@@ -150,7 +153,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'historyPage',
           path: '/historyPage',
+          requireAuth: true,
           builder: (context, params) => const HistoryPageWidget(),
+        ),
+        FFRoute(
+          name: 'EducationTest',
+          path: '/educationTest',
+          builder: (context, params) => const EducationTestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -337,15 +346,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: FlutterFlowTheme.of(context).primary,
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    fit: BoxFit.scaleDown,
                   ),
                 )
               : page;

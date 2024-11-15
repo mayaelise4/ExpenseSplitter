@@ -571,7 +571,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   onPressed: () async {
                                     context.pushNamed('IncomePage');
                                   },
-                                  text: 'Income',
+                                  text: 'Recurring Income',
                                   options: FFButtonOptions(
                                     height: 40.0,
                                     padding: const EdgeInsetsDirectional.fromSTEB(

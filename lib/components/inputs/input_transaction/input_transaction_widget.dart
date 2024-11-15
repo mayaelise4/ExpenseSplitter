@@ -366,6 +366,17 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                         ));
                                     safeSetState(() {});
 
+                                    await HistoryRecord.createDoc(
+                                            currentUserReference!)
+                                        .set(createHistoryRecordData(
+                                      name: _model.nameTextController.text,
+                                      date: getCurrentTimestamp,
+                                      actionType: ActionTypes.created,
+                                      actionAmount: double.tryParse(
+                                          _model.amountTextController.text),
+                                      actionLocation: ActionLocations.Spending,
+                                    ));
+
                                     await currentUserReference!.update({
                                       ...mapToFirestore(
                                         {
@@ -373,24 +384,6 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                               getTransactionListFirestoreData(
                                             FFAppState().Transactions,
                                           ),
-                                          'ActionHistory':
-                                              FieldValue.arrayUnion([
-                                            getHistoryFirestoreData(
-                                              createHistoryStruct(
-                                                itemName: _model
-                                                    .nameTextController.text,
-                                                actionDate: getCurrentTimestamp,
-                                                actionType: ActionTypes.add,
-                                                actionAmount: double.tryParse(
-                                                    _model.amountTextController
-                                                        .text),
-                                                actionLocation:
-                                                    ActionLocations.Spending,
-                                                clearUnsetFields: false,
-                                              ),
-                                              true,
-                                            )
-                                          ]),
                                         },
                                       ),
                                     });

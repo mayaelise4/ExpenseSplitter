@@ -324,6 +324,15 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                             ),
                           });
                         }
+
+                        await HistoryRecord.createDoc(currentUserReference!)
+                            .set(createHistoryRecordData(
+                          name: widget.goalName,
+                          date: getCurrentTimestamp,
+                          actionType: ActionTypes.delete,
+                          actionAmount: widget.goalAmount,
+                          actionLocation: ActionLocations.Goals,
+                        ));
                         FFAppState().removeAtIndexFromGoals(widget.index!);
                         FFAppState().update(() {});
 
@@ -333,19 +342,6 @@ class _GoalCardWidgetState extends State<GoalCardWidget>
                               'goals': getGoalListFirestoreData(
                                 FFAppState().goals,
                               ),
-                              'ActionHistory': FieldValue.arrayUnion([
-                                getHistoryFirestoreData(
-                                  createHistoryStruct(
-                                    itemName: widget.goalName,
-                                    actionDate: getCurrentTimestamp,
-                                    actionType: ActionTypes.delete,
-                                    actionLocation: ActionLocations.Goals,
-                                    actionAmount: widget.added,
-                                    clearUnsetFields: false,
-                                  ),
-                                  true,
-                                )
-                              ]),
                             },
                           ),
                         });

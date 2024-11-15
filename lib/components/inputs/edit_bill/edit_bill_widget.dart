@@ -450,26 +450,22 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                         .cast<BillStruct>();
                     FFAppState().update(() {});
 
+                    await HistoryRecord.createDoc(currentUserReference!)
+                        .set(createHistoryRecordData(
+                      name: _model.billNameTextController.text,
+                      date: getCurrentTimestamp,
+                      actionType: ActionTypes.edit,
+                      actionAmount:
+                          double.tryParse(_model.amountTextController.text),
+                      actionLocation: ActionLocations.Bills,
+                    ));
+
                     await currentUserReference!.update({
                       ...mapToFirestore(
                         {
                           'bills': getBillListFirestoreData(
                             FFAppState().bills,
                           ),
-                          'ActionHistory': FieldValue.arrayUnion([
-                            getHistoryFirestoreData(
-                              createHistoryStruct(
-                                itemName: _model.billNameTextController.text,
-                                actionDate: getCurrentTimestamp,
-                                actionType: ActionTypes.edit,
-                                actionAmount: double.tryParse(
-                                    _model.amountTextController.text),
-                                actionLocation: ActionLocations.Bills,
-                                clearUnsetFields: false,
-                              ),
-                              true,
-                            )
-                          ]),
                         },
                       ),
                     });

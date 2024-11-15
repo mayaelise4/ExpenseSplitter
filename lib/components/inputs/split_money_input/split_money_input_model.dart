@@ -1,13 +1,15 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'history_card_widget.dart' show HistoryCardWidget;
+import 'split_money_input_widget.dart' show SplitMoneyInputWidget;
 import 'package:flutter/material.dart';
 
-class HistoryCardModel extends FlutterFlowModel<HistoryCardWidget> {
+class SplitMoneyInputModel extends FlutterFlowModel<SplitMoneyInputWidget> {
   ///  Local state fields for this component.
 
-  String type = 'type of action';
+  double splitAmount = 0.0;
 
-  String extraWord = 'to';
+  int loopCount = 0;
+
+  double overflow = 0.0;
 
   @override
   void initState(BuildContext context) {}

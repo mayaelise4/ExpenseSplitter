@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
+import '/components/confirm_action/confirm_action_widget.dart';
 import '/components/list_items/empty_list_display/empty_list_display_widget.dart';
 import '/components/list_items/task_card/task_card_widget.dart';
 import '/components/new_task_notification/new_task_notification_widget.dart';
@@ -8,6 +9,8 @@ import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'tasks_page_model.dart';
@@ -147,7 +150,7 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                           padding: const EdgeInsets.all(4.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -447,6 +450,108 @@ class _TasksPageWidgetState extends State<TasksPageWidget>
                                       ),
                                     ),
                                   ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 30.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () =>
+                                              FocusScope.of(context).unfocus(),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: const ConfirmActionWidget(),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(
+                                        () => _model.confirm = value));
+
+                                    if (_model.confirm!) {
+                                      _model.completeTasks =
+                                          await queryTasksRecordOnce(
+                                        parent: currentUserReference,
+                                        queryBuilder: (tasksRecord) =>
+                                            tasksRecord.where(
+                                          'status',
+                                          isEqualTo:
+                                              TaskStatus.complete.serialize(),
+                                        ),
+                                      );
+                                      if (_model.completeTasks!.isNotEmpty) {
+                                        _model.loopCounter = 0;
+                                        safeSetState(() {});
+                                        while (_model.completeTasks!.length >
+                                            _model.loopCounter) {
+                                          _model.completeTaskDoc =
+                                              await queryTasksRecordOnce(
+                                            parent: currentUserReference,
+                                            queryBuilder: (tasksRecord) =>
+                                                tasksRecord.where(
+                                              'status',
+                                              isEqualTo: TaskStatus.complete
+                                                  .serialize(),
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          await _model
+                                              .completeTaskDoc!.reference
+                                              .delete();
+                                        }
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'No Complete Tasks',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      }
+
+                                      _model.loopCounter = 0;
+                                      safeSetState(() {});
+                                    }
+
+                                    safeSetState(() {});
+                                  },
+                                  text: 'Clear Complete Tasks',
+                                  options: FFButtonOptions(
+                                    height: 40.0,
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
                               ),
                             ],

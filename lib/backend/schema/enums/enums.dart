@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 
 enum BillTypes {
+  Weekly,
   biWeekly,
   Monthly,
   Quarterly,

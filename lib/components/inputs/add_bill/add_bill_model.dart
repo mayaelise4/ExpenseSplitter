@@ -10,6 +10,8 @@ class AddBillModel extends FlutterFlowModel<AddBillWidget> {
 
   DateTime? selectedDate;
 
+  DateTime? loopDate;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();

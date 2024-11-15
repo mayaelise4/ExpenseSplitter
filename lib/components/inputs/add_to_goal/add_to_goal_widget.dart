@@ -288,10 +288,6 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                         },
                                       ),
                                     });
-                                    _model.addedAmount = FFAppState()
-                                        .goals[widget.index!]
-                                        .addedAmount;
-                                    safeSetState(() {});
                                     FFAppState().updateGoalsAtIndex(
                                       widget.index!,
                                       (e) => e
@@ -306,8 +302,10 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                             .amount) {
                                       _model.overflowDifference = FFAppState()
                                               .goals[widget.index!]
-                                              .amount -
-                                          _model.addedAmount;
+                                              .addedAmount -
+                                          FFAppState()
+                                              .goals[widget.index!]
+                                              .amount;
                                       safeSetState(() {});
 
                                       await currentUserReference!.update({
@@ -330,31 +328,25 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                       FFAppState().incompleteTaskExists = true;
                                       safeSetState(() {});
 
+                                      await HistoryRecord.createDoc(
+                                              currentUserReference!)
+                                          .set(createHistoryRecordData(
+                                        name: FFAppState()
+                                            .goals[widget.index!]
+                                            .name,
+                                        date: getCurrentTimestamp,
+                                        actionType: ActionTypes.completed,
+                                        actionAmount: _model.amount -
+                                            (_model.overflowDifference!),
+                                        actionLocation: ActionLocations.Goals,
+                                      ));
+
                                       await currentUserReference!.update({
                                         ...mapToFirestore(
                                           {
                                             'goals': getGoalListFirestoreData(
                                               FFAppState().goals,
                                             ),
-                                            'ActionHistory':
-                                                FieldValue.arrayUnion([
-                                              getHistoryFirestoreData(
-                                                createHistoryStruct(
-                                                  itemName: FFAppState()
-                                                      .goals[widget.index!]
-                                                      .name,
-                                                  actionDate:
-                                                      getCurrentTimestamp,
-                                                  actionType: ActionTypes.add,
-                                                  actionAmount:
-                                                      _model.overflowDifference,
-                                                  actionLocation:
-                                                      ActionLocations.Goals,
-                                                  clearUnsetFields: false,
-                                                ),
-                                                true,
-                                              )
-                                            ]),
                                           },
                                         ),
                                       });
@@ -391,30 +383,21 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                             'goals': getGoalListFirestoreData(
                                               FFAppState().goals,
                                             ),
-                                            'ActionHistory':
-                                                FieldValue.arrayUnion([
-                                              getHistoryFirestoreData(
-                                                createHistoryStruct(
-                                                  itemName: FFAppState()
-                                                      .goals[widget.index!]
-                                                      .name,
-                                                  actionDate:
-                                                      getCurrentTimestamp,
-                                                  actionType: ActionTypes.add,
-                                                  actionAmount: double.tryParse(
-                                                      _model
-                                                          .amountTextController
-                                                          .text),
-                                                  actionLocation:
-                                                      ActionLocations.Goals,
-                                                  clearUnsetFields: false,
-                                                ),
-                                                true,
-                                              )
-                                            ]),
                                           },
                                         ),
                                       });
+
+                                      await HistoryRecord.createDoc(
+                                              currentUserReference!)
+                                          .set(createHistoryRecordData(
+                                        name: FFAppState()
+                                            .goals[widget.index!]
+                                            .name,
+                                        date: getCurrentTimestamp,
+                                        actionType: ActionTypes.add,
+                                        actionAmount: _model.amount,
+                                        actionLocation: ActionLocations.Goals,
+                                      ));
                                     }
                                   } else {
                                     ScaffoldMessenger.of(context)
@@ -422,7 +405,7 @@ class _AddToGoalWidgetState extends State<AddToGoalWidget> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Pocket is 0 or Amount is 0',
+                                          'Pocket is 0 or Amount set is 0',
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,

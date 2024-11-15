@@ -6,6 +6,10 @@ import 'tasks_page_widget.dart' show TasksPageWidget;
 import 'package:flutter/material.dart';
 
 class TasksPageModel extends FlutterFlowModel<TasksPageWidget> {
+  ///  Local state fields for this page.
+
+  int loopCounter = 0;
+
   ///  State fields for stateful widgets in this page.
 
   List<TasksRecord>? tasksPagePreviousSnapshot;
@@ -24,6 +28,12 @@ class TasksPageModel extends FlutterFlowModel<TasksPageWidget> {
   late FlutterFlowDynamicModels<TaskCardModel> taskCardModels1;
   // Models for taskCard dynamic component.
   late FlutterFlowDynamicModels<TaskCardModel> taskCardModels2;
+  // Stores action output result for [Bottom Sheet - confirmAction] action in clearTasks widget.
+  bool? confirm;
+  // Stores action output result for [Firestore Query - Query a collection] action in clearTasks widget.
+  List<TasksRecord>? completeTasks;
+  // Stores action output result for [Firestore Query - Query a collection] action in clearTasks widget.
+  TasksRecord? completeTaskDoc;
 
   @override
   void initState(BuildContext context) {

@@ -428,23 +428,19 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         .cast<IncomeStruct>();
                     FFAppState().update(() {});
 
+                    await HistoryRecord.createDoc(currentUserReference!)
+                        .set(createHistoryRecordData(
+                      name: _model.incomeNameTextController.text,
+                      date: getCurrentTimestamp,
+                      actionType: ActionTypes.created,
+                      actionAmount:
+                          double.tryParse(_model.amountTextController.text),
+                      actionLocation: ActionLocations.Incomes,
+                    ));
+
                     await currentUserReference!.update({
                       ...mapToFirestore(
                         {
-                          'ActionHistory': FieldValue.arrayUnion([
-                            getHistoryFirestoreData(
-                              createHistoryStruct(
-                                itemName: _model.incomeNameTextController.text,
-                                actionDate: getCurrentTimestamp,
-                                actionAmount: double.tryParse(
-                                    _model.amountTextController.text),
-                                actionLocation: ActionLocations.Incomes,
-                                actionType: ActionTypes.created,
-                                clearUnsetFields: false,
-                              ),
-                              true,
-                            )
-                          ]),
                           'incomes': getIncomeListFirestoreData(
                             FFAppState().income,
                           ),

@@ -217,6 +217,15 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                           },
                         ),
                       });
+
+                      await HistoryRecord.createDoc(currentUserReference!)
+                          .set(createHistoryRecordData(
+                        name: widget.transactionName,
+                        date: getCurrentTimestamp,
+                        actionType: ActionTypes.delete,
+                        actionAmount: widget.transactionAmount,
+                        actionLocation: ActionLocations.Spending,
+                      ));
                       FFAppState().removeAtIndexFromTransactions(
                           widget.transactionIndex!);
                       FFAppState().update(() {});
@@ -227,19 +236,6 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                             'Transactions': getTransactionListFirestoreData(
                               FFAppState().Transactions,
                             ),
-                            'ActionHistory': FieldValue.arrayUnion([
-                              getHistoryFirestoreData(
-                                createHistoryStruct(
-                                  itemName: widget.transactionName,
-                                  actionDate: getCurrentTimestamp,
-                                  actionType: ActionTypes.delete,
-                                  actionAmount: widget.transactionAmount,
-                                  actionLocation: ActionLocations.Spending,
-                                  clearUnsetFields: false,
-                                ),
-                                true,
-                              )
-                            ]),
                           },
                         ),
                       });

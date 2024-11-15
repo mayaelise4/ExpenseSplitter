@@ -77,24 +77,13 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                     status: TaskStatus.complete,
                   ));
 
-                  await currentUserReference!.update({
-                    ...mapToFirestore(
-                      {
-                        'ActionHistory': FieldValue.arrayUnion([
-                          getHistoryFirestoreData(
-                            createHistoryStruct(
-                              itemName: widget.task?.tag,
-                              actionDate: getCurrentTimestamp,
-                              actionType: ActionTypes.completed,
-                              actionLocation: ActionLocations.Tasks,
-                              clearUnsetFields: true,
-                            ),
-                            true,
-                          )
-                        ]),
-                      },
-                    ),
-                  });
+                  await HistoryRecord.createDoc(currentUserReference!)
+                      .set(createHistoryRecordData(
+                    name: widget.task?.tag,
+                    date: widget.task?.date,
+                    actionType: ActionTypes.completed,
+                    actionLocation: ActionLocations.Tasks,
+                  ));
                   FFAppState().incompleteTaskExists = false;
                   _model.updatePage(() {});
                 } else {

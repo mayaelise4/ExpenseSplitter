@@ -434,30 +434,23 @@ class _InputGoalWidgetState extends State<InputGoalWidget> {
                                         ));
                                     safeSetState(() {});
 
+                                    await HistoryRecord.createDoc(
+                                            currentUserReference!)
+                                        .set(createHistoryRecordData(
+                                      name: _model.nameTextController.text,
+                                      date: getCurrentTimestamp,
+                                      actionType: ActionTypes.created,
+                                      actionAmount: double.tryParse(
+                                          _model.amountTextController.text),
+                                      actionLocation: ActionLocations.Goals,
+                                    ));
+
                                     await currentUserReference!.update({
                                       ...mapToFirestore(
                                         {
                                           'goals': getGoalListFirestoreData(
                                             FFAppState().goals,
                                           ),
-                                          'ActionHistory':
-                                              FieldValue.arrayUnion([
-                                            getHistoryFirestoreData(
-                                              createHistoryStruct(
-                                                itemName: _model
-                                                    .nameTextController.text,
-                                                actionDate: getCurrentTimestamp,
-                                                actionType: ActionTypes.created,
-                                                actionAmount: double.tryParse(
-                                                    _model.amountTextController
-                                                        .text),
-                                                actionLocation:
-                                                    ActionLocations.Goals,
-                                                clearUnsetFields: false,
-                                              ),
-                                              true,
-                                            )
-                                          ]),
                                         },
                                       ),
                                     });

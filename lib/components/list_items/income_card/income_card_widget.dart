@@ -80,19 +80,6 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
             },
           ),
         });
-
-        await TasksRecord.createDoc(currentUserReference!)
-            .set(createTasksRecordData(
-          date: getCurrentTimestamp,
-          tag: 'Pay Date',
-          status: TaskStatus.incomplete,
-          type: TaskType.Income,
-          income: updateIncomeStruct(
-            FFAppState().income[widget.index!],
-            clearUnsetFields: false,
-            create: true,
-          ),
-        ));
       }
     });
 
@@ -295,25 +282,20 @@ class _IncomeCardWidgetState extends State<IncomeCardWidget> {
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
+                        await HistoryRecord.createDoc(currentUserReference!)
+                            .set(createHistoryRecordData(
+                          name: widget.incomeName,
+                          date: getCurrentTimestamp,
+                          actionType: ActionTypes.delete,
+                          actionAmount: widget.moneyAmount,
+                          actionLocation: ActionLocations.Incomes,
+                        ));
                         FFAppState().removeAtIndexFromIncome(widget.index!);
                         FFAppState().update(() {});
 
                         await currentUserReference!.update({
                           ...mapToFirestore(
                             {
-                              'ActionHistory': FieldValue.arrayUnion([
-                                getHistoryFirestoreData(
-                                  createHistoryStruct(
-                                    itemName: widget.incomeName,
-                                    actionDate: getCurrentTimestamp,
-                                    actionType: ActionTypes.delete,
-                                    actionAmount: widget.moneyAmount,
-                                    actionLocation: ActionLocations.Incomes,
-                                    clearUnsetFields: false,
-                                  ),
-                                  true,
-                                )
-                              ]),
                               'incomes': getIncomeListFirestoreData(
                                 FFAppState().income,
                               ),

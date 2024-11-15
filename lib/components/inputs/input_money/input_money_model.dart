@@ -3,6 +3,10 @@ import 'input_money_widget.dart' show InputMoneyWidget;
 import 'package:flutter/material.dart';
 
 class InputMoneyModel extends FlutterFlowModel<InputMoneyWidget> {
+  ///  Local state fields for this component.
+
+  double amount = 0.0;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();

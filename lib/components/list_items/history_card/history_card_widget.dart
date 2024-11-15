@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,19 +10,10 @@ export 'history_card_model.dart';
 class HistoryCardWidget extends StatefulWidget {
   const HistoryCardWidget({
     super.key,
-    String? itemName,
-    required this.actionDate,
-    required this.actionType,
-    double? actionAmount,
-    required this.actionLocation,
-  })  : itemName = itemName ?? 'name',
-        actionAmount = actionAmount ?? 0.0;
+    required this.historyDoc,
+  });
 
-  final String itemName;
-  final DateTime? actionDate;
-  final ActionTypes? actionType;
-  final double actionAmount;
-  final ActionLocations? actionLocation;
+  final HistoryRecord? historyDoc;
 
   @override
   State<HistoryCardWidget> createState() => _HistoryCardWidgetState();
@@ -43,19 +35,19 @@ class _HistoryCardWidgetState extends State<HistoryCardWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.actionType == ActionTypes.add) {
+      if (widget.historyDoc?.actionType == ActionTypes.add) {
         _model.extraWord = 'to ';
         _model.type = 'Added ';
         safeSetState(() {});
-      } else if (widget.actionType == ActionTypes.edit) {
+      } else if (widget.historyDoc?.actionType == ActionTypes.edit) {
         _model.extraWord = 'on ';
         _model.type = 'Edited ';
         safeSetState(() {});
-      } else if (widget.actionType == ActionTypes.delete) {
+      } else if (widget.historyDoc?.actionType == ActionTypes.delete) {
         _model.extraWord = 'from ';
         _model.type = 'Deleted ';
         safeSetState(() {});
-      } else if (widget.actionType == ActionTypes.created) {
+      } else if (widget.historyDoc?.actionType == ActionTypes.created) {
         _model.extraWord = 'on ';
         _model.type = 'Created ';
         safeSetState(() {});
@@ -109,7 +101,7 @@ class _HistoryCardWidgetState extends State<HistoryCardWidget> {
               Text(
                 dateTimeFormat(
                   "M/d h:mm a",
-                  widget.actionDate,
+                  widget.historyDoc!.date!,
                   locale: FFLocalizations.of(context).languageCode,
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -124,10 +116,7 @@ class _HistoryCardWidgetState extends State<HistoryCardWidget> {
                 color: FlutterFlowTheme.of(context).primaryBackground,
               ),
               Text(
-                '${valueOrDefault<String>(
-                  _model.type,
-                  'type of action',
-                )}${_model.extraWord}${widget.actionLocation?.name}',
+                '${_model.type}${_model.extraWord}${widget.historyDoc?.actionLocation?.name}',
                 style: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0.0,
@@ -137,13 +126,13 @@ class _HistoryCardWidgetState extends State<HistoryCardWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (widget.actionAmount != FFAppConstants.zero)
+                  if (widget.historyDoc?.actionAmount != FFAppConstants.zero)
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Text(
                         formatNumber(
-                          widget.actionAmount,
+                          widget.historyDoc!.actionAmount,
                           formatType: FormatType.decimal,
                           decimalType: DecimalType.periodDecimal,
                           currency: '\$',
@@ -158,7 +147,10 @@ class _HistoryCardWidgetState extends State<HistoryCardWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: Text(
-                      widget.itemName,
+                      valueOrDefault<String>(
+                        widget.historyDoc?.name,
+                        'name',
+                      ),
                       style: FlutterFlowTheme.of(context).labelMedium.override(
                             fontFamily: 'Inter',
                             letterSpacing: 0.0,

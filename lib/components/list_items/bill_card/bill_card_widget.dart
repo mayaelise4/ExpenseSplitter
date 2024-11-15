@@ -294,6 +294,14 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                           safeSetState(() => _model.confirm = value));
 
                       if (_model.confirm == true) {
+                        await HistoryRecord.createDoc(currentUserReference!)
+                            .set(createHistoryRecordData(
+                          name: widget.billName,
+                          date: getCurrentTimestamp,
+                          actionType: ActionTypes.delete,
+                          actionAmount: widget.moneyAmount,
+                          actionLocation: ActionLocations.Bills,
+                        ));
                         FFAppState().removeAtIndexFromBills(widget.index!);
                         FFAppState().update(() {});
 
@@ -303,19 +311,6 @@ class _BillCardWidgetState extends State<BillCardWidget> {
                               'bills': getBillListFirestoreData(
                                 FFAppState().bills,
                               ),
-                              'ActionHistory': FieldValue.arrayUnion([
-                                getHistoryFirestoreData(
-                                  createHistoryStruct(
-                                    itemName: widget.billName,
-                                    actionDate: getCurrentTimestamp,
-                                    actionType: ActionTypes.delete,
-                                    actionAmount: widget.moneyAmount,
-                                    actionLocation: ActionLocations.Bills,
-                                    clearUnsetFields: false,
-                                  ),
-                                  true,
-                                )
-                              ]),
                             },
                           ),
                         });

@@ -451,6 +451,12 @@ class FFAppState extends ChangeNotifier {
   set onSplitterChat(bool value) {
     _onSplitterChat = value;
   }
+
+  bool _splitConfirm = false;
+  bool get splitConfirm => _splitConfirm;
+  set splitConfirm(bool value) {
+    _splitConfirm = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

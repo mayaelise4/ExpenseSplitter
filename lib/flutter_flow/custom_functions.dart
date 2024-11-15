@@ -39,7 +39,9 @@ DateTime moveBillDate(
   DateTime date,
   String freq,
 ) {
-  if (freq == BillTypes.biWeekly.toString().split('.').last)
+  if (freq == BillTypes.Weekly.toString().split('.').last)
+    date = DateTime(date.year, date.month, date.day + 7);
+  else if (freq == BillTypes.biWeekly.toString().split('.').last)
     date = DateTime(date.year, date.month, date.day + 14);
   else if (freq == BillTypes.Monthly.toString().split('.').last)
     date = DateTime(date.year, date.month + 1, date.day);

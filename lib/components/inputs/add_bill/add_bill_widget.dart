@@ -451,10 +451,15 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                   onPressed: (_model.datePicked == null)
                       ? null
                       : () async {
-                          if (_model.datePicked! <= getCurrentTimestamp) {
-                            _model.selectedDate = functions.moveBillDate(
-                                _model.datePicked!, _model.dropDownValue!);
-                            safeSetState(() {});
+                          _model.selectedDate = _model.datePicked;
+                          safeSetState(() {});
+                          if (_model.selectedDate! <= getCurrentTimestamp) {
+                            while (
+                                _model.selectedDate! <= getCurrentTimestamp) {
+                              _model.selectedDate = functions.moveBillDate(
+                                  _model.selectedDate!, _model.dropDownValue!);
+                              safeSetState(() {});
+                            }
                           }
                           FFAppState().addToBills(BillStruct(
                             name: _model.billNameTextController.text,
@@ -472,27 +477,22 @@ class _AddBillWidgetState extends State<AddBillWidget> {
                               .cast<BillStruct>();
                           _model.updatePage(() {});
 
+                          await HistoryRecord.createDoc(currentUserReference!)
+                              .set(createHistoryRecordData(
+                            name: _model.billNameTextController.text,
+                            date: getCurrentTimestamp,
+                            actionType: ActionTypes.created,
+                            actionAmount: double.tryParse(
+                                _model.amountTextController.text),
+                            actionLocation: ActionLocations.Bills,
+                          ));
+
                           await currentUserReference!.update({
                             ...mapToFirestore(
                               {
                                 'bills': getBillListFirestoreData(
                                   FFAppState().bills,
                                 ),
-                                'ActionHistory': FieldValue.arrayUnion([
-                                  getHistoryFirestoreData(
-                                    createHistoryStruct(
-                                      itemName:
-                                          _model.billNameTextController.text,
-                                      actionDate: getCurrentTimestamp,
-                                      actionType: ActionTypes.created,
-                                      actionAmount: double.tryParse(
-                                          _model.amountTextController.text),
-                                      actionLocation: ActionLocations.Bills,
-                                      clearUnsetFields: false,
-                                    ),
-                                    true,
-                                  )
-                                ]),
                               },
                             ),
                           });

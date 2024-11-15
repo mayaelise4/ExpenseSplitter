@@ -1,12 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
+import '/components/inputs/split_money_input/split_money_input_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'input_money_model.dart';
 export 'input_money_model.dart';
 
@@ -46,6 +48,8 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -228,60 +232,102 @@ class _InputMoneyWidgetState extends State<InputMoneyWidget> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  // updates pocketAmount on firebase
-
-                                  await currentUserReference!.update({
-                                    ...mapToFirestore(
-                                      {
-                                        'pocketAmount': FieldValue.increment(
-                                            double.parse(_model
-                                                .amountTextController.text)),
-                                        'ActionHistory': FieldValue.arrayUnion([
-                                          getHistoryFirestoreData(
-                                            createHistoryStruct(
-                                              actionDate: getCurrentTimestamp,
-                                              actionType: ActionTypes.add,
-                                              actionAmount: double.tryParse(
+                            Builder(
+                              builder: (context) => Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 10.0, 0.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    _model.amount = double.parse(
+                                        _model.amountTextController.text);
+                                    safeSetState(() {});
+                                    if ((FFAppState().goals.isNotEmpty) &&
+                                        (_model.amount > 5.00)) {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: const AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: SplitMoneyInputWidget(
+                                              inputtedAmount: double.parse(
                                                   _model.amountTextController
                                                       .text),
-                                              actionLocation:
-                                                  ActionLocations.Pocket,
-                                              clearUnsetFields: false,
                                             ),
-                                            true,
-                                          )
-                                        ]),
-                                      },
-                                    ),
-                                  });
-                                  Navigator.pop(context);
-                                },
-                                text: 'Confirm',
-                                icon: const Icon(
-                                  Icons.check,
-                                  size: 15.0,
-                                ),
-                                options: FFButtonOptions(
-                                  height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Inter Tight',
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
+                                          );
+                                        },
+                                      );
+
+                                      if (FFAppState().splitConfirm) {
+                                        FFAppState().splitConfirm = false;
+                                        safeSetState(() {});
+
+                                        await HistoryRecord.createDoc(
+                                                currentUserReference!)
+                                            .set(createHistoryRecordData(
+                                          date: getCurrentTimestamp,
+                                          actionType: ActionTypes.add,
+                                          actionAmount: double.tryParse(
+                                              _model.amountTextController.text),
+                                          actionLocation:
+                                              ActionLocations.Pocket,
+                                          name: ' ',
+                                        ));
+                                        Navigator.pop(context);
+                                        return;
+                                      }
+                                    }
+                                    // updates pocketAmount on firebase
+
+                                    await currentUserReference!.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'pocketAmount': FieldValue.increment(
+                                              double.parse(_model
+                                                  .amountTextController.text)),
+                                        },
                                       ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(8.0),
+                                    });
+
+                                    await HistoryRecord.createDoc(
+                                            currentUserReference!)
+                                        .set(createHistoryRecordData(
+                                      date: getCurrentTimestamp,
+                                      actionType: ActionTypes.add,
+                                      actionAmount: double.tryParse(
+                                          _model.amountTextController.text),
+                                      actionLocation: ActionLocations.Pocket,
+                                      name: ' ',
+                                    ));
+                                    Navigator.pop(context);
+                                  },
+                                  text: 'Confirm',
+                                  icon: const Icon(
+                                    Icons.check,
+                                    size: 15.0,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 40.0,
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
                               ),
                             ),

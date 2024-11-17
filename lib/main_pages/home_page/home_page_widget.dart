@@ -512,6 +512,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             fontWeight: FontWeight.w800,
                                             fontSize: 30.0,
                                           ),
+                                        ),
+                                        const TextSpan(
+                                          text: '\nadd money with the + button',
+                                          style: TextStyle(),
                                         )
                                       ],
                                       style: FlutterFlowTheme.of(context)

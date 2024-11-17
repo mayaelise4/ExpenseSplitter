@@ -198,61 +198,119 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                   .secondaryBackground,
                               shape: BoxShape.rectangle,
                             ),
-                            child: RichText(
-                              textScaler: MediaQuery.of(context).textScaler,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Why Financial Literacy Matters:\n',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                RichText(
+                                  textScaler: MediaQuery.of(context).textScaler,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            'Why Financial Literacy Matters:\n',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '     Money can be tricky, especially when \n     you’re managing it on your own for the first \n     time. Knowing how to budget, save, and \n     invest will help you stay in control, avoid \n     debt, and make choices that help you reach \n     your goals—whether that’s graduating \n     debt-free, saving for travel, or just handling \n     daily expenses without stress.',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text: '\n\nWhat You’ll Learn:\n',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '     This app covers all the basics—how to set \n     goals, create a budget, build credit, \n     manage debt, save smartly, and even start \n     investing. Each section is packed with \n     easy-to-follow steps to get you confident \n     about your finances.\n',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '\nIn addition to the learning modules, you can also ask \"Splitter\" any additional questions you may have. Splitter is an AI-powered chat assistant, ready to provide answers and guidance on any topic. Simply click below to start your conversation with Splitter!\n',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .success,
                                           fontWeight: FontWeight.bold,
+                                          fontStyle: FontStyle.italic,
                                         ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '     Money can be tricky, especially when \n     you’re managing it on your own for the first \n     time. Knowing how to budget, save, and \n     invest will help you stay in control, avoid \n     debt, and make choices that help you reach \n     your goals—whether that’s graduating \n     debt-free, saving for travel, or just handling \n     daily expenses without stress.',
+                                      )
+                                    ],
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
+                                          color: Colors.black,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
                                         ),
                                   ),
-                                  TextSpan(
-                                    text: '\n\nWhat You’ll Learn:\n',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '     This app covers all the basics—how to set \n     goals, create a budget, build credit, \n     manage debt, save smartly, and even start \n     investing. Each section is packed with \n     easy-to-follow steps to get you confident \n     about your finances.',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: Colors.black,
-                                      letterSpacing: 0.0,
+                                  textAlign: TextAlign.start,
+                                ),
+                                if (!valueOrDefault<bool>(
+                                  FFAppState().onSplitterChat,
+                                  false,
+                                ))
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 40.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        await _model.pageViewController
+                                            ?.animateToPage(
+                                          1,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                        FFAppState().onSplitterChat = true;
+                                        safeSetState(() {});
+                                      },
+                                      text: 'Ask Splitter',
+                                      options: FFButtonOptions(
+                                        width: 120.0,
+                                        height: 40.0,
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        iconPadding:
+                                            const EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .success,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Inter Tight',
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 0.0,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
                                     ),
-                              ),
-                              textAlign: TextAlign.start,
+                                  ),
+                              ],
                             ),
                           ),
                         Padding(
@@ -290,6 +348,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                         .override(
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
                                         ),
                                   ),
                                   InkWell(
@@ -325,72 +384,87 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                   .secondaryBackground,
                               shape: BoxShape.rectangle,
                             ),
-                            child: RichText(
-                              textScaler: MediaQuery.of(context).textScaler,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Why Goals Are Important:\n',
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                RichText(
+                                  textScaler: MediaQuery.of(context).textScaler,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Why Goals Are Important:\n',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '     Setting financial goals gives your money a \n     purpose. It’s the difference between just \n     spending and actually making progress \n     toward something meaningful.',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text: '\n\nSMART Goals:\n',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            '\t\t○ Specific: Define exactly what you’re saving \n      for (e.g., \$1,000 emergency fund).\n\t\t○ Measurable: Track your progress (e.g., \n      save \$50/month).\n\t\t○ Achievable: Make it realistic for your \n      budget.\n\t\t○ Relevant: Choose goals that fit your life \n      (e.g., saving for a graduation trip).\n\t\t○ Time-bound: Set a deadline (e.g., six \n      months).\n\n',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                      TextSpan(
+                                        text: 'Examples:',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            '  \n  ○ Short-Term Goal: Save \$300 for concert     \n      tickets.\n\t\t○ Medium-Term Goal: Build a \$500 \n      emergency fund.\n\t\t○ Long-Term Goal: Save \$5,000 for a study-\n      abroad program.\n\n',
+                                        style: TextStyle(),
+                                      )
+                                    ],
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '     Setting financial goals gives your money a \n     purpose. It’s the difference between just \n     spending and actually making progress \n     toward something meaningful.',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: '\n\nSMART Goals:\n',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '\t\t○ Specific: Define exactly what you’re saving \n      for (e.g., \$1,000 emergency fund).\n\t\t○ Measurable: Track your progress (e.g., \n      save \$50/month).\n\t\t○ Achievable: Make it realistic for your \n      budget.\n\t\t○ Relevant: Choose goals that fit your life \n      (e.g., saving for a graduation trip).\n\t\t○ Time-bound: Set a deadline (e.g., six \n      months).\n\n',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
+                                          color: Colors.black,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
-                                  const TextSpan(
-                                    text: 'Examples:',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const TextSpan(
-                                    text:
-                                        '  \n  ○ Short-Term Goal: Save \$300 for concert     \n      tickets.\n\t\t○ Medium-Term Goal: Build a \$500 \n      emergency fund.\n\t\t○ Long-Term Goal: Save \$5,000 for a study-\n      abroad program.\n\n',
-                                    style: TextStyle(),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: Colors.black,
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                              textAlign: TextAlign.start,
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
                             ),
                           ),
                       ],
@@ -1505,23 +1579,13 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                   ),
                                   TextSpan(
                                     text:
-                                        'Tailor your essays, gather recommendations early, and apply to multiple scholarships to increase your chances.',
+                                        'Tailor your essays, gather recommendations early, and apply to multiple scholarships to increase your chances.\n\n',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
-                                  ),
-                                  const TextSpan(
-                                    text: '',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const TextSpan(
-                                    text: '',
-                                    style: TextStyle(),
                                   )
                                 ],
                                 style: FlutterFlowTheme.of(context)
@@ -1756,7 +1820,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                   ),
                                   TextSpan(
                                     text:
-                                        ' Income-driven repayment or standard repayment, depending on your budget.\n',
+                                        ' Income-driven repayment or standard repayment, depending on your budget.\n\n',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -1893,7 +1957,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                     ),
                                   ),
                                   const TextSpan(
-                                    text: 'ENTER TIPS HERE\n',
+                                    text: 'ENTER TIPS HERE\n\n',
                                     style: TextStyle(),
                                   )
                                 ],
@@ -2029,7 +2093,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                     ),
                                   ),
                                   const TextSpan(
-                                    text: 'ADD TIPS HERE',
+                                    text: 'ADD TIPS HERE\n\n',
                                     style: TextStyle(),
                                   )
                                 ],
@@ -2181,7 +2245,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                     ),
                                   ),
                                   const TextSpan(
-                                    text: 'ENTER TIPS HERE',
+                                    text: 'ENTER TIPS HERE\n\n',
                                     style: TextStyle(),
                                   )
                                 ],
@@ -2319,7 +2383,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                   ),
                                   const TextSpan(
                                     text:
-                                        ' Decide how much risk you’re comfortable with—more risk can mean more potential return, but also bigger losses.\n',
+                                        ' Decide how much risk you’re comfortable with—more risk can mean more potential return, but also bigger losses.\n\n',
                                     style: TextStyle(),
                                   )
                                 ],
@@ -2455,7 +2519,7 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                                     ),
                                   ),
                                   const TextSpan(
-                                    text: '',
+                                    text: 'ENTER TIPS HERE\n\n',
                                     style: TextStyle(),
                                   )
                                 ],
@@ -2470,6 +2534,29 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                               textAlign: TextAlign.start,
                             ),
                           ),
+                        Divider(
+                          thickness: 2.0,
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 16.0),
+                            child: Text(
+                              '\nIf the modules above haven\'t answered all your questions, feel free to ask Splitter! Click the button below, and Splitter will provide the guidance you need.',
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Align(
@@ -2482,36 +2569,279 @@ class _EduPageWidgetState extends State<EduPageWidget> {
                             FFAppState().onSplitterChat,
                             false,
                           ))
-                            FFButtonWidget(
-                              onPressed: () async {
-                                await _model.pageViewController?.animateToPage(
-                                  1,
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.ease,
-                                );
-                                FFAppState().onSplitterChat = true;
-                                safeSetState(() {});
-                              },
-                              text: 'Ask Splitter',
-                              options: FFButtonOptions(
-                                width: 310.0,
-                                height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 0.0,
-                                borderRadius: BorderRadius.circular(8.0),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  await _model.pageViewController
+                                      ?.animateToPage(
+                                    1,
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                  );
+                                  FFAppState().onSplitterChat = true;
+                                  safeSetState(() {});
+                                },
+                                text: 'Ask Splitter',
+                                options: FFButtonOptions(
+                                  width: 117.0,
+                                  height: 40.0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).success,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Inter Tight',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
                               ),
                             ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: const AlignmentDirectional(-1.0, 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Divider(
+                            thickness: 2.0,
+                            color: FlutterFlowTheme.of(context).alternate,
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  1.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Resources 📘',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color:
+                                          FlutterFlowTheme.of(context).success,
+                                      fontSize: 20.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 16.0),
+                              child: Text(
+                                'Check out these awesome resources to help you get a handle on your finances! Whether you’re looking to budget better, build credit, find scholarships, or start investing, these links have you covered with trustworthy info and tips.',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color:
+                                          FlutterFlowTheme.of(context).success,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.mindtools.com/a4wo118/smart-goals',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.nerdwallet.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.mymoney.gov/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://mint.intuit.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.thebalancemoney.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://studentaid.gov/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.experian.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              ' https://www.investopedia.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.myfico.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.ramseysolutions.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Text(
+                                'https://www.consumerfinance.gov/consumer-tools/credit-cards/',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color:
+                                          FlutterFlowTheme.of(context).success,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.scholarships.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.fastweb.com/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'https://www.investor.gov/',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).success,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
